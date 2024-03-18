@@ -2,36 +2,10 @@
     position: relative;
     width: 100%;
     height: 100vh;
-    /* display: flex; */
     justify-content: center;
     align-items: center;
     
 }
-
-/* .background {
-    position: fixed;
-    top: 0;
-    left:0;
-    background-size: cover;
-    background-position: center;
-    overflow:hidden;
-    width: 100%;
-    height: 100%;
-} */
-/* .background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden; 
-}*/
-
-/* .background img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-}  */
 
 .social-buttons {
     position: absolute;

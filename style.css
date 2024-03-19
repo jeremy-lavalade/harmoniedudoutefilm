@@ -30,16 +30,16 @@
 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
     .social-buttons {
-        top: 50%; /* Positionnement au milieu de l'écran */
-        margin-top: 0; /* Supprimer la marge en haut */
+        top: 60%; 
+        margin-top: 0; 
     }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1100px) {
     .social-buttons {
-        top: 139%; /* Positionnement à 139% de la hauteur de l'écran */
+        top: 139%; 
     }
 }
 

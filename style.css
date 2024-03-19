@@ -2,8 +2,8 @@
     position: relative;
     width: 100%;
     height: 100vh;
-    justify-content: center;
-    align-items: center;
+        /* justify-content: center;
+        align-items: center; */
     
 }
 
@@ -30,6 +30,19 @@
 
 }
 
+@media (max-width: 768px) {
+    .social-buttons {
+        top: 50%; /* Positionnement au milieu de l'écran */
+        margin-top: 0; /* Supprimer la marge en haut */
+    }
+}
+
+@media (min-width: 769px) {
+    .social-buttons {
+        top: 139%; /* Positionnement à 139% de la hauteur de l'écran */
+    }
+}
+
 .social-button { 
     display: inline-block; 
     width: 150px;
@@ -48,3 +61,4 @@
     height: auto;
     cursor: pointer; 
 }
+

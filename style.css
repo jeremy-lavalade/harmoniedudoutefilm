@@ -9,7 +9,7 @@
 
 .social-buttons {
     position: absolute;
-    top: 1300px;
+    top: 139vh;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;

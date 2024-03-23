@@ -5,7 +5,7 @@ body, html {
   }
 
 .container {
-    padding-bottom: 100%;
+    height: 100vh; 
     width: 100%;
     background-image: url('images/ciel-bleu.png');
     background-size: cover; 
@@ -14,7 +14,8 @@ body, html {
     z-index: 1;  
     overflow-y: hidden;
     overflow-x: hidden;
-  }
+    padding-bottom: 0; 
+}
 
 #plight{
     font-family: Kalam;

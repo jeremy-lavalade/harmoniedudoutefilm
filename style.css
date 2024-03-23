@@ -5,13 +5,14 @@ body, html {
   }
 
 .container {
-    padding-bottom: 70%;
+    padding-bottom: 100%;
     width: 100%;
     background-image: url('images/ciel-bleu.png');
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
     z-index: 1;  
+    overflow-y: hidden;
   }
 
 #plight{

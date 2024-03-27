@@ -538,45 +538,32 @@
 	  }
 	//SCRIPT POUR COULEURS EN FORMAT MOBILE
 		document.addEventListener("DOMContentLoaded", function() {
-		  // Vérifier si `IntersectionObserver` est pris en charge
-		  if ('IntersectionObserver' in window) {
-		    initObserver();
-		  } else {
-		    // Charger un polyfill pour `IntersectionObserver` puis initialiser l'observer
-		    loadScript('path/to/your/polyfill.js', initObserver);
-		  }
-		});
+		  const elementsToWatch = document.querySelectorAll('.accueil-couleur');
 
-		function initObserver() {
-		  const observerOptions = {
-		    root: null,
-		    threshold: 0.5,
-		    rootMargin: "-250px 0px -250px 0px"
-		  };
+		  function checkVisibility() {
+		    const windowHeight = window.innerHeight;
+		    elementsToWatch.forEach(function(element) {
+		      const rect = element.getBoundingClientRect();
+		      const elementVisible = (rect.top + 300 < windowHeight && rect.bottom - 300 > 0);
 
-		  const observer = new IntersectionObserver(function(entries, observer) {
-		    entries.forEach(function(entry) {
-		      if (entry.isIntersecting) {
-		        entry.target.classList.add("hover-effect");
+		      if (elementVisible) {
+		        element.classList.add("hover-effect");
 		      } else {
-		        entry.target.classList.remove("hover-effect");
+		        element.classList.remove("hover-effect");
 		      }
 		    });
-		  }, observerOptions);
+		  }
 
-		  document.querySelectorAll('.accueil-couleur').forEach(function(element) {
-		    observer.observe(element);
-		  });
-		}
+		  // Vérifier la visibilité initiale des éléments
+		  checkVisibility();
 
-		function loadScript(url, callback) {
-		  var script = document.createElement('script');
-		  script.onload = function() {
-		    callback();
-		  };
-		  script.src = url;
-		  document.head.appendChild(script);
-		}
+		  // Vérifier la visibilité lors du défilement
+		  window.addEventListener('scroll', checkVisibility);
+
+		  // Optionnel: Vérifier la visibilité lors du redimensionnement de la fenêtre
+		  // Cela peut être utile si le redimensionnement de la fenêtre change la disposition des éléments
+		  window.addEventListener('resize', checkVisibility);
+		});
 
 </script>
 

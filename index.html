@@ -150,26 +150,6 @@
 		  	</div>
 		</div>
 
-	<script>
-	function toggleMenuHeader(icon) {
-	  var menuheader = document.getElementById('header-menu1'); // Obtenez l'élément de menu par son identifiant
-	  
-	  // Vérifie si le menu est déjà affiché
-	  if (menuheader.style.display === 'flex') {
-	    menuheader.style.display = 'none'; // Cachez le menu
-	    icon.classList.remove('open'); // Retirez la classe 'open' car le menu est caché
-
-	  } else {
-	    menuheader.style.display = 'flex'; // Affichez le menu
-	    // Ajoutez la classe 'open' seulement si elle n'est pas déjà présente
-	    if (!icon.classList.contains('open')) {
-	      icon.classList.add('open');
-	    }
-	  }
-	}
-	</script>
-	
-
 <!-- PREMIER BLOC : CIEL BLEU --> 
 	<div class="bloc1">
 		<!-- TITRE --> 
@@ -523,25 +503,40 @@
 			</div>
 		</div>
 
+<script src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver"></script>
 <script>
-	function toggleMenuFooter(event, menuId) {
-    event.preventDefault();
-    event.stopPropagation();
-    var menufooter = document.getElementById(menuId);
-    var toggle = event.target;
+	//SCRIPT POUR HEADER EN FORMAT MOBILE
+		function toggleMenuHeader(icon) {
+		  var menuheader = document.getElementById('header-menu1'); // Obtenez l'élément de menu par son identifiant
+		  
+		  // Vérifie si le menu est déjà affiché
+		  if (menuheader.style.display === 'flex') {
+		    menuheader.style.display = 'none'; // Cachez le menu
+		    icon.classList.remove('open'); // Retirez la classe 'open' car le menu est caché
 
-    if (menufooter.style.display === 'block') {
-      menufooter.style.display = 'none';
-      toggle.textContent = '+';
-    } else {
-      menufooter.style.display = 'block';
-      toggle.textContent = '−';
-    }
-  }
+		  } else {
+		    menuheader.style.display = 'flex'; // Affichez le menu
+		    // Ajoutez la classe 'open' seulement si elle n'est pas déjà présente
+		    if (!icon.classList.contains('open')) {
+		      icon.classList.add('open');
+		    }
+		  }
+		}
+	//SCRIPT POUR FOOTER EN FORMAT MOBILE
+	  function toggleMenuFooter(event, menuId) {
+	    event.preventDefault();
+	    event.stopPropagation();
+	    var menufooter = document.getElementById(menuId);
+	    var toggle = event.target;
 
-</script>
-
-<script>
+	    if (menufooter.style.display === 'block') {
+	      menufooter.style.display = 'none';
+	      toggle.textContent = '+';
+	    } else {
+	      menufooter.style.display = 'block';
+	      toggle.textContent = '−';
+	    }
+	  }
 	//SCRIPT POUR COULEURS EN FORMAT MOBILE
 		document.addEventListener("DOMContentLoaded", function() {
 		  const observerOptions = {

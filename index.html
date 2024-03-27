@@ -539,28 +539,19 @@
 	  }
 	//SCRIPT POUR COULEURS EN FORMAT MOBILE
 		document.addEventListener("DOMContentLoaded", function() {
-		  const observerOptions = {
-		    root: null, // observe les changements par rapport à la fenêtre de visualisation
-		    threshold: 0.5, // déclenche lorsque 50% de l'élément est visible
-		    rootMargin: "-30%	 0px -30% 0px" // ajuste la marge de la zone d'observation
-		  };
-
-		  const observer = new IntersectionObserver(function(entries, observer) {
-		    entries.forEach(function(entry) {
-		      if (entry.isIntersecting) {
-		        // L'élément est dans la zone d'observation, ajouter la classe
-		        entry.target.classList.add("hover-effect");
-		      } else {
-		        // L'élément n'est plus dans la zone, retirer la classe
-		        entry.target.classList.remove("hover-effect");
-		      }
+		    const observer = new IntersectionObserver(entries => {
+		        entries.forEach(entry => {
+		            if (entry.isIntersecting) {
+		                entry.target.classList.add("hover-effect");
+		            } else {
+		                entry.target.classList.remove("hover-effect");
+		            }
+		        });
 		    });
-		  }, observerOptions);
-
-		  // Observer tous les éléments que vous souhaitez suivre
-		  document.querySelectorAll('.accueil-couleur').forEach(function(element) {
-		    observer.observe(element);
-		  });
+		
+		    document.querySelectorAll('.accueil-couleur').forEach(element => {
+		        observer.observe(element);
+		    });
 		});
 
 </script>

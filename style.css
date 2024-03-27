@@ -361,7 +361,7 @@ body {
         padding-bottom: 15px;
         margin: 0px;
         width: 100%;
-        background-image: url('images/arriere-plan/ciel-bleu.png');
+        background-image: url('images/arriere-plan/ciel-bleu.webp');
         background-size: cover; 
         background-position: top center; 
         background-repeat: no-repeat;
@@ -392,7 +392,7 @@ body {
         padding-top: 6%;
         padding-bottom: 6%;
         width: 100%;
-        background-image: url('images/arriere-plan/ocean-plastique.png');
+        background-image: url('images/arriere-plan/ocean-plastique.webp');
         background-size: 100% 100%;
         background-position: center; 
         background-repeat: no-repeat;
@@ -400,7 +400,7 @@ body {
         z-index: 3;
       }
       .encart-bloc2 {
-        background-image: url('images/arriere-plan/encart-ocean.png');
+        background-image: url('images/arriere-plan/encart-ocean.webp');
         background-size: 100% 100%; 
         background-position: center; 
         width: 80%; 
@@ -416,7 +416,7 @@ body {
     /* BLOC 3 - ESPACE & PLANETE */
       .bloc3 {
         width: 100vw;
-        background-image: url('images/arriere-plan/espace.png');
+        background-image: url('images/arriere-plan/espace.webp');
         background-position: center; 
         background-repeat: no-repeat;
         z-index: 3;
@@ -517,7 +517,7 @@ body {
         top: -7vw;
         padding-top: 30vw;
         width: 100vw;
-        background-image: url('images/lpr.png');
+        background-image: url('images/lpr.webp');
         background-size: 100%;
         background-position: top; 
         background-repeat: no-repeat;
@@ -941,7 +941,7 @@ body {
           padding-top: 150px;
           padding-bottom: 15px;
           width: 100%;
-          background-image: url('images/arriere-plan/ciel-bleu.png');
+          background-image: url('images/arriere-plan/ciel-bleu.webp');
           background-size: cover; 
           background-position: center; 
           background-repeat: no-repeat;
@@ -969,7 +969,7 @@ body {
 
       /* BLOC 2 - OCEAN PLASTIQUE */
         .encart-bloc2 {
-          background-image: url('images/arriere-plan/encart-ocean.png');
+          background-image: url('images/arriere-plan/encart-ocean.webp');
           background-size: 100% 100%; 
           background-position: center; 
           width: 80%; 
@@ -984,7 +984,7 @@ body {
       /* BLOC 3 - ESPACE & PLANETE */
         .bloc3 {
           width: 100vw;
-          background-image: url('images/arriere-plan/espace.png');
+          background-image: url('images/arriere-plan/espace.webp');
           background-position: center; 
           background-repeat: no-repeat;
           z-index: 2;

@@ -4,6 +4,8 @@ body, html {
   padding: 0px;
   page-break-inside: avoid;
   font-family: Ryman-Eco;
+  background-color: white;
+  color: black;
 }
 
 body {

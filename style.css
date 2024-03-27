@@ -535,7 +535,7 @@ body {
           width: 100vw;
           height : 50vw; /* représente la hauteur totale de la transition */
           overflow: hidden;
-          margin-bottom: -30vw; /* représente la hauteur à laquelle le bloc s'arrête */
+          margin-bottom: -35vw; /* représente la hauteur à laquelle le bloc s'arrête */
         }
 
       .accueil-container-img2 img {

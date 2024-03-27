@@ -1,11 +1,14 @@
+:root {
+  color-scheme: light;
+}
+
 body, html {
   width: 100vw;
   margin: 0px;
   padding: 0px;
   page-break-inside: avoid;
   font-family: Ryman-Eco;
-  background-color: white;
-  color: black;
+  color-scheme: light;
 }
 
 body {

@@ -701,6 +701,10 @@ window.addEventListener('hashchange', function() {
   window.location.reload();
 });
 
+window.onload = function() {
+  window.scrollTo(0, 0);
+};
+
 //SCRIPT MONTRER LA SECTION SELECTIONNEE
   function showSection(sectionId) {
   // Hide all sections

@@ -13,7 +13,9 @@
 	<!-- HEADER ORDINATEURS --> 
 		<div class="header header-computer">
 			<div>
-				<img class="logoheader" src="../images/titre-hdd.webp" alt="Logo de L'Harmonie du Doute">
+				<a href="https://www.harmoniedudoutefilm.fr">
+					<img class="logoheader" src="../images/titre-hdd.webp" alt="Logo de L'Harmonie du Doute">
+				</a>
 			</div>
 
 		  	<div>
@@ -89,7 +91,7 @@
 
 			<!-- MENU1 -->
 			<div id="header-menu1" class="menu1">
-				<button id="h1-menu"class="header-smartphone-title" onclick="window.location.href = 'https://www.harmoniedudoutefilm.fr'">
+				<button id="h1-menu"class="header-smartphone-title" onclick="window.location.href ='https://www.harmoniedudoutefilm.fr'">
 					<img src="../images/icons/accueil-icon.webp" class="header-smartphone-icon">
 					Accueil
 				</button>
@@ -138,25 +140,22 @@
 
 <script>
 //SCRIPT POUR HEADER EN FORMAT MOBILE
-		function toggleMenuHeader(icon) {
-		  var menuheader = document.getElementById('header-menu1'); // Obtenez l'élément de menu par son identifiant
-		  
-		  // Vérifie si le menu est déjà affiché
-		  if (menuheader.style.display === 'flex') {
-		    menuheader.style.display = 'none'; // Cachez le menu
-		    icon.classList.remove('open'); // Retirez la classe 'open' car le menu est caché
+	function toggleMenuHeader(icon) {
+	  var menuheader = document.getElementById('header-menu1'); // Obtenez l'élément de menu par son identifiant
+	  
+	  // Vérifie si le menu est déjà affiché
+	  if (menuheader.style.display === 'flex') {
+	    menuheader.style.display = 'none'; // Cachez le menu
+	    icon.classList.remove('open'); // Retirez la classe 'open' car le menu est caché
 
-		  } else {
-		    menuheader.style.display = 'flex'; // Affichez le menu
-		    // Ajoutez la classe 'open' seulement si elle n'est pas déjà présente
-		    if (!icon.classList.contains('open')) {
-		      icon.classList.add('open');
-		    }
-		  }
-		}
-
-//SCRIPT POUR AJUSTER LA TAILLE DU HEADER
-
+	  } else {
+	    menuheader.style.display = 'flex'; // Affichez le menu
+	    // Ajoutez la classe 'open' seulement si elle n'est pas déjà présente
+	    if (!icon.classList.contains('open')) {
+	      icon.classList.add('open');
+	    }
+	  }
+	}
 
 </script>
 

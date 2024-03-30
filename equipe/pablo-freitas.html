@@ -168,17 +168,49 @@
 
 <script>
 //SCRIPT POUR INTEGRER HEADER & FOOTER
-fetch('../header-footer/header.html')
+fetch('header-footer/header.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('header').innerHTML = data;
     });
 
-fetch('../header-footer/footer.html')
+fetch('header-footer/footer.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('footer').innerHTML = data;
     });
+  //SCRIPT POUR HEADER EN FORMAT MOBILE
+    function toggleMenuHeader(icon) {
+      var menuheader = document.getElementById('header-menu1'); // Obtenez l'élément de menu par son identifiant
+      
+      // Vérifie si le menu est déjà affiché
+      if (menuheader.style.display === 'flex') {
+        menuheader.style.display = 'none'; // Cachez le menu
+        icon.classList.remove('open'); // Retirez la classe 'open' car le menu est caché
+
+      } else {
+        menuheader.style.display = 'flex'; // Affichez le menu
+        // Ajoutez la classe 'open' seulement si elle n'est pas déjà présente
+        if (!icon.classList.contains('open')) {
+          icon.classList.add('open');
+        }
+      }
+    }
+  //SCRIPT POUR FOOTER EN FORMAT MOBILE
+    function toggleMenuFooter(event, menuId) {
+      event.preventDefault();
+      event.stopPropagation();
+      var menufooter = document.getElementById(menuId);
+      var toggle = event.target;
+
+      if (menufooter.style.display === 'block') {
+        menufooter.style.display = 'none';
+        toggle.textContent = '+';
+      } else {
+        menufooter.style.display = 'block';
+        toggle.textContent = '−';
+      }
+    }
 
 </script>
 </body>

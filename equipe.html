@@ -695,18 +695,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
       highlightMenuItem(navLink);
     }
   }
+
+  setTimeout(function() {
+    window.scrollTo(0, 0);
+  }, 100);
 });
+
 window.addEventListener('hashchange', function() {
   // Recharger la page lorsque le fragment de l'URL (hash) change
   window.location.reload();
 });
-
-window.onload = function() {
-  // Temporisation pour s'assurer que toute navigation automatique vers l'ancre est terminée
-  setTimeout(function() {
-    window.scrollTo(0, 0);
-  }, 100); 
-};
 
 //SCRIPT MONTRER LA SECTION SELECTIONNEE
   function showSection(sectionId) {

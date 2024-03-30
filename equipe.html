@@ -683,31 +683,27 @@ fetch('header-footer/footer.html')
 
 
 //SCRIPT POUR OUVRIR LA BONNE SECTION AVEC LE LIEN
-document.addEventListener('DOMContentLoaded', (event) => {
-  // Vérifier si l'URL contient une ancre
-  const sectionId = window.location.hash.substr(1); // Supprime le # du début
+document.addEventListener('DOMContentLoaded', function() {
+  // Défilement initial vers le haut, sans tenir compte des ancres
+  window.scrollTo(0, 0);
 
-  if (sectionId) {
-    showSection(sectionId);
-    // Trouver l'élément de navigation correspondant et le mettre en évidence
-    const navLink = document.querySelector(`nav a[onclick*="${sectionId}"]`);
-    if (navLink) {
-      highlightMenuItem(navLink);
-      window.scrollTo(0, 0);
+  // Temporisation pour s'assurer que la navigation vers l'ancre est faite après un court délai
+  setTimeout(function() {
+    const sectionId = window.location.hash.substr(1);
+    if (sectionId) {
+      const sectionElement = document.getElementById(sectionId);
+      if (sectionElement) {
+        window.scrollTo(0, sectionElement.offsetTop); // Naviguez vers l'élément
+      }
     }
-  }
+  }, 100); // Délai plus long pour permettre un repositionnement après le défilement initial
 });
+
 window.addEventListener('hashchange', function() {
   // Recharger la page lorsque le fragment de l'URL (hash) change
   window.location.reload();
 });
 
-window.onload = function() {
-  // Temporisation pour s'assurer que toute navigation automatique vers l'ancre est terminée
-  setTimeout(function() {
-    window.scrollTo(0, 0);
-  }, 1); // Un délai très court, essentiellement pour passer à la prochaine frame
-};
 
 //SCRIPT MONTRER LA SECTION SELECTIONNEE
   function showSection(sectionId) {

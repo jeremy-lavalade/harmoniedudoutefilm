@@ -682,6 +682,21 @@ fetch('header-footer/footer.html')
     });
 
 
+//SCRIPT POUR OUVRIR LA BONNE SECTION AVEC LE LIEN
+document.addEventListener('DOMContentLoaded', (event) => {
+  // Vérifier si l'URL contient une ancre
+  const sectionId = window.location.hash.substr(1); // Supprime le # du début
+
+  if (sectionId) {
+    showSection(sectionId);
+    // Trouver l'élément de navigation correspondant et le mettre en évidence
+    const navLink = document.querySelector(`nav a[onclick*="${sectionId}"]`);
+    if (navLink) {
+      highlightMenuItem(navLink);
+    }
+  }
+});
+
 //SCRIPT MONTRER LA SECTION SELECTIONNEE
   function showSection(sectionId) {
   // Hide all sections

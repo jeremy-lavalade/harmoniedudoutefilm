@@ -696,6 +696,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
   }
 });
+window.addEventListener('hashchange', function() {
+  // Recharger la page lorsque le fragment de l'URL (hash) change
+  window.location.reload();
+});
 
 //SCRIPT MONTRER LA SECTION SELECTIONNEE
   function showSection(sectionId) {

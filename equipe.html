@@ -693,6 +693,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const navLink = document.querySelector(`nav a[onclick*="${sectionId}"]`);
     if (navLink) {
       highlightMenuItem(navLink);
+      window.scrollTo(0, 0);
     }
   }
 });
@@ -700,10 +701,6 @@ window.addEventListener('hashchange', function() {
   // Recharger la page lorsque le fragment de l'URL (hash) change
   window.location.reload();
 });
-
-window.onload = function() {
-  window.scrollTo(0, 0);
-};
 
 //SCRIPT MONTRER LA SECTION SELECTIONNEE
   function showSection(sectionId) {

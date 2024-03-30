@@ -137,11 +137,13 @@
 
     .photo {
       position: absolute;
+      bottom: 0;
+      right: 0;
       border:2px solid #343737;
       top: 50%; 
       left: 50%; 
       transform: translate(-50%, -50%);
-      width: calc(14.8vw - 2px);
+      width: auto;
       height: 19.2vw;  
     }
 
@@ -237,7 +239,7 @@
         top: 50%;
         left: 50%; 
         transform: translate(-50%, -50%); 
-        width: calc(20vw - 2px);
+        width: auto;
         height: 26vw; 
       }
 

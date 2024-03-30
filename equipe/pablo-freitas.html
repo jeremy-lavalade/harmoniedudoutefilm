@@ -168,13 +168,13 @@
 
 <script>
 //SCRIPT POUR INTEGRER HEADER & FOOTER
-fetch('header-footer/header.html')
+fetch('../header-footer/header.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('header').innerHTML = data;
     });
 
-fetch('header-footer/footer.html')
+fetch('../header-footer/footer.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('footer').innerHTML = data;

@@ -32,7 +32,7 @@ body {
 
 /*AFFICHAGE ORDINATEURS */
 
-  /* POLICES */
+  /* POLICES & TITRES */
 
     /* Titres headers */
       #h1-menu{
@@ -96,6 +96,33 @@ body {
       .puissance {
         vertical-align: super;
         font-size:50%;
+      }
+
+    /* Titres pages */
+      .titre-page{
+        width: 100vw;
+        background-color: #71899F;
+        position: relative;
+        padding-top: 80px;
+      }
+
+      .titre-page h1{
+        border-top: 5vw solid #E9D0C7;
+        font-family: PP Hatton;
+        font-size: 5vw;
+        text-align: center;
+        color: #E8DCCC;
+        margin: 0px;
+        padding-top: 30px;
+      }
+
+      .titre-page h2{
+        font-family: PP Hatton;
+        font-size: 3vw;
+        text-align: center;
+        color: #E8DCCC;
+        margin: 0px;
+        padding-bottom: 30px;
       }
 
   /* HEADER & FOOTER */
@@ -196,8 +223,7 @@ body {
       }
 
       #footer-social-media{
-        margin: 0px auto;
-        padding-top: 20px;
+        margin: 2vw auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -465,7 +491,7 @@ body {
 
       .accueil-titreinfo{
         white-space: nowrap;
-        color : #DDAAA6;
+        color : #EB7987;
         font-size: 3.5vw;
       }
 
@@ -636,6 +662,33 @@ body {
         #pdark{
           color : #343737;
           font-size: 15px;
+        }
+
+      /* Titres pages */
+        .titre-page{
+          width: 100vw;
+          background-color: #71899F;
+          position: relative;
+          padding-top: 80px;
+        }
+
+        .titre-page h1{
+          border-top: 5vw solid #E9D0C7;
+          font-family: PP Hatton;
+          font-size: 8vw;
+          text-align: center;
+          color: #E8DCCC;
+          margin: 0px;
+          padding-top: 20px;
+        }
+
+        .titre-page h2{
+          font-family: PP Hatton;
+          font-size: 5vw;
+          text-align: center;
+          color: #E8DCCC;
+          margin: 0px;
+          padding-bottom: 20px;
         }
 
     /* HEADER & FOOTER */
@@ -1038,7 +1091,7 @@ body {
 
         .accueil-titreinfo{
           white-space: nowrap;
-          color : #DDAAA6;
+          color : #EB7987;
           font-size: 6vw;
         }
 

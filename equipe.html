@@ -691,17 +691,15 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(function() {
     const sectionId = window.location.hash.substr(1);
     if (sectionId) {
-      const sectionElement = document.getElementById(sectionId);
-      if (sectionElement) {
-        window.scrollTo(0, sectionElement.offsetTop); // Naviguez vers l'élément
-      }
+      showSection(sectionId);
+        // Trouver l'élément de navigation correspondant et le mettre en évidence
+        const navLink = document.querySelector(`nav a[onclick*="${sectionId}"]`);
+        if (navLink) {
+          highlightMenuItem(navLink);
+          window.scrollTo(0,0);
+        }
     }
   }, 100); // Délai plus long pour permettre un repositionnement après le défilement initial
-});
-
-window.addEventListener('hashchange', function() {
-  // Recharger la page lorsque le fragment de l'URL (hash) change
-  window.location.reload();
 });
 
 

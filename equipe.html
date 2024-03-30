@@ -702,6 +702,13 @@ window.addEventListener('hashchange', function() {
   window.location.reload();
 });
 
+window.onload = function() {
+  // Temporisation pour s'assurer que toute navigation automatique vers l'ancre est terminée
+  setTimeout(function() {
+    window.scrollTo(0, 0);
+  }, 1); // Un délai très court, essentiellement pour passer à la prochaine frame
+};
+
 //SCRIPT MONTRER LA SECTION SELECTIONNEE
   function showSection(sectionId) {
   // Hide all sections

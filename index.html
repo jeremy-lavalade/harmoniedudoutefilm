@@ -26,7 +26,7 @@
 <body>
 
 <!-- HEADER -->
-		
+	<div id="header"></div>
 
 <!-- PREMIER BLOC : CIEL BLEU --> 
 	<div class="bloc1">
@@ -209,6 +209,13 @@
 	<div id="footer"></div>
 
 <script>	
+//SCRIPT POUR INTEGRER HEADER & FOOTER
+fetch('header-footer/header.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('header').innerHTML = data;
+    });
+
 fetch('header-footer/footer.html')
     .then(response => response.text())
     .then(data => {

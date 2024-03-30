@@ -675,7 +675,7 @@ body {
         .titre-page h1{
           border-top: 5vw solid #E9D0C7;
           font-family: PP Hatton;
-          font-size: 8vw;
+          font-size: 32px;
           text-align: center;
           color: #E8DCCC;
           margin: 0px;
@@ -684,7 +684,7 @@ body {
 
         .titre-page h2{
           font-family: PP Hatton;
-          font-size: 5vw;
+          font-size: 28px;
           text-align: center;
           color: #E8DCCC;
           margin: 0px;

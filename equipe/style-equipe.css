@@ -399,6 +399,8 @@
 
       .photo {
         position: absolute;
+        bottom: 0;
+        right: 0;
         border:2px solid #343737;
         top: 50%; 
         left: 50%; 

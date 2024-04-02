@@ -9,12 +9,14 @@
 
 	<title>L'Equipe du Film - L'Harmonie du Doute</title>
 	<meta name = "description" content="L'Equipe du Film L'Harmonie du Doute">
-  <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script type="text/javascript">
-  (function(){
-    emailjs.init("jeremy.lavalade@harmoniedudoutefilm.fr"); 
-  })();
-</script>
+     (function(){
+        emailjs.init({
+          publicKey: "_QQUQImtlxSEOCjzS",
+        });
+     })();
+  </script>
 </head>
 
 <body>
@@ -91,10 +93,12 @@
         <div class="form-field">
           <textarea id="message" name="message" placeholder="Votre message" required></textarea>
         </div>
-        <div type="submit" id="sendbutton button" class="btn btnbg light" style="width: 10vw;margin: 0px auto;">
+        <button type="submit" id="sendbutton">
+          <div id="button" class="btn btnbg light" style="width: 10vw;margin: 0px auto;">
             Envoyer
             <img class="img-btn" src="../images/icons/btndark.webp">
-        </div>
+          </div>
+        </button>
       </form>
     </div>
   </div>
@@ -104,8 +108,9 @@
 
 <script>
 //SCRIPT POUR FORMULAIRE
-document.getElementById('sendbutton').addEventListener('click', function() {
-  emailjs.sendForm('service_9s9b35c','template_5fwmefq','#contact-form')
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+  event.preventDefault(); // Empêche le formulaire d'être soumis de manière traditionnelle
+  emailjs.sendForm('service_9s9b35c','template_5fwmefq', this)
     .then(function(response) {
        console.log('SUCCESS!', response.status, response.text);
        alert('Votre message a été envoyé!');

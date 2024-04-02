@@ -152,6 +152,13 @@
     height: 9vw;
     padding-top: 15px; /* Adjust height as needed */
   }
+  #sendbutton{
+    background-color: #FDF5D6;
+    border: none;
+    text-decoration: none;
+    width: 40vw;
+    margin: 0px auto;
+  }
 
 
 

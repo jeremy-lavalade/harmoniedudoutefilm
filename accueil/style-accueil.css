@@ -1,0 +1,158 @@
+/*PAGE MENTIONS LEGALES*/
+  #page-mentions-legales{
+    width: 80vw;
+    background-color: #E8DCCC;
+    position: relative;
+    z-index: 0;
+    padding: 0px 10vw;
+  }
+  #texte-mentions-legales{
+    width: 80vw;
+    padding-top:max(10px,3vw);
+  }
+  #texte-mentions-legales h1{
+    font-family: PP Hatton;
+    font-weight: normal;
+    text-align: center;
+    padding-top: max(10px,1vw);
+    margin: 0px;
+    color: #343737;
+    font-size: max(3vw, 25px);
+  }
+  #texte-mentions-legales h2{
+    font-weight: normal;
+    text-align: justify;
+    margin: 0px;
+    padding-top: max(5px,0.5vw);
+    color: #749E9E;
+    font-size: max(2vw, 22px);
+  }
+  #texte-mentions-legales p{
+    padding:max(20px,2vw) 0px;
+    padding-top: max(3px,0.3vw);
+    margin: 0px;
+    text-align: justify;
+    font-size: max(1vw, 14px);
+  }
+
+/*PAGE CONTACT*/
+  .participation-container{
+    background-color: #71899F;
+    width: 100vw;
+    height: 23vw;
+    padding: 5vw 0px;
+    position: relative;
+    top: -1px;
+  }
+  .participation-encart{
+    background-color: #E8DCCC;
+    width: 84.4vw;
+    margin: 0px auto;
+    padding: 0px;
+    padding-bottom: -5vw;
+    display: flex;
+    justify-content: space-around;
+  }
+  .participation-card{
+    background-color: none;
+    position: relative;
+    top: -5vw;
+    width: 28vw;
+    margin: 0px auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Vertical centering */
+    justify-content: center; /* Horizontal centering */
+  }
+  .participation-card h2{
+    margin: 0;
+    padding: max(10px, 1vw);
+    font-size: 2.6vw;
+  }
+  .participation-picto{
+    border-radius: 50%;
+    width: 10vw;
+    height: 10vw;
+    border: 2px solid #343737;
+    background-color: #F3D6AB;
+  }
+  .participation-picto img{
+    width: 10vw;
+    height: 10vw;
+    margin: auto  auto;
+  }
+  .contact-bord-equipe{
+    width: 100.1vw;
+    position: relative;
+    top: -12vw;
+  }
+
+  .contact-container{
+    width: 100vw;
+    height: 65,9vw;
+    background-image:url(../images/contact/contact-lampes.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+  }
+  #intro-contact{
+    width: 100vw;
+    text-align: center;
+    position: relative;
+    top: 15vw;
+    font-size: 4vw;
+    font-family: PP Hatton;
+    background-color:none;
+    color: #343737;
+  }
+
+  .form-container {
+    width: 40vw;
+    background-color: none;
+    color: #343737;
+    padding-top: 18vw;
+    margin: 0px auto;
+    padding-bottom: 3vw;
+  }
+  .form-field {
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+  }
+  .form-field input[type="text"]{
+    width: 47.5%;
+    margin: 0px;
+    height: 4vw;
+    font-size: 2vw;
+    font-family: Ryman Eco;
+    font: italic;
+    background-color:#E8DCCC;
+    border: 2px #343737 solid;
+    padding-left: 15px;
+  }
+
+  .form-field input[type="email"],
+  .form-field input[type="tel"],
+  .form-field textarea {
+    width: 40vw;
+    height: 4vw;
+    font-size: 2vw;
+    font-family: Ryman Eco;
+    font: italic;
+    background-color:#E8DCCC;
+    border: 2px #343737 solid;
+    padding-left: 15px;
+  }
+  input[type="submit"] {
+    width: 15vw;
+    margin: 0px auto;
+  }
+  .form-field textarea {
+    height: 9vw;
+    padding-top: 15px; /* Adjust height as needed */
+  }
+
+
+
+

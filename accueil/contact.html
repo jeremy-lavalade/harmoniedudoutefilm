@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+	<link href="../accueil/style-accueil.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+
+	<title>L'Equipe du Film - L'Harmonie du Doute</title>
+	<meta name = "description" content="L'Equipe du Film L'Harmonie du Doute">
+  <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+  <script type="text/javascript">
+  (function(){
+    emailjs.init("jeremy.lavalade@harmoniedudoutefilm.fr"); 
+  })();
+</script>
+</head>
+
+<body>
+<!-- HEADER --> 
+<div id="header"></div>
+
+<!-- CORPS --> 
+  <div class="titre-page">
+    <h1>ENVIE DE PARTICIPER ?</h1>
+    <h2>NOUS CONTACTER</h2>
+  </div>
+
+  <div class="participation-container">
+    <div class="participation-encart">
+      <div class="participation-card">
+        <div class="participation-picto">
+          <img src="../images/contact/contact-nous-rejoindre.png" alt="Nous rejoindre">
+        </div>
+        
+        <h2>Nous rejoindre</h2>
+        <div id="button">
+          <a class="btn btn-onlytext dark" href="/equipe.html#nous-rejoindre">
+            Cliquez ici
+            <img class="img-btn" src="../images/icons/btndark.webp">
+          </a>
+        </div>
+      </div>
+      <div class="participation-card">
+        <div class="participation-picto">
+          <img src="../images/contact/contact-mecene.png" alt="Devenir Mécène">
+        </div>
+        <h2>Devenir Mécène</h2>
+        <div id="button">
+          <a class="btn btn-onlytext dark" href="/nous-soutenir/devenir-mecene.html">
+            En savoir plus
+            <img class="img-btn" src="../images/icons/btndark.webp">
+          </a>
+        </div>
+      </div>
+      <div class="participation-card">
+        <div class="participation-picto">
+          <img src="../images/contact/contact-partenariat.png" alt="Établir un partenariat">
+        </div>
+        <h2>Établir un partenariat</h2>
+        <div id="button">
+          <a class="btn btn-onlytext dark" href="/nous-soutenir/partenariats-sponsors.html">
+            En savoir plus
+            <img class="img-btn" src="../images/icons/btndark.webp">
+          </a>
+        </div>
+      </div>
+    </div>
+    <img class="contact-bord-equipe" src="../images/contact/contact-equipe.png">
+  </div>
+
+  <div class="contact-container">
+    <div id="intro-contact">
+      Un contact à partager ?<br>
+      Une recommandation ?<br>
+      Une idée ?
+    </div>
+    <div class="form-container">
+      <form id="contact-form">
+        <div class="form-field">
+          <input type="text" id="firstName" name="firstName" placeholder="Votre prénom" required>
+          <input type="text" id="lastName" name="lastName" placeholder="Votre nom" required style="margin-left: 10px;">
+        </div>
+        <div class="form-field">
+          <input type="email" id="email" name="email" placeholder="Votre e-mail" required>
+        </div>
+        <div class="form-field">
+          <input type="tel" id="phone" name="phone" placeholder="Votre numéro de téléphone (optionnel)" >
+        </div>
+        <div class="form-field">
+          <textarea id="message" name="message" placeholder="Votre message" required></textarea>
+        </div>
+        <div type="submit" id="sendbutton button" class="btn btnbg light" style="width: 10vw;margin: 0px auto;">
+            Envoyer
+            <img class="img-btn" src="../images/icons/btndark.webp">
+        </div>
+      </form>
+    </div>
+  </div>
+
+<!-- FOOTER -->
+<div id="footer"></div>
+
+<script>
+//SCRIPT POUR FORMULAIRE
+document.getElementById('sendbutton').addEventListener('click', function() {
+  emailjs.sendForm('service_9s9b35c','template_5fwmefq','#contact-form')
+    .then(function(response) {
+       console.log('SUCCESS!', response.status, response.text);
+       alert('Votre message a été envoyé!');
+    }, function(error) {
+       console.log('FAILED...', error);
+       alert('Échec de l\'envoi du message. Veuillez réessayer plus tard.');
+    });
+});
+
+//SCRIPT POUR INTEGRER HEADER & FOOTER
+fetch('../header-footer/header.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('header').innerHTML = data;
+    });
+
+fetch('../header-footer/footer.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('footer').innerHTML = data;
+    });
+  //SCRIPT POUR HEADER EN FORMAT MOBILE
+    function toggleMenuHeader(icon) {
+      var menuheader = document.getElementById('header-menu1'); // Obtenez l'élément de menu par son identifiant
+      
+      // Vérifie si le menu est déjà affiché
+      if (menuheader.style.display === 'flex') {
+        menuheader.style.display = 'none'; // Cachez le menu
+        icon.classList.remove('open'); // Retirez la classe 'open' car le menu est caché
+
+      } else {
+        menuheader.style.display = 'flex'; // Affichez le menu
+        // Ajoutez la classe 'open' seulement si elle n'est pas déjà présente
+        if (!icon.classList.contains('open')) {
+          icon.classList.add('open');
+        }
+      }
+    }
+  //SCRIPT POUR FOOTER EN FORMAT MOBILE
+    function toggleMenuFooter(event, menuId) {
+      event.preventDefault();
+      event.stopPropagation();
+      var menufooter = document.getElementById(menuId);
+      var toggle = event.target;
+
+      if (menufooter.style.display === 'block') {
+        menufooter.style.display = 'none';
+        toggle.textContent = '+';
+      } else {
+        menufooter.style.display = 'block';
+        toggle.textContent = '−';
+      }
+    }
+</script>
+</body>
+
+</html>

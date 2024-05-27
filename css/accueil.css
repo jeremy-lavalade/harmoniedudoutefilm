@@ -1,0 +1,189 @@
+/*ACCUEIL 1*/
+    #accueil1{
+        margin: 0px;
+        width: 100vw;
+        background-image: url('../images/fonds/ciel-bleu.webp');
+        background-size: 100% 100%; 
+        background-position: top center; 
+        background-repeat: no-repeat;
+        z-index: 1;  
+        padding-bottom: max(2vw, 2vh);
+    }
+    #accueil-moodboard{
+        position: relative;
+        border : solid 1px ; border-color:#343737 ;
+        width : 80vw; 
+        margin:0px 10vw;
+        margin-bottom: 30px;
+        margin-top: 5vw;
+    }
+    #accueil2{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+        width: 100vw;
+        height: 0;
+    }
+    #accueil3{
+        display: flex;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+        z-index: 2;  
+        width: 100vw;
+        height: 0;
+        background-image: url('../images/accueil/mer2.webp');
+        background-size: 100% 100%; 
+        background-position: top center; 
+        background-repeat: no-repeat;
+        z-index: 1;  
+    }
+    #accueil4{
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+        z-index: 2; 
+        width: 100vw;
+        background-image: url('../images/accueil/mer3.webp');
+        background-size: 100% 100%; 
+        background-position: top center; 
+        background-repeat: no-repeat;
+        z-index: 1;  
+    }
+
+    #responsive-citation {
+      width: 70vw; 
+      margin-left: 14.5vw;
+    }
+    #responsive-cocteaujl {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      width: 90vw;
+      justify-content: space-between;
+      margin-left: 5vw;
+      flex-wrap: wrap;
+      margin-bottom: 5vw;
+    }
+    #responsive-cocteau {
+      position: relative;
+      width: 30vw; 
+      height: 100%;
+      top: -5vw;
+      margin-bottom: -5vw;
+    }
+    #responsive-jl {
+      position: relative;
+      display: block;
+      top: 0;
+    }
+    #responsive-jlphoto {
+      position: relative;
+      width: 40vw;
+    }
+
+    #accueil-arrow1{
+      position: relative;
+      height: 5vw;
+      rotate: -30deg;
+      top: -2.5vw;
+    }
+    #accueil-arrow2{
+      position: relative;
+      height: 5vw;
+      rotate: 30deg;
+      top: -2.5vw;
+    }
+    #accueil-flower1{
+      position: relative;
+      height: 3vw;
+      top: -3vw;
+      left: 3vw;
+    }
+    #accueil-flower2{
+      position: relative;
+      height: 3vw;
+      top: -3vw;
+      right: 3vw;
+    }
+
+    /* Media query pour les écrans de moins de 768 pixels de large */
+    @media (max-width: 1023px) and (min-width: 768px)  {
+      #accueil-arrow1{
+        position: relative;
+        height: 10vw;
+        rotate: -30deg;
+        top: -4vw;
+      }
+      #accueil-arrow2{
+        position: relative;
+        height: 10vw;
+        rotate: 30deg;
+        top: -4vw;
+      }
+      #accueil-flower1{
+        position: relative;
+        height: 7vw;
+        top: -5vw;
+        left: 5vw;
+      }
+      #accueil-flower2{
+        position: relative;
+        height: 7vw;
+        top: -5vw;
+        right: 5vw;
+      }
+    }
+    @media (max-width: 767px) {
+      #responsive-citation {
+        width: 90vw; 
+        margin-left: 5vw;
+      }
+      #responsive-cocteaujl {
+        flex-direction: column;
+      }
+      #responsive-jl {
+        top: -20vw;
+        margin-bottom: -20vw;
+      }
+      #responsive-jlphoto {
+        position: relative;
+        width: 70vw; 
+        float: right;
+      }
+      #responsive-cocteau {
+        position: relative;
+        width: 50vw; 
+        height: 100%;
+      }
+      #accueil-arrow1{
+        position: relative;
+        height: 10vw;
+        rotate: -30deg;
+        top: -4vw;
+      }
+      #accueil-arrow2{
+        position: relative;
+        height: 10vw;
+        rotate: 30deg;
+        top: -4vw;
+      }
+      #accueil-flower1{
+        position: relative;
+        height: 7vw;
+        top: -5vw;
+        left: 5vw;
+      }
+      #accueil-flower2{
+        position: relative;
+        height: 7vw;
+        top: -5vw;
+        right: 5vw;
+      }
+    }
+
+
+

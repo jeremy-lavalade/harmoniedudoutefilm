@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<!-- SECTION A MODIFIER -->
+	<title>Nous Contacter</title>
+	<link rel="stylesheet" href="../css/contact.css">
+
+	<!-- SECTION A MODIFIER SELON SI PAGE PRINCIPALE OU SECONDAIRE -->
+	<script src="../script-sous-page.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+	<script type="text/javascript">
+		(function(){
+			emailjs.init({
+			  publicKey: "_QQUQImtlxSEOCjzS",
+			});
+		})();
+	</script>
+
+	<!-- PAS DE MODIFICATION REQUISE -->
+	<meta name="keywords" content="cinema, thriller, ecologie, dystopie">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="icon" type="image/png" href="https://www.harmoniedudoutefilm.fr/seo/favicon-hdd.png">
+	<meta name="description" content="Face aux défis écologiques, L’Harmonie du Doute est un film à suspense qui explore l'équilibre entre esprit critique et passivité, humains et environnement.">
+	<!-- Balises Open Graph pour intégration avec les réseaux sociaux -->
+	<meta property="og:title" content="L'Harmonie du Doute - Film">
+	<meta property="og:description" content="Face aux défis écologiques, L’Harmonie du Doute est un film à suspense qui explore l'équilibre entre esprit critique et passivité, humains et environnement.">
+	<meta property="og:image" content="https://www.harmoniedudoutefilm.fr/seo/logo-hdd.png">
+	<meta property="og:url" content="https://www.harmoniedudoutefilm.fr">
+	<meta property="og:site_name" content="L'Harmonie du Doute - Film">
+	<!-- Liens préchargés pour améliorer les performances de chargement -->
+	<link rel="preconnect" href="https://www.harmoniedudoutefilm.fr">
+	<!-- Intégration de la feuille de style pour le navigateur Chrome sur Android -->
+	<meta name="theme-color" content="#ffffff">
+	<!-- Canonical URL pour éviter le contenu dupliqué -->
+	<link rel="canonical" href="https://www.harmoniedudoutefilm.fr">
+	<!-- Sitemap et Robots pour guider les crawlers des moteurs de recherche -->
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="https://www.harmoniedudoutefilm.fr/seo/sitemap.xml">
+	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+<!-- HEADER -->
+	<div id="header"></div>
+
+<!-- CORPS DE LA PAGE -->
+	<div id="contact-container">
+		<h1 class="light-font center Xmargin20 Ymargin5"><span style="text-decoration: underline;text-underline-offset: min(3vw,20px);text-decoration-color: #E89C9E;">Nous Contacter</span>
+		</h1>
+		<div id="intro-contact-form">
+			<img id="spot1" src="../images/en-savoir-plus/spot.webp">
+		    <img id="spot2" src="../images/en-savoir-plus/spot.webp">
+		</div>
+		<h2 class="light-font center Xmargin5 Ymargin5" style="font-family: Ryman Eco;">
+	      Un contact à partager ?<br>
+	      Une recommandation ?<br>
+	      Une idée ?
+	    </h2>
+		
+		<form id="contact-form">
+			<div class="form-field">
+			  <input type="text" id="firstName" name="firstName" placeholder="Votre prénom" required>
+			  <input type="text" id="lastName" name="lastName" placeholder="Votre nom" required>
+			</div>
+			<div class="form-field">
+			  <input type="email" id="email" name="email" placeholder="Votre e-mail" required>
+			</div>
+			<div class="form-field">
+			  <input type="tel" id="phone" name="phone" placeholder="Votre numéro de téléphone" required>
+			</div>
+			<div class="form-field">
+			  <textarea id="message" name="message" placeholder="Votre message" required></textarea>
+			</div>
+			<button type="submit" class="btn light XmarginCenter">
+			    Envoyer
+			</button>
+		</form>
+
+		<div id="equipe-pellicule"></div>
+
+		<h3 class="dark-font center Xmargin5" style="font-family: Ryman Eco;margin-top: 5vw;">
+	      Vous pouvez également nous contacter sur nos réseaux sociaux ! 
+	    </h3>
+	    <div id="footer-social-media">
+			<!-- INSTA --> 
+		    <a href="https://www.instagram.com/harmoniedudoutefilm/" class="social-button">
+		    	<img class="footer-media" src="../images/icons/contact/light-bkgd/instagram-2.webp" alt="Instagram">
+		    </a>
+			<!-- TIKTOK --> 
+		    <a href="https://www.tiktok.com/@harmoniedudoutefilm" class="social-button">
+		    	<img class="footer-media" src="../images/icons/contact/light-bkgd/tiktok-2.webp" alt="Tiktok">
+		    </a>
+		    <!-- FACEBOOK --> 
+		    <a href="https://www.facebook.com/harmoniedudoutefilm" class="social-button">
+		    	<img class="footer-media" src="../images/icons/contact/light-bkgd/facebook-2.webp" alt="Facebook">
+		    </a>
+		    <!-- LINKEDIN --> 
+		    <a href="https://www.linkedin.com/company/l-harmonie-du-doute-film/" class="social-button">
+		    	<img class="footer-media" src="../images/icons/contact/light-bkgd/linkedin-2.webp" alt="Linkedin">
+		    </a>
+		</div>
+	</div>
+
+<!-- FOOTER -->
+	<div id="footer"></div>
+
+<script>
+//SCRIPT POUR FORMULAIRE
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+  event.preventDefault(); // Empêche le formulaire d'être soumis de manière traditionnelle
+  emailjs.sendForm('service_9s9b35c','template_5fwmefq', this)
+    .then(function(response) {
+       console.log('SUCCESS!', response.status, response.text);
+       alert('Votre message a été envoyé!');
+    }, function(error) {
+       console.log('FAILED...', error);
+       alert('Échec de l\'envoi du message. Veuillez réessayer plus tard.');
+    });
+});
+</script>
+</body>
+
+</html>

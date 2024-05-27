@@ -1,0 +1,169 @@
+#nous-soutenir-container{
+  margin: 0px;
+  width: 100vw;
+  background-image: url('../images/fonds/ciel-bleu.webp');
+  background-size: cover; 
+  background-position: top center; 
+  background-repeat: no-repeat;
+  padding-top: max(90px,8vw);
+  padding-bottom: max(5vw,15px);
+}
+/*INTRO PAGE*/
+  #intro-soutenir{
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+    margin: 5vw;
+    width: 90vw;
+    justify-content: space-between;
+  }
+  #intro-soutenir h1{
+    margin: 0;
+    height: max-content;
+    border-right:solid 4px #E8DCCC;
+    width: 35vw;
+    padding-right: 3vw;
+    margin-top: 5vw;
+  }
+  #intro-soutenir-text{
+    width: 45vw;
+  }
+  #hiddenText {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+  }
+  .btn {
+    cursor: pointer;
+  }
+/*SECTION SOUTIEN*/
+  #soutiens-main-container{
+    width: 100vw;
+    background-image: url('../images/fonds/bande.webp');
+    background-size: 200% 100%; 
+    background-repeat: no-repeat;
+    background-position: top center;
+  }
+  .soutiens-container{
+    position: relative;
+    max-width: 45vw;
+    padding: 5vw;
+  }
+  .position-right{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5vw;
+  }
+  .position-left{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5vw;
+  }
+  .soutiens-number{
+    position: absolute;
+    top: 0;
+    font-size: 30vw;
+    color: #343737;
+    opacity: 0.5;
+    z-index: 0;
+  }
+  .soutiens-text-container{
+    position: relative;
+    top: 0;
+    left: 3vw;
+    display: flex;
+    flex-direction: column;
+    padding: 3vw;
+    z-index: 1;
+  }
+  .soutiens-text-container h1{
+    margin: 0;
+    padding: 0;
+    font-size: 6vw;
+    white-space: nowrap;
+    width: max-content;
+  }
+  .soutiens-text-container h4{
+    margin: 0;
+    padding: 0;
+    font-size: 2vw;
+  }
+  .infographie-container{
+    display: flex;
+    flex-direction: column;
+    margin-right: 5vw;
+    margin-left: 5vw;
+    min-width: 30vw;
+  }
+  .infographie{
+    display: flex;
+    flex-direction: row;
+    margin: 1vw 0;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  .infographie h4{
+    margin: 0;
+    font-size: max(35px,5vw);
+    font-weight: normal;
+    margin-right: 2vw;
+    min-width: 15vw;
+  }
+  .infographie p{
+    margin: 0;
+    font-size: max(12px,2vw);
+    font-weight: bold;
+  }
+
+/*SECTION ILS NOUS FONT CONFIANCE*/
+  #confiance-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  #confiance-container img{
+    height: 100%;
+    width: 13vw;
+    margin: 1vw 2vw;
+  }
+
+@media (max-width: 767px) {
+  #intro-soutenir{
+    flex-direction: column;
+  }
+  #intro-soutenir h1{
+    padding: 0;
+    margin: 5vw;
+    width: 80vw;
+    border-right:none;    
+  }
+  #intro-soutenir-text{
+    width: 100%;
+  }
+  .infographie{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .infographie h4{
+    text-align: center;
+  }
+  .infographie p{
+    text-align: center;
+  }
+  .soutiens-text-container h4{
+  margin: 0;
+  padding: 0;
+  font-size: 4vw;
+}
+  #confiance-container img{
+    height: 100%;
+    width: 30vw;
+    margin: 2vw 4vw;
+  }
+}

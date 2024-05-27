@@ -1,0 +1,37 @@
+#graphisme-container{
+  margin: 0px;
+  width: 100vw;
+  background-image: url('../images/fonds/ciel-bleu.webp');
+  background-size: cover; 
+  background-position: top center; 
+  background-repeat: no-repeat;
+  padding-top: max(90px,8vw);
+  padding-bottom: max(5vw,15px);
+}
+#graphisme{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#graphisme p{
+  width: 60vw;
+}
+#graphisme img{
+  width: 35vw;
+  margin-right: 5vw;
+}
+@media (max-width: 1024px) {
+  #graphisme{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #graphisme p{
+    width: 90vw;
+    margin-bottom: 5vw;
+  }
+  #graphisme img{
+    width: 80vw;
+    margin-left: 10vw;
+  }
+}

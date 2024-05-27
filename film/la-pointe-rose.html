@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<!-- SECTION A MODIFIER -->
+	<title>L'Île de La Pointe Rose</title>
+	<link rel="stylesheet" href="../css/la-pointe-rose.css">
+
+	<!-- SECTION A MODIFIER SELON SI PAGE PRINCIPALE OU SECONDAIRE -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+	<script src="../script-sous-page.js"></script>
+
+	<!-- PAS DE MODIFICATION REQUISE -->
+	<meta name="keywords" content="cinema, thriller, ecologie, dystopie">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="icon" type="image/png" href="https://www.harmoniedudoutefilm.fr/seo/favicon-hdd.png">
+	<meta name="description" content="Face aux défis écologiques, L’Harmonie du Doute est un film à suspense qui explore l'équilibre entre esprit critique et passivité, humains et environnement.">
+	<!-- Balises Open Graph pour intégration avec les réseaux sociaux -->
+	<meta property="og:title" content="L'Harmonie du Doute - Film">
+	<meta property="og:description" content="Face aux défis écologiques, L’Harmonie du Doute est un film à suspense qui explore l'équilibre entre esprit critique et passivité, humains et environnement.">
+	<meta property="og:image" content="https://www.harmoniedudoutefilm.fr/seo/logo-hdd.png">
+	<meta property="og:url" content="https://www.harmoniedudoutefilm.fr">
+	<meta property="og:site_name" content="L'Harmonie du Doute - Film">
+	<!-- Liens préchargés pour améliorer les performances de chargement -->
+	<link rel="preconnect" href="https://www.harmoniedudoutefilm.fr">
+	<!-- Intégration de la feuille de style pour le navigateur Chrome sur Android -->
+	<meta name="theme-color" content="#ffffff">
+	<!-- Canonical URL pour éviter le contenu dupliqué -->
+	<link rel="canonical" href="https://www.harmoniedudoutefilm.fr">
+	<!-- Sitemap et Robots pour guider les crawlers des moteurs de recherche -->
+	<link rel="sitemap" type="application/xml" title="Sitemap" href="https://www.harmoniedudoutefilm.fr/seo/sitemap.xml">
+	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
+</head>
+
+<body>
+
+<!-- HEADER -->
+	<div id="header"></div>
+
+<!-- CORPS DE LA PAGE -->
+	<div id="lpr">
+		<div id="lpr-titre">
+			<h4 class="light-font center">La montée des eaux avait englouti toute la planète, il n'y avait plus aucun espoir sauf une île : </h4>
+			<h1 class="light-font center">La Pointe R<b><span class="pink-font" style="text-shadow: 0.2px 0.2px 0px #343737;">o</span></b>se</h1>
+		</div>
+		<img id="ile" src="../images/film/ile2.webp">
+		<div id="infoslpr-container" class="Xmargin5 display-computer-tablette">
+			<button class="btn-left" onclick="changeBlock(-1)"></button>
+	        <div class="info-block">
+	            <div class="block">
+			        <img src="../images/film/lpr/population.webp" style="width: 78vw;">
+	            </div>
+	            <div class="block">
+	            	<img src="../images/film/lpr/histoire.webp" style="width: 78vw;">
+	            </div>
+	            <div class="block">
+	            	<img src="../images/film/lpr/geographie.webp" style="width: 78vw;margin-left: -4vw;">
+	            </div>
+	            <div class="block">
+	            	<img src="../images/film/lpr/vie-ponterosaine.webp" style="width: 78vw;margin-left: -2vw;">
+	            </div>
+	            <div class="block">
+	            	<img src="../images/film/lpr/transports.webp" style="width: 74vw;margin-left: 2vw;">
+	            </div>
+	            <div class="block">
+		            <img src="../images/film/lpr/politique.webp" style="width: 74vw;">
+		        </div>
+	            <div class="block">
+	            	<img src="../images/film/lpr/tourisme.webp" style="width: 78vw;margin-left: -2vw;">
+	            </div>
+	        </div>
+	        <button class="btn-right" onclick="changeBlock(1)"></button>
+		</div>
+		<div id="infoslpr-container" class="mobile Xmargin5 display-mobile">
+			<button class="btn-left" onclick="changeBlockMobile(-1)"></button>
+	        <div class="info-block-mobile">
+	            <div class="block-mobile">
+			        <img src="../images/film/lpr/population-mobile.webp" style="width: 80vw;">
+	            </div>
+	            <div class="block-mobile">
+	            	<img src="../images/film/lpr/histoire-mobile.webp" style="width: 80vw;">
+	            </div>
+	            <div class="block-mobile">
+	            	<img src="../images/film/lpr/geographie-mobile.webp" style="width: 80vw;">
+	            </div>
+	            <div class="block-mobile">
+	            	<img src="../images/film/lpr/vie-ponterosaine-mobile.webp" style="width: 80vw;">
+	            </div>
+	            <div class="block-mobile">
+	            	<img src="../images/film/lpr/transports-mobile.webp" style="width: 80vw;">
+	            </div>
+	            <div class="block-mobile">
+		            <img src="../images/film/lpr/politique-mobile.webp" style="width: 80vw;">
+		        </div>
+	            <div class="block-mobile">
+	            	<img src="../images/film/lpr/tourisme-mobile.webp" style="width: 80vw;">
+	            </div>
+	        </div>
+	        <button class="btn-right" onclick="changeBlockMobile(1)"></button>
+		</div>
+	</div>
+
+<!-- FOOTER -->
+	<div id="footer"></div>
+
+<script>
+let currentIndex = 0; // L'index de départ est 0 (le premier élément)
+
+function changeBlock(direction) {
+  const blocks = document.querySelectorAll('.block'); // Sélectionne tous les blocks
+  const containerWidth = document.querySelector('.info-block').clientWidth;
+  currentIndex += direction; // Incrémente ou décrémente l'index
+
+  // Empêche le débordement
+  if (currentIndex >= blocks.length) {
+    currentIndex = 0; // Retour au premier block si on dépasse le dernier
+  } else if (currentIndex < 0) {
+    currentIndex = blocks.length - 1; // Va au dernier block si on dépasse le premier
+  }
+
+  // Déplace le bloc d'info pour afficher le block courant
+  document.querySelector('.info-block').style.transform = `translateX(-${currentIndex * containerWidth}px)`;
+}
+
+function changeBlockMobile(direction) {
+  const blocks = document.querySelectorAll('.block-mobile'); // Sélectionne tous les blocks
+  const containerWidth = document.querySelector('.info-block-mobile').clientWidth;
+  currentIndex += direction; // Incrémente ou décrémente l'index
+
+  // Empêche le débordement
+  if (currentIndex >= blocks.length) {
+    currentIndex = 0; // Retour au premier block si on dépasse le dernier
+  } else if (currentIndex < 0) {
+    currentIndex = blocks.length - 1; // Va au dernier block si on dépasse le premier
+  }
+
+  // Déplace le bloc d'info pour afficher le block courant
+  document.querySelector('.info-block-mobile').style.transform = `translateX(-${currentIndex * containerWidth}px)`;
+}
+</script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+#tonalite-container{
+  margin: 0px;
+  width: 100vw;
+  background-image: url('../images/fonds/ciel-bleu.webp');
+  background-size: cover; 
+  background-position: top center; 
+  background-repeat: no-repeat;
+  padding-top: max(90px,8vw);
+  padding-bottom: max(5vw,15px);
+}
+#tonalite{
+  display: flex;
+  flex-direction: row;
+}
+#tonalite p{
+  width: 60vw;
+}
+#tonalite img{
+  width: 35vw;
+  margin-right: 5vw;
+}
+@media (max-width: 1024px) {
+  #tonalite{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #tonalite p{
+    width: 90vw;
+  }
+  #tonalite img{
+    width: 95vw;
+  }
+}

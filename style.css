@@ -409,6 +409,9 @@ body {
     .display-tablette-mobile {
       display: block;
     }
+    .justify{
+      text-align: center;
+    }
   }
 /*VARIABLES SPECIFIQUES*/
   :root {

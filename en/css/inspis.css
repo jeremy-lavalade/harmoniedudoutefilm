@@ -1,0 +1,96 @@
+#inspirations-container{
+  margin: 0px;
+  width: 100vw;
+  background-image: url('../images/fonds/ciel-bleu.webp');
+  background-size: cover; 
+  background-position: top center; 
+  background-repeat: no-repeat;
+  padding-top: max(90px,8vw);
+  padding-bottom: max(5vw,15px);
+}
+#inspis-histoire{
+  display: flex;
+  flex-direction: row;
+}
+#histoire1{
+  display: flex;
+  flex-direction: column;
+  margin-left: 5vw;
+}
+#histoire1 img{
+  width: 42vw;
+  margin-bottom: 3vw;
+}
+#histoire2{
+  display: flex;
+  flex-direction: column;
+  margin-left: 3vw;
+  margin-right: 5vw;
+  justify-content: space-between;
+}
+#histoire2 img{
+  width: 45vw;
+  margin-bottom: 3vw;
+}
+#inspis-images{
+  display: flex;
+  flex-direction: row;
+}
+#images1-container{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: calc((60vw)*4046/5665);
+  gap: 3vw;
+  margin-left: 4vw;
+  margin-bottom: 3vw;
+}
+#images1b-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#images1b-container h2{
+  margin-top: 1.5vw;
+}
+#images1{
+  width: 30vw;
+}
+#images2{
+  width: 60vw;
+}
+#images3{
+  width: 91.5vw;
+}
+#images4{
+  width: 91.5vw;
+}
+@media (max-width: 767px) {
+  #inspis-histoire{
+    display: flex;
+    flex-direction: column-reverse;
+    margin-left: 5vw;
+    width: 90vw;
+  }
+  #histoire1{
+    flex-direction: column-reverse;
+    margin: 0;
+  }
+  #histoire1 img{
+    width: 100%;
+    margin-bottom: 3vw;
+  }
+  #histoire2{
+    display: flex;
+    margin: 0;
+    margin-bottom: 3vw;
+    justify-content: space-between;
+  }
+  #histoire2 img{
+    width: 100%;
+    margin-bottom: 3vw;
+  }
+  #inspis-images{
+    display: flex;
+    flex-direction: column;
+  }
+}

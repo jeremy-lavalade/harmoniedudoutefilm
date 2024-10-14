@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- URL de la page d'accueil -->
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr</loc>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Sections principales listées dans le footer -->
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/film</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/film/la-pointe-rose</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/film/objectifs-du-film</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/film/synopsis</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/film/scenario.pdf</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/film/dossier-artistique.pdf</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/equipe</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/equipe/jeremy-lavalade</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/equipe/pablo-freitas</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/nous-rejoindre</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en-savoir-plus</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en-savoir-plus/les-origines</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en-savoir-plus/inspirations</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en-savoir-plus/audience</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en-savoir-plus/tonalite</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en-savoir-plus/graphisme</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en-savoir-plus/contact</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/nous-soutenir</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/mentions-legales</loc>
+    </url>
+</urlset>

@@ -1,0 +1,92 @@
+#synopsis-container {
+  position: relative;
+  margin: 0px;
+  width: 100vw;
+  background-image: url('../images/fonds/ciel-bleu.webp');
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  padding-top: max(90px, 8vw);
+  padding-bottom: max(5vw, 15px);
+  display: flex;
+  flex-direction: row; 
+}
+#synopsis-fixed {
+  position: relative; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100vh * 1280 / 1920 + 5vh); 
+  flex-shrink: 0;
+}
+#synopsis-fixed img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+}
+#titre-synopsis {
+  position: absolute;
+  left: calc(100vh * 1280 / 1920);
+  transform: translate(-50%, -50%) rotate(-90deg);
+  text-transform: uppercase;
+  font-size: 10vh;
+}
+#synopsis-text-container {
+  position: relative;
+  margin: 0px 5vw;
+  width: calc(100vw - 100vh * 1280 / 1920 - 5vh);
+  flex: 1; 
+}
+#synopsis-text-container p{
+  margin-bottom: 0;
+  text-shadow: 0.2px 0.2px 0px #343737;
+}
+#synopsis-visage.mobile{
+  position: relative;
+  width: 100vw;
+  top: 0;
+}
+
+@media (max-width: 1024px){
+  #synopsis-container {
+    display: block;
+  }
+  #synopsis-container h1{
+    margin-bottom: 5vw;
+    text-decoration: underline;
+    text-underline-offset: min(3vw,20px);
+    text-decoration-color: #E89C9E;
+  }
+  #synopsis-visage{
+    position: relative;
+    width: 50vw;
+    float: left;
+    margin: 1.5vw;
+    margin-left: 5vw;
+    max-width: 300px;
+  }
+  #synopsis-marcel{
+    position: relative;
+    width: 50vw;
+    max-width: 300px;
+    float: right;
+    margin: 1.5vw;
+    margin-right: 5vw;
+  }
+  #synopsis-journal{
+    position: relative;
+    width: 50vw;
+    rotate: -10deg;
+    float: left;
+    margin: 1.5vw;
+    margin-left: 5vw;
+  }
+  #synopsis-paysage{
+    position: relative;
+    width: 50vw;
+    float: right;
+    margin: 1.5vw;
+    margin-right: 5vw;
+  }
+}

@@ -1,0 +1,77 @@
+#en-savoir-plus-container{
+  margin: 0px;
+  width: 100vw;
+  background-image: url('../images/fonds/ciel-bleu.webp');
+  background-size: cover; 
+  background-position: top center; 
+  background-repeat: no-repeat;
+  padding-top: max(90px,8vw);
+  padding-bottom: max(5vw,15px);
+}
+#storyboard-container{
+  position: relative;
+  width: 100vw;
+  height : 50vw; 
+  overflow: hidden;
+  margin-bottom: -35vw;
+  margin-top: 5vw;
+}
+#legende-storyboard{
+  position: absolute;
+  top: 0;
+  right: 5vw;
+  z-index: 5;
+  display: block;
+}
+#legende-storyboard p{
+  position: relative;
+  font-style: italic;
+}
+#legende-storyboard img {
+  position: absolute;
+  width: 7vw;
+  margin-top: -5%;
+  right: 23%;
+  rotate: 30deg;
+}
+#storyboard {
+  position: absolute;
+  top: 0;
+  left: 40%;
+  transform: translateX(-40%); /* Centre l'image horizontalement */
+  width: 130vw;
+  z-index: 3;
+  pointer-events: none;
+}
+#couleurs-container{
+  width: 100vw;
+  height: 187.7vw;
+  position: relative;
+}
+.couleur-position{
+  position: absolute; 
+  top: 0; 
+  left: 0;
+  width: 100vw;
+  height: 187.7vw;
+}
+.couleurs-svg:hover{
+  opacity: 0;
+  cursor: pointer;
+  z-index: 10;
+  transition: opacity 0.5s ease-in-out;
+}
+@media (max-width: 767px) {
+  #legende-storyboard{
+  position: relative;
+  }
+  #legende-storyboard img {
+    width: 10vw;
+    margin-top: -3%;
+  }
+}
+@media (max-width: 1024px) {
+  .hover-effect{
+    opacity: 0;
+  }
+}

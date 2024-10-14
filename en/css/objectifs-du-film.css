@@ -1,0 +1,92 @@
+#objectifs-container{
+  margin: 0px;
+  width: 100vw;
+  background-image: url('../images/fonds/ciel-bleu.webp');
+  background-size: cover; 
+  background-position: top center; 
+  background-repeat: no-repeat;
+  padding-top: max(90px,8vw);
+  padding-bottom: max(5vw,15px);
+}
+#objectifs-esprit-critique{
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+  width: 90vw;
+  background-color:#343737;
+  margin: 3vw 0;
+  padding: 3vw 5vw;
+}
+#esprit-critique{
+  width: 60vw;
+  border-left: solid 2px #E8DCCC;
+  padding-left: 2.5vw;
+  margin-left: 2.5vw;
+}
+#objectifs-video-container{
+  display: flex;
+  flex-direction: row;
+  align-items:top;
+  width: 100vw;
+}
+.objectifs-video{
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  width: 30vw;
+  margin: 5vw;
+}
+video{
+  width: 30vw;
+  margin-top: 5vw;
+  height: calc(1280/720 * 30vw);
+}
+@media (max-width: 1024px) {
+  #objectifs-video-container{
+    flex-direction: column;
+    align-items: center;
+  }
+  .objectifs-video{
+    flex-direction: column;
+    width: 90vw;
+  }
+  video{
+    width: 70vw;
+    margin: 5vw;
+    height: calc(1280/720 * 70vw);
+  }
+  .display-tablette-mobile p{
+    border-left: solid 2px #E8DCCC;
+    padding-left: 2.5vw;
+    margin-left: 2.5vw;
+  }
+}
+@media (max-width: 767px) {
+  .display-tablette-mobile p{
+    border-left: none;
+    padding-left: 0;
+    margin-left: 0;
+  }
+}
+@media (max-width: 480px) {
+  #objectifs-esprit-critique{
+    display: block;
+    align-items: center;
+  }
+  #esprit-critique{
+    width: 80vw;
+    display: flex;
+    align-items: center;
+    height: auto;
+    border: none;
+    margin: 5vw 0;
+    padding: 0;
+  }
+  #esprit-critique h4{
+    rotate : -90deg;
+    transform: translateX(-150%);
+    width: 20vw;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+}

@@ -1,0 +1,13 @@
+#mentions-legales-container{
+  margin: 0px;
+  width: 100vw;
+  background-image: url('../images/fonds/ciel-bleu.webp');
+  background-size: cover; 
+  background-position: top center; 
+  background-repeat: no-repeat;
+  padding-top: max(90px,8vw);
+  padding-bottom: max(3vw,15px);
+}
+#mentions-legales h2{
+  margin-top: max(3vw,15px);
+}

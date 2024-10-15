@@ -246,13 +246,10 @@
 	        logo.style.height = heightPosition < 50 ? '50px' : heightPosition + 'px';
 
 	      //CENTRAGE
-		      const leftPosition = parseInt(window.getComputedStyle(logo).left, 10); // Convertir en entier
-
-	        // Si 'left' n'est pas égal à 0, on centre le logo
-	        if (leftPosition !== 0) {
-	            logo.style.alignItems = 'center'; // Centrer verticalement
+	        if (leftPosition <> 0) {
+	            logo.style.alignItems = 'center'; // Aligne au centre
 	        } else {
-	            logo.style.alignItems = ''; // Réinitialise align-items
+	            logo.style.alignItems = 'flex-start'; // Réinitialise align-items
 	        }
 
 	      //MARGIN TOP DOUTE

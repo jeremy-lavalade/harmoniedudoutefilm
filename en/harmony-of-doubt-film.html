@@ -248,8 +248,9 @@
 	      //CENTRAGE
 	        if (leftPosition != 0) {
 	            logo.style.alignItems = 'center'; // Aligne au centre
-	        } else {
-	            logo.style.alignItems = 'flex-start'; // Réinitialise align-items
+	        } 
+	        if (leftPosition = 0) {
+	            logo.removeAttribute('style.alignItems');// Réinitialise l'attribut
 	        }
 
 	      //MARGIN TOP DOUTE

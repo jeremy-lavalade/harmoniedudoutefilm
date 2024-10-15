@@ -246,11 +246,14 @@
 	        logo.style.height = heightPosition < 50 ? '50px' : heightPosition + 'px';
 
 	      //CENTRAGE
-	         if (scrollY >= positionScrollB) {
-	            logo.style.alignItems = 'center'; // Centrer verticalement si la condition est remplie
-		        } else {
+		      const leftPosition = parseInt(window.getComputedStyle(logo).left, 10); // Convertir en entier
+
+	        // Si 'left' n'est pas égal à 0, on centre le logo
+	        if (leftPosition !== 0) {
+	            logo.style.alignItems = 'center'; // Centrer verticalement
+	        } else {
 	            logo.style.alignItems = ''; // Réinitialise align-items
-		        }
+	        }
 
 	      //MARGIN TOP DOUTE
 	        // Positions de départ et de fin pour la largeur

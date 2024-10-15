@@ -244,13 +244,8 @@
 
 	        // Assurez-vous que la largeur ne devient jamais négative
 	        logo.style.height = heightPosition < 50 ? '50px' : heightPosition + 'px';
+	        logo.style.alignItems = heightPosition < 50 ? '' : 'center';
 
-	      //CENTRAGE
-	        if (heightPosition != 50) {
-	          logo.style.alignItems = 'center'; // Aligne au centre
-	        } else {
-	          logo.style.alignItems = '';// Réinitialise l'attribut
-	        }
 
 	      //MARGIN TOP DOUTE
 	        // Positions de départ et de fin pour la largeur

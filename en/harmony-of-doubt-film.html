@@ -246,15 +246,7 @@
 	        logo.style.height = heightPosition < 50 ? '50px' : heightPosition + 'px';
 
 	      //CENTRAGE
-	        // Positions de départ et de fin pour la largeur
-	        const centragePositionA = -(4154-4054)/20;
-	        const centragePositionB = 0;
 
-	        // Calcul de la nouvelle largeur
-	        const centragePosition = centragePositionA + ((centragePositionB - centragePositionA) / (positionScrollB - positionScrollA)) * (scrollY - positionScrollA);
-
-	        // Assurez-vous que la largeur ne devient jamais négative
-	        image.style.transform = centragePosition < 0 ? 'translateX(0%)' : 'translateX(' + centragePosition + '%)';
 
 	      //MARGIN TOP DOUTE
 	        // Positions de départ et de fin pour la largeur

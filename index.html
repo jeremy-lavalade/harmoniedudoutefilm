@@ -190,6 +190,7 @@
 	        updateTopPosition();
 	    });
 	}
+
 	function updateLogoPosition() {
 	  const logo = document.getElementById('titre-header');
 	  const image = document.getElementById('header-doute');
@@ -208,7 +209,7 @@
 	        if (screenWidth < 380 || (screenWidth >= 1023 && screenWidth <= 1050)) {
 	            leftPositionA = screenWidth * 0.1 - 10;
 	        } else {
-	            leftPositionA = screenWidth * 0.1 - 85;
+	            leftPositionA = screenWidth * 0.1 - 75;
 	        }
 	        const leftPositionB = 0;
 
@@ -243,8 +244,17 @@
 
 	        // Assurez-vous que la largeur ne devient jamais négative
 	        logo.style.height = heightPosition < 50 ? '50px' : heightPosition + 'px';
-	        logo.style.alignItems = heightPosition < 50 ? '' : 'center';
 
+	      //CENTRAGE
+	        // Positions de départ et de fin pour la largeur
+	        const centragePositionA = 9.5;
+	        const centragePositionB = 0;
+
+	        // Calcul de la nouvelle largeur
+	        const centragePosition = centragePositionA + ((centragePositionB - centragePositionA) / (positionScrollB - positionScrollA)) * (scrollY - positionScrollA);
+
+	        // Assurez-vous que la largeur ne devient jamais négative
+	        image.style.transform = centragePosition < 0 ? 'translateX(0%)' : 'translateX(' + centragePosition + '%)';
 
 	      //MARGIN TOP DOUTE
 	        // Positions de départ et de fin pour la largeur

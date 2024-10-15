@@ -246,7 +246,11 @@
 	        logo.style.height = heightPosition < 50 ? '50px' : heightPosition + 'px';
 
 	      //CENTRAGE
-
+	         if (scrollY >= positionScrollB) {
+	            logo.style.alignItems = 'center'; // Centrer verticalement si la condition est remplie
+		        } else {
+	            logo.style.alignItems = ''; // Réinitialise align-items
+		        }
 
 	      //MARGIN TOP DOUTE
 	        // Positions de départ et de fin pour la largeur

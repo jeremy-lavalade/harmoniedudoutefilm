@@ -194,7 +194,8 @@
 	function updateLogoPosition() {
     const logo = document.getElementById('titre-header');
     const image = document.getElementById('header-doute');
-    if (logo) {
+    
+    if (logo && image) {
         const scrollY = window.scrollY;
         const screenWidth = window.innerWidth;
         const screenHeight = window.innerHeight;
@@ -203,21 +204,16 @@
         const positionScrollA = 0;
         const positionScrollB = Math.min(screenHeight * 0.3, screenWidth * 0.5);
 
-        // CENTRAGE DU TITRE-HEADER
+        // CENTRAGE ET DÉPLACEMENT TITRE-HEADER
         const logoWidth = 4054; // Largeur initiale de titre-header
-        const logoLeftPosition = (screenWidth - logoWidth) / 2;
-        logo.style.left = `${logoLeftPosition}px`;
+        const leftPositionA = (screenWidth - logoWidth) / 2; // Centré en position A
+        const leftPositionB = 0; // À gauche en position B
 
-        // LEFT POSITION
-        let leftPositionA;
-        if (screenWidth < 380 || (screenWidth >= 1023 && screenWidth <= 1050)) {
-            leftPositionA = screenWidth * 0.1 - 10;
-        } else {
-            leftPositionA = screenWidth * 0.1 - 75;
-        }
-        const leftPositionB = 0;
-        const leftPosition = leftPositionA + ((leftPositionB - leftPositionA) / (positionScrollB - positionScrollA)) * (scrollY - positionScrollA);
-        logo.style.left = leftPosition < 0 ? '0px' : `${leftPosition}px`;
+        // Calcul de la nouvelle position gauche pour titre-header
+        const leftPositionLogo = leftPositionA + ((leftPositionB - leftPositionA) / (positionScrollB - positionScrollA)) * (scrollY - positionScrollA);
+
+        // Applique la nouvelle position de titre-header
+        logo.style.left = leftPositionLogo < 0 ? '0px' : `${leftPositionLogo}px`;
 
         // TOP POSITION
         const topPositionA = Math.min(screenHeight * 0.25, screenWidth * 0.3);
@@ -231,10 +227,16 @@
         const heightPosition = heightPositionA + ((heightPositionB - heightPositionA) / (positionScrollB - positionScrollA)) * (scrollY - positionScrollA);
         logo.style.height = heightPosition < 50 ? '50px' : `${heightPosition}px`;
 
-        // CENTRAGE DU HEADER-DOUTE
+        // CENTRAGE ET DÉPLACEMENT HEADER-DOUTE
         const imageWidth = 4154; // Largeur initiale de header-doute
-        const imageLeftPosition = (screenWidth - imageWidth) / 2;
-        image.style.left = `${imageLeftPosition}px`;
+        const leftPositionImageA = (screenWidth - imageWidth) / 2; // Centré en position A
+        const leftPositionImageB = 0; // À gauche en position B
+
+        // Calcul de la nouvelle position gauche pour header-doute
+        const leftPositionImage = leftPositionImageA + ((leftPositionImageB - leftPositionImageA) / (positionScrollB - positionScrollA)) * (scrollY - positionScrollA);
+
+        // Applique la nouvelle position de header-doute
+        image.style.left = leftPositionImage < 0 ? '0px' : `${leftPositionImage}px`;
 
         // MARGIN TOP DOUTE
         const margintopPositionA = screenHeight * 0.01;
@@ -242,6 +244,7 @@
         const margintopPosition = margintopPositionA + ((margintopPositionB - margintopPositionA) / (positionScrollB - positionScrollA)) * (scrollY - positionScrollA);
         image.style.marginTop = margintopPosition < 0 ? '0' : `${margintopPosition}px`;
 
+        // Changement d'image en fonction du scroll (inchangé)
         if (topPosition < 0 && image.src.endsWith("doute-logo-film.webp")) {
             if (screenWidth < 380) {
                 applyTemporaryBlurTransition('titre-header', 400);
@@ -263,6 +266,7 @@
                 }, 50);
             }
         }
+
         if (topPosition > 0 && image.src.endsWith("doute.webp")) {
             applyTemporaryBlurTransition('titre-header', 400);
             setTimeout(() => {

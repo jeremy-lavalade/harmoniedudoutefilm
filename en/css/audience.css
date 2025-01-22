@@ -1,0 +1,48 @@
+#audience-container{
+  margin: 0px;
+  width: 100vw;
+  background-image: url('../images/fonds/ciel-bleu.webp');
+  background-size: cover; 
+  background-position: top center; 
+  background-repeat: no-repeat;
+  padding-top: max(90px,8vw);
+  padding-bottom: max(5vw,15px);
+}
+#audience{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#audience p{
+  width: 60vw;
+}
+#audience img{
+  width: 35vw;
+  margin-right: 5vw;
+}
+.cible{
+  background-color: #E8DCCC;
+  width: 100vw;
+  margin-bottom: 5vw;
+  padding-top: 5vw;
+  padding-bottom: 5vw;
+}
+.cible img{
+  width: 90vw;
+}
+
+@media (max-width: 1024px) {
+  #audience{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #audience p{
+    width: 90vw;
+    margin-bottom: 5vw;
+  }
+  #audience img{
+    width: 80vw;
+    margin-left: 10vw;
+  }
+}

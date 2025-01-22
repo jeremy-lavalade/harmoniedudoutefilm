@@ -1,0 +1,342 @@
+/*ESPACE ET PLANETE*/
+#film1 {
+  width: 100vw;
+  height:max-content;
+  background-image: url('../images/film/espace.webp');
+  background-position: center; 
+  background-repeat: no-repeat;
+  padding-top: max(10vw,10vh);
+}
+/*Espace - Computer*/
+  #espace-container.computer{
+    width: 90vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  #espace-planete.computer{
+    display: flex;
+    flex-direction: row;
+    width: 57vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #espace-planete-photo.computer{
+    position: relative;
+    width: 30vw;
+  }
+  #espace-ile.computer{
+    position: relative;
+    width: 20vw;
+    height: 20vw;
+  }
+  #espace-cible.computer{
+    position :relative;
+    height: 30vw;
+    width: 7vw ;
+  }
+  #espace-cible.computer img{
+    position :relative;
+    top: 3vw;
+    left:2vw;
+    rotate: 270deg;
+    height: 24vw;
+    width: 19.5vw;
+    z-index: 2;
+  }
+  #espace-infos-LPR.computer{
+    display: grid;
+    width: min-content;
+    padding-right:5vw ;
+  }
+  .espace-zoneinfo.computer{
+    margin-top: 3vw;
+  }
+  .espace-zoneinfo.computer h2{
+    white-space: nowrap;
+    margin: 0;
+  }
+  .espace-zoneinfo.computer p{
+    margin: 0;
+  }
+/*Espace - Tablette*/
+  #espace-container.tablette{
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #espace-planete.tablette{
+    display: flex;
+    flex-direction: row;
+    width: 70vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #espace-planete-photo.tablette{
+    position: relative;
+    width: 38vw;
+    margin-left: -5vw;
+  }
+  #espace-ile.tablette{
+    position: relative;
+    width: 25vw;
+  }
+  #espace-cible.tablette{
+    position :relative;
+    height: 25vw;
+    width: 10vw ;
+  }
+  #espace-cible.tablette img{
+    position :relative;
+    top: -1.5vw;
+    left:-15vw;
+    rotate: 90deg;
+    height: 28vw;
+    width: calc(25vw - 0.5vw);
+    z-index: 2;
+  }
+  #espace-infos-LPR.tablette{
+    display: flex;
+    width: 90vw;
+    justify-content: space-between;
+    padding-right:0vw;
+  }
+  .espace-zoneinfo.tablette{
+    margin-top: 3vw;
+    width: min-content;
+  }
+  .espace-zoneinfo.tablette h2{
+    white-space: nowrap;
+    margin: 0;
+  }
+  .espace-zoneinfo.tablette p{
+    margin: 0;
+  }
+/*Espace - Mobile*/
+  #espace-container.mobile{
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #espace-planete.mobile{
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #espace-planete-photo.mobile{
+    position: relative;
+    width: 70vw;
+    margin-top: min(100px,8vw);
+    left: -4.5vw;
+  }
+  #espace-ile.mobile{
+    position: relative;
+    width: 49vw;
+    margin-bottom: 10vw;
+    z-index: 3;
+  }
+  #espace-cible.mobile{
+    position :relative;
+    height: 14vw;
+    width: 90vw ;
+  }
+  #espace-cible.mobile img{
+    position :relative;
+    top: -34vw;
+    left: 20.6vw;
+    rotate: 180deg;
+    height: 48vw;
+    width: 48.5vw;
+    z-index: 2;
+  }
+  #espace-infos-LPR.mobile{
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    justify-content: space-between;
+  }
+  .espace-zoneinfo.mobile{
+    margin-top: 3vw;
+    width: 80vw;
+    margin-bottom: 5vw;
+  }
+  .espace-zoneinfo.mobile h2{
+    white-space: nowrap;
+    margin: 0;
+  }
+  .espace-zoneinfo.mobile p{
+    margin: 0;
+  }
+#film-container-nuages{
+  position: relative;
+  width: 100vw;
+  height : 40vw;
+  overflow: hidden;
+  margin-bottom: -20vw;
+}
+#film-container-nuages img {
+  position: absolute;
+  top: 0;
+  left: 40%;
+  transform: translateX(-40%); /* Centre l'image horizontalement */
+  width: 130vw;
+  z-index: 5;
+}
+#film2 {
+  width: 100vw;
+  height: calc(3280*100vw/4928);
+  background-image: url('../images/film/mer.webp');
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat;
+  padding-bottom: calc(max(150px,20vw)/(2));
+}
+#film2 h3{
+  padding-top:16vw
+}
+#film2 h4{
+  padding-top:17vw
+}
+#film-objectifs{
+  position: relative;
+  padding-top: 5vw;
+  display: flex;
+  flex-direction: row;
+  width: max-content;
+}
+#film-objectifs img{
+  height: 4vw;
+  position: relative;
+  top: -2vw;
+}
+#film-transition-container{
+  width: 100vw;
+  height: calc(max(70px,14.3vw)/2);
+}
+#parasols-ligne1{
+  position: relative;
+  top: calc(max(70px,14.3vw)/(-2));
+  left: calc(max(70px,14.3vw)/(-2));
+  width: calc(100vw + max(70px,14.3vw)/2);
+  height: max(70px,14.3vw);
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+#parasols-ligne2{
+  position: relative;
+  top: calc(max(70px,14.3vw)/(-1));
+  left: 0;
+  width: 100vw;
+  height: max(70px,14.3vw);
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+#film3 {
+  width: 100vw;
+  padding: 5vw 0px;
+  background-image: url('../images/film/architecture-ciel.webp');
+  background-size: 100% 100%;
+  background-position: center; 
+  background-repeat: no-repeat;
+}
+#film3 img{
+  width: 91.5vw;
+}
+#film3b {
+  width: 100vw;
+  height: calc(2980*100vw/3200);
+  position: relative;
+  top: -1px;
+  margin-bottom: -1px;
+  background-image: url('../images/film/architecture.webp');
+  background-size: cover;
+  background-position: center; 
+  background-repeat: no-repeat;
+}
+#film3c {
+  width: 100vw;
+  position: relative;
+  height: max-content;
+  padding-bottom: 5vw;
+  top: -1px;
+  margin-bottom: -1px;
+  background-image: url('../images/film/architecture-bas.webp');
+  background-size: 100% 100%;
+  background-position: center; 
+  background-repeat: no-repeat;
+}
+#film3c img{
+  position: relative;
+  width: 70vw;
+  top: -25vw;
+  rotate: -5deg;
+  margin: 15vw;
+  margin-bottom: -25vw;
+}
+#film3c h4{
+  margin: 0px 20vw;
+  margin-bottom: 2vw;
+}
+#film-photos-container{
+  display: grid;
+  gap: 5vw;
+  width: 90vw;
+  margin: 5vw;
+  grid-template-columns: repeat(3, 1fr); 
+}
+#film-photos-container img{
+  rotate: 0deg;
+  width: 100%;
+  top: 0;
+  left: 0;
+  margin:0
+}
+@media (max-width: 1024px) {
+  #film-photos-container{
+    grid-template-columns: repeat(2, 1fr);
+  }
+  #film2 {
+    width: 100vw;
+    height: auto;
+    background-image: url('../images/film/mer.webp');
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+  }
+  #film2 h3{
+    padding-top:18vw;
+    white-space: nowrap;
+  }
+  #film2 h4{
+    padding-top:4vw
+  }
+}
+@media (max-width: 768px) {
+  #film-photos-container{
+    grid-template-columns: repeat(1, 1fr);
+  }
+  #film2 h3{
+    white-space: wrap;
+    left: 0;
+    transform: translateX(0);
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+  #film2 h3{
+    left: 0;
+    transform: translateX(0);
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+}

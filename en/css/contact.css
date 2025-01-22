@@ -1,0 +1,114 @@
+#contact-container{
+  margin: 0px;
+  width: 100vw;
+  background-image: url('../images/fonds/ciel-bleu.webp');
+  background-size: cover; 
+  background-position: top center; 
+  background-repeat: no-repeat;
+  padding-top: max(90px,8vw);
+  padding-bottom: max(5vw,15px);
+}
+#intro-contact-form{
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  margin-bottom: -10vw;
+  margin-top: -15vw;
+  justify-content: space-between;
+}
+#spot1{
+  width: 20vw;
+  height: calc(20vw * 762/740);
+  rotate: -90deg;
+}
+#spot2{
+  width: 20vw;
+  height: calc(20vw * 762/740);
+  rotate: -90deg;
+  transform: scaleY(-1);
+}
+#contact-form{
+  width: 80vw;
+  margin: 0 10vw;
+}
+.form-field {
+  margin-bottom: 15px;
+  width: 80vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #343737;
+  font-weight: bold;
+}
+.form-field input[type="text"]{
+  width: 37.5vw;
+  margin: 0px;
+  height: 4vw;
+  font-size: 2vw;
+  font-family: Ryman Eco;
+  font: italic;
+  color: #343737;
+  font-weight: bold;
+  background-color:#E8DCCC;
+  border: 2px #343737 solid;
+  padding-left: 15px;
+}
+.form-field input[type="email"],
+.form-field input[type="tel"],
+.form-field textarea {
+  width: 80vw;
+  height: 4vw;
+  font-size: 2vw;
+  font-family: Ryman Eco;
+  font: italic;
+  background-color:#E8DCCC;
+  border: 2px #343737 solid;
+  padding-left: 15px;
+  color: black;
+  font-weight: bold;
+}
+.form-field textarea {
+  height: calc(3 * 4vw);
+  padding-top: 15px; 
+  padding-bottom: 15px;
+}
+#equipe-pellicule {
+    width: 100vw; 
+    height: calc(566*max(200vw,1800px)/6329);
+    background-image: url('../images/equipe/pellicule.webp'); 
+    background-size: max(200vw,1800px);
+    background-repeat: repeat-x; 
+    animation: scroll-right 100s linear infinite;
+    margin-bottom: -0.5vw;
+    margin-top: 3vw;
+}
+@keyframes scroll-right {
+    from {
+        background-position: 0; 
+    }
+    to {
+        background-position: max(200vw,1400px);
+    }
+}
+@media (max-width: 1024px) {
+  .form-field input[type="text"]{
+    width: 35vw;
+  }
+}
+@media (max-width: 767px) {
+  .form-field input[type="text"]{
+    width: 32.5vw;
+  }
+  .form-field input[type="text"],
+  .form-field input[type="email"],
+  .form-field input[type="tel"],
+  .form-field textarea{
+    font-size: 4vw;
+    height: 8vw;
+  }
+}
+@media (max-width: 550px) {
+  #intro-contact-form{
+    margin-bottom: -5vw;
+  }
+}

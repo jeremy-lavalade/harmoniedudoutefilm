@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- URL de la page d'accueil -->
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/harmony-of-doubt-film</loc>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Sections principales listées dans le footer -->
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/movie</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/movie/la-pointe-rose</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/movie/objectives-of-the-film</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/movie/synopsis</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/film/scenario-hdd.pdf</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/film/dossier-artistique-hdd.pdf</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/team</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/team/jeremy-lavalade</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/team/pablo-freitas</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/learn-more</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/learn-more/origins-of-the-project</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/learn-more/inspirations</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/learn-more/audience</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/learn-more/tonality</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/learn-more/graphic-design</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/learn-more/contact</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/support-us</loc>
+    </url>
+    <url>
+        <loc>https://www.harmoniedudoutefilm.fr/en/legal</loc>
+    </url>
+</urlset>

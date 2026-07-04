@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Harmony of Doubt — The Film</title>
+	<meta name="description" content="Facing ecological challenges, Harmony of Doubt is a suspense film exploring the balance between critical thinking and passivity, humans and the environment.">
+	<meta name="theme-color" content="#0A1226">
+	<link rel="icon" type="image/png" href="https://www.harmoniedudoutefilm.fr/seo/favicon-hdd.png">
+	<meta property="og:title" content="Harmony of Doubt — The Film">
+	<meta property="og:description" content="What if the key to harmony was lying in the depth of doubts... Discover the teaser.">
+	<meta property="og:image" content="https://www.harmoniedudoutefilm.fr/images/affiche/affiche-hdd.jpg">
+	<meta property="og:url" content="https://www.harmoniedudoutefilm.fr">
+	<link rel="canonical" href="https://www.harmoniedudoutefilm.fr">
+	<link rel="stylesheet" href="../style.css?v=affiche19">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
+	<script src="../script.js?v=affiche19" defer></script>
+</head>
+
+<body class="accueil">
+
+<!-- JAUGE DE PROFONDEUR -->
+	<aside id="jauge" aria-hidden="true">
+		<span id="jauge-valeur">0 m</span>
+		<div id="jauge-piste"><div id="jauge-curseur"></div></div>
+	</aside>
+
+<!-- MUSIQUE D'AMBIANCE -->
+	<audio id="ambiance" src="../audio/ambiance.m4a" loop preload="none"></audio>
+	<button id="son" class="muet" aria-label="Turn on the ambient music" aria-pressed="false">
+		<span class="son-barre"></span><span class="son-barre"></span><span class="son-barre"></span><span class="son-barre"></span>
+	</button>
+
+<!-- HEADER -->
+	<header id="entete">
+		<a class="entete-logo" href="index.html" aria-label="Harmony of Doubt — Home">
+			<img class="entete-logo-icone" src="../images/logo-hdd/logo.webp" alt="">
+			<span class="entete-logo-texte">
+				<img src="../images/logo-hdd/harmony-blanc.png" alt="Harmony">
+				<img src="../images/logo-hdd/of-doubt-blanc-o-simple.png" alt="of Doubt">
+			</span>
+		</a>
+		<nav id="entete-nav">
+			<a href="film-universe.html">The Film Universe</a>
+			<a href="film-objectives.html">The Objectives</a>
+			<a href="team.html">The Team</a>
+		<a class="lang" href="../index.html" lang="fr" aria-label="Version française">FR</a></nav>
+		<button id="burger" aria-label="Open the menu" aria-expanded="false">
+			<span></span><span></span><span></span>
+		</button>
+	</header>
+
+	<div id="menu-mobile">
+		<button id="menu-fermer" aria-label="Close the menu">✕</button>
+		<a href="film-universe.html">The Film Universe</a>
+		<a href="film-objectives.html">The Objectives</a>
+		<a href="team.html">The Team</a>
+		<span class="menu-note">A film by Jérémy Lavalade &amp; Pablo Freïtas</span>
+		<a href="../index.html" lang="fr">Version française</a>
+	</div>
+
+<!-- TITRE ANIMÉ : du centre de l'écran vers le header -->
+	<div id="titre-anime" aria-hidden="true">
+		<img src="../images/logo-hdd/harmony-blanc.png" alt="" data-centre="1.504" style="width: 96.99%; margin-left: 1.504%;">
+		<span class="titre-doute" style="width: 100%; margin-left: 0;">
+			<img class="doute-arches" src="../images/logo-hdd/of-doubt-blanc.png" alt="">
+			<img class="doute-simple" src="../images/logo-hdd/of-doubt-blanc-o-simple.png" alt="">
+		</span>
+		<span class="titre-lefilm">The Film</span>
+	</div>
+
+<!-- HERO : L'AFFICHE VIVANTE -->
+	<section id="ciel">
+		<p class="ciel-presente">Jérémy Lavalade &amp; Pablo Freïtas present</p>
+		<h1 id="titre-espace" aria-label="Harmony of Doubt — The Film"></h1>
+		<p class="ciel-tagline">What if the key to harmony was lying in the depth of doubts...</p>
+		<div class="ciel-actions">
+			<a class="btn light" href="#court-metrage">Watch the short film</a>
+			<a class="btn ghost" href="film-universe.html">Discover the universe</a>
+		</div>
+		<a class="indicateur-scroll" href="#film">Dive</a>
+	</section>
+
+<!-- LE FILM EN TROIS CHAPITRES -->
+	<section id="film" class="section">
+		<div class="contenu">
+			<p class="kicker reveal">The film</p>
+			<h2 class="titre-section reveal">An island. A harmony.<br>A doubt.</h2>
+
+			<ol class="chapitres">
+				<li class="chapitre reveal">
+					<span class="chapitre-num">01</span>
+					<h3>The last land</h3>
+					<p>The tragic rise in sea level has isolated the <b>last remaining landmass on the planet</b>: the Island of La Pointe Rose. For decades, a population has lived there peacefully, free and without negative thoughts.</p>
+				</li>
+				<li class="chapitre reveal delai1">
+					<span class="chapitre-num">02</span>
+					<h3>Tana</h3>
+					<p>One morning, Tana, a well-respected <b>journalist</b>, finds a newspaper in the street. This seemingly innocuous event, however, sends her into a disturbing tailspin.</p>
+				</li>
+				<li class="chapitre reveal delai2">
+					<span class="chapitre-num">03</span>
+					<h3>The illusion</h3>
+					<p>With a dull anxiety, she intuitively feels that <b>the harmony reigning on the island might be just an illusion</b>. She must understand. She is not sure. She even doubts whether she truly wants to know…</p>
+				</li>
+			</ol>
+		</div>
+	</section>
+
+<!-- LE COURT-MÉTRAGE PILOTE -->
+	<section id="court-metrage" class="section" style="padding-top: 0;">
+		<div class="contenu">
+			<p class="kicker reveal">The teaser</p>
+			<h2 class="titre-section reveal">The first minutes of the film</h2>
+			<div class="video-cadre reveal" data-video="3J11tVqbidg" data-titre="Teaser — Harmony of Doubt">
+				<img src="https://i.ytimg.com/vi/3J11tVqbidg/maxresdefault.jpg" alt="Pilot short film of Harmony of Doubt" loading="lazy" decoding="async">
+				<button class="video-play" aria-label="Play the teaser"></button>
+			</div>
+			<p class="video-legende reveal">Screened on June 19, 2026 at the Cinéma Le Central, Puteaux</p>
+			<div class="centre reveal" style="margin-top: clamp(1.6rem, 3vw, 2.2rem);">
+				<a class="btn light" href="screening-night.html">Relive the screening night</a>
+			</div>
+		</div>
+	</section>
+
+<!-- MOODBOARD -->
+	<section id="moodboard" class="section" style="padding-top: 0;">
+		<div class="contenu">
+			<figure class="figure-cadre reveal">
+				<img src="../images/accueil/moodboard.webp" alt="Harmony of Doubt's moodboard" loading="lazy" decoding="async">
+				<figcaption>Moodboard — the film's visual intentions</figcaption>
+			</figure>
+		</div>
+	</section>
+
+<!-- LA PLONGÉE : la mer s'écrase, on passe sous la surface -->
+	<section id="plongee" aria-label="Diving beneath the surface">
+		<div id="plongee-sticky">
+			<div id="plongee-canvas"></div>
+			<div id="plongee-voile"></div>
+			<div id="plongee-texte"><p>Beneath the surface, doubt.</p></div>
+		</div>
+	</section>
+
+<!-- LES PROFONDEURS -->
+	<section id="profondeurs" class="section">
+		<div class="citation-bloc">
+			<img class="encre-vers-blanc" src="../images/accueil/cocteau.webp" alt="Drawing by Jean Cocteau" loading="lazy" decoding="async" data-parallax="0.05">
+			<img class="encre-vers-blanc" src="../images/accueil/citation-en.webp" alt="“Harmony is the reconciliation of opposites, not the suppression of differences.” — Jean Cocteau" loading="lazy" decoding="async" data-parallax="0.03">
+		</div>
+
+		<div class="contenu" id="objectifs">
+			<p class="kicker reveal">The objectives</p>
+			<h2 class="titre-section reveal">Evoking the joy<br>of self-questioning</h2>
+			<p class="texte-courant reveal" style="margin-bottom: clamp(2rem, 4.5vw, 3.4rem);">Through a quest for <b>balance between harmony and doubt, critical thinking and passivity, humans and the environment</b>, we want to convey the pleasure of boldness and self-questioning, the joy of actively participating, at one's own level, in the sustainable evolution of society…</p>
+
+			<div class="cartes-objectifs">
+				<article class="carte-verre reveal">
+					<span class="vs">Balance 01</span>
+					<h3>Harmony &amp; Doubt</h3>
+					<p>Seeking peace without giving up the boldness to question what surrounds us.</p>
+				</article>
+				<article class="carte-verre reveal delai1">
+					<span class="vs">Balance 02</span>
+					<h3>Critical Thinking &amp; Passivity</h3>
+					<p>Questioning what seems obvious rather than falling asleep in the comfort of illusion.</p>
+				</article>
+				<article class="carte-verre reveal delai2">
+					<span class="vs">Balance 03</span>
+					<h3>Humans &amp; Environment</h3>
+					<p>Taking part, each at their own level, in the sustainable evolution of society.</p>
+				</article>
+			</div>
+
+			<div class="centre reveal">
+				<a class="btn light" href="film-objectives.html">The objectives in detail</a>
+			</div>
+		</div>
+	</section>
+
+<!-- L'ÉQUIPE -->
+	<section id="equipe" class="section" style="background-color: var(--nuit-0);">
+		<div class="contenu">
+			<div class="duo">
+				<figure class="carte-realisateur verre-liquide reveal" style="max-width: 380px; margin: 0 auto;">
+					<a class="portrait" href="jeremy-lavalade.html" aria-label="Discover Jérémy Lavalade's journey">
+						<span class="voir-parcours" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+						<img src="../images/accueil/jeremy-detoure.webp" width="1080" height="1404" alt="Jérémy Lavalade, producer and co-director, holding the film's clapperboard" loading="lazy" decoding="async">
+					</a>
+					<figcaption>
+						<span class="nom">Jérémy Lavalade</span>
+						<span class="role">Producer &amp; co-director</span>
+					</figcaption>
+				</figure>
+				<div>
+					<p class="kicker reveal">The team</p>
+					<h2 class="titre-section reveal">The people<br>behind the film</h2>
+					<p class="texte-courant reveal">Around him, artistic, production and technical teams embarked on the same adventure: bringing La Pointe Rose to the screen.</p>
+					<div class="equipe-actions reveal delai1" style="margin-top: 1.6rem;">
+						<a class="btn light" href="team.html">Meet the whole team</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<!-- LES PARTENAIRES -->
+	<section id="partenaires" class="section" style="padding-top: clamp(2.5rem, 6vw, 4rem);">
+		<div class="contenu" style="text-align: center;">
+			<p class="kicker reveal">They support us</p>
+			<h2 class="titre-section reveal">The film's partners</h2>
+			<div class="partenaires-grille reveal">
+				<img src="../images/partenaires-affiche/logo-01.png" width="614" height="301" alt="Ville de Puteaux" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-02.png" width="614" height="305" alt="Niort Agglo — Agglomération du Niortais" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-03.png" width="595" height="440" alt="Seven Eleven Rent" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-04.png" width="575" height="440" alt="LBHC — Le Boutique Hotels Collection" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-05.png" width="556" height="440" alt="Le Grand Large, Oléron" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-06.png" width="614" height="355" alt="Le Moulin du Roc — Scène nationale à Niort" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-07.png" width="614" height="420" alt="Médiathèque Pierre-Moinot" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-08.png" width="560" height="440" alt="Immo Mousquetaires" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-09.png" width="395" height="440" alt="Relais Équestre Équinoxe — Saint-Rémy" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-10.png" width="614" height="402" alt="Conforama" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-11.png" width="614" height="317" alt="Commune de Saint-Rémy" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-12.png" width="565" height="440" alt="Oléron Marennes — Île d'Oléron, Bassin de Marennes" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-13.png" width="614" height="407" alt="Martine Allouche — Sophrologist" loading="lazy" decoding="async">
+			</div>
+		</div>
+	</section>
+
+<!-- FOOTER -->
+	<footer id="pied">
+		<div class="pied-haut">
+			<div class="pied-marque">
+				<img src="../images/logo-hdd/titre-en-blanc.png" alt="Harmony of Doubt">
+				<p>A suspense film about the balance between critical thinking and passivity, humans and the environment.</p>
+			</div>
+			<nav class="pied-col" aria-label="Explorer">
+				<h4>Explore</h4>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="film-universe.html">The Film Universe</a></li>
+					<li><a href="film-objectives.html">The Film Objectives</a></li>
+					<li><a href="team.html">The Team</a></li>
+				</ul>
+			</nav>
+			<nav class="pied-col" aria-label="Contenu">
+				<h4>Content</h4>
+				<ul>
+					<li><a href="index.html#court-metrage">The teaser</a></li>
+					<li><a href="screening-night.html">The screening night</a></li>
+					<li><a href="screening-night.html#making-of">The making of</a></li>
+					<li><a href="press.html">Press coverage</a></li>
+					<li><a href="../film/scenario-hdd.pdf">The script (PDF, in French)</a></li>
+					<li><a href="../film/dossier-de-presse-hdd.pdf">The press kit (PDF, in French)</a></li>
+				</ul>
+			</nav>
+			<div class="pied-col">
+				<h4>Contact</h4>
+				<ul>
+					<li><a href="mailto:contact@harmoniedudoutefilm.fr">contact@harmoniedudoutefilm.fr</a></li>
+				</ul>
+				<div class="pastilles" style="margin-top: 0.9rem;">
+					<a class="pastille" href="https://www.instagram.com/harmoniedudoutefilm/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
+					<a class="pastille" href="https://www.linkedin.com/company/l-harmonie-du-doute-film/" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3.6a2.2 2.2 0 1 1-.02 4.4A2.2 2.2 0 0 1 5 3.6zM3.1 9.4h3.8V20.4H3.1zM9 9.4h3.64v1.5h.05c.5-.9 1.74-1.85 3.58-1.85 3.83 0 4.53 2.4 4.53 5.5v5.85h-3.8v-5.18c0-1.24-.02-2.83-1.81-2.83-1.81 0-2.09 1.35-2.09 2.74v5.27H9z"/></svg></a>
+					<a class="pastille" href="https://www.youtube.com/@HarmonieduDouteFilm" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.27 5 12 5 12 5s-6.27 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.76 1.77C5.73 19 12 19 12 19s6.27 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15.3V8.7l5.7 3.3z"/></svg></a>
+				</div>
+			</div>
+		</div>
+		<div class="pied-bas">
+			<span>©2026 L'Harmonie du Doute</span>
+			<a href="legal.html">Legal Notice</a>
+		</div>
+	</footer>
+
+</body>
+
+</html>

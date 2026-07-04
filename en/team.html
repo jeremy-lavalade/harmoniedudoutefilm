@@ -2,425 +2,413 @@
 <html lang="en">
 
 <head>
-	<!-- SECTION A MODIFIER -->
-	<title>The Team of the Movie</title>
-	<link rel="stylesheet" href="css/equipe.css">
-
-	<!-- SECTION A MODIFIER SELON SI PAGE PRINCIPALE OU SECONDAIRE -->
-	<link rel="stylesheet" href="style.css">
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-	<script src="script.js"></script>
-
-	<!-- PAS DE MODIFICATION REQUISE -->
-	<meta name="keywords" content="cinema, thriller, ecology, dystopy">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>The Team — Harmony of Doubt</title>
+	<meta name="description" content="More than seventy passionate people bring La Pointe Rose to the screen: meet the whole team of Harmony of Doubt.">
+	<meta name="theme-color" content="#0A1226">
 	<link rel="icon" type="image/png" href="https://www.harmoniedudoutefilm.fr/seo/favicon-hdd.png">
-	<meta name="description" content="Facing ecological challenges, Harmony of Doubt is a suspense movie exploring the balance between critical thinking and passivity, humans and the environment.">
-	<!-- Balises Open Graph pour intégration avec les réseaux sociaux -->
-	<meta property="og:title" content="Harmony of Doubt - Film">
-	<meta property="og:description" content="Facing ecological challenges, Harmony of Doubt is a suspense movie exploring the balance between critical thinking and passivity, humans and the environment.">
-	<meta property="og:image" content="https://www.harmoniedudoutefilm.fr/seo/logo-hdd.png">
-	<meta property="og:url" content="https://www.harmoniedudoutefilm.fr">
-	<meta property="og:site_name" content="L'Harmonie du Doute - Film">
-	<!-- Liens préchargés pour améliorer les performances de chargement -->
-	<link rel="preconnect" href="https://www.harmoniedudoutefilm.fr">
-	<!-- Intégration de la feuille de style pour le navigateur Chrome sur Android -->
-	<meta name="theme-color" content="#ffffff">
-	<!-- Canonical URL pour éviter le contenu dupliqué -->
-	<link rel="canonical" href="https://www.harmoniedudoutefilm.fr">
-	<!-- Sitemap et Robots pour guider les crawlers des moteurs de recherche -->
-	<link rel="sitemap" type="application/xml" title="Sitemap" href="https://www.harmoniedudoutefilm.fr/seo/sitemap.xml">
-	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
+	<link rel="stylesheet" href="../style.css?v=affiche19">
+	<script src="../script.js?v=affiche19" defer></script>
 </head>
 
 <body>
 
 <!-- HEADER -->
-	<div id="header"></div>
+	<header id="entete">
+		<a class="entete-logo" href="index.html" aria-label="Harmony of Doubt — Home">
+			<img class="entete-logo-icone" src="../images/logo-hdd/logo.webp" alt="">
+			<span class="entete-logo-texte">
+				<img src="../images/logo-hdd/harmony-blanc.png" alt="Harmony">
+				<img src="../images/logo-hdd/of-doubt-blanc-o-simple.png" alt="of Doubt">
+			</span>
+		</a>
+		<nav id="entete-nav">
+			<a href="film-universe.html">The Film Universe</a>
+			<a href="film-objectives.html">The Objectives</a>
+			<a href="team.html" aria-current="page">The Team</a>
+		<a class="lang" href="../equipe.html" lang="fr" aria-label="Version française">FR</a></nav>
+		<button id="burger" aria-label="Open the menu" aria-expanded="false">
+			<span></span><span></span><span></span>
+		</button>
+	</header>
 
-<!-- CORPS DE LA PAGE -->
-	<div id="equipe1">
-		<h1 class="light-font center" class="Ymargin15">The Team</h1>
-		<div id="equipe-intro-container" class="Xmargin5">
-			<p class="light-font justify">To ensure the successful presentation of Harmony of Doubt in theaters, we have structured our work around <b><span class="pink-font" style="text-shadow: 0.2px 0.2px 0px #343737;">three main projects</span></b>:<br><br>
-			
-			1.	Writing the <b><span class="pink-font" style="text-shadow: 0.2px 0.2px 0px #343737;">script</span></b>,<br>
-			2.	Production of the <b><span class="pink-font" style="text-shadow: 0.2px 0.2px 0px #343737;">trailer of the film </span></b>(short film),<br>
-			3.	Production of the <b><span class="pink-font" style="text-shadow: 0.2px 0.2px 0px #343737;">entire movie</span></b>.<br><br>
+	<div id="menu-mobile">
+		<button id="menu-fermer" aria-label="Close the menu">✕</button>
+		<a href="index.html">Home</a>
+		<a href="film-universe.html">The Film Universe</a>
+		<a href="film-objectives.html">The Objectives</a>
+		<a href="team.html">The Team</a>
+	</div>
 
-			Our support services team plays a key role by providing technical and operational assistance to all divisions, which facilitates coordination among project members and the achievement of our strategic goals.
-			</p>
-			<img src="images/equipe/intro.webp">
+<!-- HERO -->
+	<section class="hero-page hero-equipe">
+		<p class="kicker">The team</p>
+		<h1>The people<br>behind the film</h1>
+		<p class="hero-sous">A human adventure born of encounters: more than seventy passionate people from business, design, engineering, film, fashion and journalism schools.</p>
+	</section>
+
+<!-- RÉALISATEURS -->
+	<section class="section" id="realisateurs" style="padding-top: clamp(2.5rem, 6vw, 4rem);">
+		<div class="contenu">
+			<p class="kicker reveal" style="text-align: center;">The directors</p>
+			<div class="realisateurs-grille" style="margin-top: 1.4rem;">
+				<figure class="carte-realisateur reveal">
+					<a class="portrait" href="jeremy-lavalade.html" aria-label="Discover Jérémy Lavalade's journey">
+						<span class="voir-parcours" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+						<img src="../images/equipe/jeremy-lavalade.webp" alt="Jérémy Lavalade" loading="lazy" decoding="async">
+					</a>
+					<figcaption>
+						<span class="nom">Jérémy Lavalade</span>
+						<span class="role">Co-director &amp; producer</span>
+						<div class="pastilles">
+							<a class="pastille petite" href="mailto:jeremy.lavalade@harmoniedudoutefilm.fr" aria-label="Write to Jérémy Lavalade"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6.5L20.5 7"/></svg></a>
+							<a class="pastille petite" href="https://www.instagram.com/jeremylvld/" aria-label="Jérémy Lavalade on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
+						</div>
+					</figcaption>
+				</figure>
+				<figure class="carte-realisateur reveal delai1">
+					<a class="portrait" href="pablo-freitas.html" aria-label="Discover Pablo Freïtas's journey">
+						<span class="voir-parcours" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+						<img src="../images/equipe/pablo-freitas.webp" alt="Pablo Freïtas" loading="lazy" decoding="async">
+					</a>
+					<figcaption>
+						<span class="nom">Pablo Freïtas</span>
+						<span class="role">Co-director</span>
+						<div class="pastilles">
+							<a class="pastille petite" href="mailto:contact@harmoniedudoutefilm.fr" aria-label="Write to the team"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6.5L20.5 7"/></svg></a>
+							<a class="pastille petite" href="https://www.instagram.com/pablofrts/" aria-label="Pablo Freïtas on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
+						</div>
+					</figcaption>
+				</figure>
+			</div>
+			<p class="texte-courant reveal" style="margin: 0 auto; text-align: center;">To bring Harmony of Doubt to movie theaters, the work is structured in three projects: writing the <b>script</b>, making the <b>teaser</b>, and then the <b>feature film</b>.</p>
+			<figure class="figure-cadre reveal" style="margin-top: clamp(2rem, 4.5vw, 3.2rem);">
+				<img src="../images/equipe/tournage-plage.jpg" alt="The short film's team and extras gathered on the shooting beach, under the La Pointe Rose totem" loading="lazy" decoding="async">
+				<figcaption>The team and the extras, together on the short film set</figcaption>
+			</figure>
 		</div>
-		<div id="equipe-pellicule"></div>
-	</div>
+	</section>
 
-	<div id="equipe2">
-        <h2 class="dark-font center ">Discover the team's members</h2>
-		<ul id="liste-equipe">
-	        <li data-target="#realisateurs">Directors</li>
-	        <li data-target="#scenaristes">P1 : Screenwriters</li>
-	        <li data-target="#p2-acting">P2 : Performers</li>
-	        <li data-target="#p2-artistique">P2 : Artistic Team</li>
-	        <li data-target="#p2-prod">P2 : Production Team</li>
-	        <li data-target="#p2-technique">P2 : Technical Team</li>
-	        <li data-target="#p2-postprod">P2 : Post-Production</li>
-	        <!--<li data-target="#p3-acting">P3 : Interprètes</li>
-	        <li data-target="#p3-artistique">P3 : Equipe Artistique</li>
-	        <li data-target="#p3-prod">P3 : Equipe Production</li>
-	        <li data-target="#p3-technique">P3 : Equipe Technique</li>
-	        <li data-target="#p3-postprod">P3 : Post-Production</li> -->
-	        <li data-target="#support">Support Team</li>
-	        <li data-target="#remerciements">Acknowledgments</li>
-	    </ul>
-	    <div id="equipe-content">
-	    	<section id="all" class="section">
-	        	<div class="section-container">
-	        		<div class="real-container">
-	        			<div class="photo-real" style="background-image: url('/data/photos-membres/jeremy-lavalade.webp');"></div>
-	                    <div class="contact-real">
-	                    	<p class="prenom-nom-real">Jérémy LAVALADE</p>
-	                    	<p class="poste-real">Co-Director & Producer</p>
-	                    	<p class="poste-description-real">The eye of a salesman, the soul of a filmmaker.</p>
-		                    <div class="real-buttons-container">
-		                    	<a class="contact-buttons-real" href="mailto:jeremy.lavalade@harmoniedudoutefilm.fr">
-							    	<img class="email-button-real" src="images/icons/contact/light-bkgd/contact-2.webp">
-							    </a>
-							    <a class="contact-buttons-real" href="https://www.instagram.com/jeremylvld/">
-							    	<img class="insta-button-real" src="images/icons/contact/light-bkgd/instagram-2.webp">
-							    </a>
-							    <a class="son-parcours" href="https://www.harmoniedudoutefilm.fr/en/equipe/jeremy-lavalade">His background</a>
-		                    </div>
-		                </div>
-	                </div>
+<!-- GÉNÉRIQUE PAR DÉPARTEMENTS -->
+	<section class="section" id="generique" style="background-color: var(--nuit-0);">
+		<div class="contenu">
 
-	                <div class="real-container">
-	        			<div class="photo-real" style="background-image: url('/data/photos-membres/pablo-freitas.webp');"></div>
-	                    <div class="contact-real">
-	                    	<p class="prenom-nom-real">Pablo FREÏTAS</p>
-	                    	<p class="poste-real">Co-Director</p>
-	                    	<p class="poste-description-real">From the front stage to the final clap, Pablo masters every nuance in his new role.</p>
-		                    <div class="real-buttons-container">
-		                    	<a class="contact-buttons-real" href="mailto:pablo.freitas@harmoniedudoutefilm.fr">
-							    	<img class="email-button-real" src="images/icons/contact/light-bkgd/contact-2.webp">
-							    </a>
-							    <a class="contact-buttons-real" href="https://www.instagram.com/pablofrts/">
-							    	<img class="insta-button-real" src="images/icons/contact/light-bkgd/instagram-2.webp">
-							    </a>
-							    <a class="son-parcours" href="https://www.harmoniedudoutefilm.fr/en/equipe/pablo-freitas">His background</a>
-		                    </div>
-		                </div>
-	                </div>
-	        	</div>
-	        </section>
-	        <section id="realisateurs" class="section">
-	        	<div class="section-container">
-	                <div class="real-container">
-	        			<div class="photo-real" style="background-image: url('/data/photos-membres/jeremy-lavalade.webp');"></div>
-	                    <div class="contact-real">
-	                    	<p class="prenom-nom-real">Jérémy LAVALADE</p>
-	                    	<p class="poste-real">Co-Director & Producer</p>
-	                    	<p class="poste-description-real">The eye of a salesman, the soul of a filmmaker.</p>
-		                    <div class="real-buttons-container">
-		                    	<a class="contact-buttons-real" href="mailto:jeremy.lavalade@harmoniedudoutefilm.fr">
-							    	<img class="email-button-real" src="images/icons/contact/light-bkgd/contact-2.webp">
-							    </a>
-							    <a class="contact-buttons-real" href="https://www.instagram.com/jeremylvld/">
-							    	<img class="insta-button-real" src="images/icons/contact/light-bkgd/instagram-2.webp">
-							    </a>
-							    <a class="son-parcours" href="https://www.harmoniedudoutefilm.fr/en/equipe/jeremy-lavalade">His background</a>
-		                    </div>
-		                </div>
-	                </div>
+		<div class="departement reveal">
+			<div class="departement-titre">
+				<h2>Screenwriters</h2>
+				<hr class="ligne-aube">
+			</div>
+			<div class="credits">
+				<a class="credit" href="https://www.instagram.com/clementinee.sat/" aria-label="Clémentine Sat on Instagram"><span class="credit-role">Co-Screenwriter</span><span class="credit-nom">Clémentine Sat</span></a>
+				<a class="credit" href="https://www.instagram.com/amleh_t/" aria-label="Thelma Trébel on Instagram"><span class="credit-role">Co-Screenwriter &amp; Dialogue Writer</span><span class="credit-nom">Thelma Trébel</span></a>
+			</div>
+		</div>
 
-	                <div class="real-container">
-	        			<div class="photo-real" style="background-image: url('/data/photos-membres/pablo-freitas.webp');"></div>
-	                    <div class="contact-real">
-	                    	<p class="prenom-nom-real">Pablo FREÏTAS</p>
-	                    	<p class="poste-real">Co-Director</p>
-	                    	<p class="poste-description-real">From the front stage to the final clap, Pablo masters every nuance in his new role.</p>
-		                    <div class="real-buttons-container">
-		                    	<a class="contact-buttons-real" href="mailto:pablo.freitas@harmoniedudoutefilm.fr">
-							    	<img class="email-button-real" src="images/icons/contact/light-bkgd/contact-2.webp">
-							    </a>
-							    <a class="contact-buttons-real" href="https://www.instagram.com/pablofrts/">
-							    	<img class="insta-button-real" src="images/icons/contact/light-bkgd/instagram-2.webp">
-							    </a>
-							    <a class="son-parcours" href="https://www.harmoniedudoutefilm.fr/en/equipe/pablo-freitas">His background</a>
-		                    </div>
-		                </div>
-	                </div>
-	        	</div>
-	        </section>
-	        <section id="scenaristes" class="section">
-	        	<div class="section-container">
-	        	</div>
-	        </section>
-	        <section id="p2-acting" class="section">
-	        	<div class="section-container">
-	        	</div>
-	        </section>
-	        <section id="p2-artistique" class="section">
-	        	<div class="section-container">
-	        	</div>
-	        </section>
-	        <section id="p2-prod" class="section">
-	        	<div class="section-container">
-	        	</div>
-	        </section>
-	        <section id="p2-technique" class="section">
-	        	<div class="section-container">
-	        	</div>
-	        </section>
-	        <section id="p2-postprod" class="section">
-	        	<div class="section-container">
-	        	</div>
-	        </section>
-	        <section id="p3-acting" class="section">
-	        	<div class="section-container">
-	        	</div>
-	        </section>
-	        <section id="p3-artistique" class="section">
-	        	<div class="section-container">
-	        	</div>
-	        </section>
-	        <section id="p3-prod" class="section">
-	        	<div class="section-container">
-	        	</div>
-	        </section>
-	        <section id="p3-technique" class="section">
-	        	<div class="section-container">
-	        	</div>
-	        </section>
-	        <section id="p3-postprod" class="section">
-	        	<div class="section-container">
-	        	</div>
-	        </section>
-	        <section id="support" class="section">
-	        	<div class="section-container">
-	        	</div>
-	        </section>
-	        <section id="remerciements" class="section">
-	        	<div class="section-container">
-	        	</div>
-	        </section>
-	    </div>
+		<div class="departement reveal">
+			<div class="departement-titre">
+				<h2>Cast</h2>
+				<hr class="ligne-aube">
+			</div>
+			<div class="credits">
+				<a class="credit" href="https://www.instagram.com/max.laure/" aria-label="Max Laure on Instagram"><span class="credit-role">Edgar</span><span class="credit-nom">Max Laure</span></a>
+				<div class="credit"><span class="credit-role">The child with the plates</span><span class="credit-nom">Florian Freïtas-Dupont</span></div>
+				<div class="credit"><span class="credit-role">The waiter</span><span class="credit-nom">Alban Dutheil</span></div>
+				<div class="credit"><span class="credit-role">The passenger</span><span class="credit-nom">Jonathan Pascal</span></div>
+				<div class="credit"><span class="credit-role">The women in the field</span><span class="credit-nom">Marie Manceau</span></div>
+				<div class="credit"><span class="credit-role">The women in the field &amp; Builder</span><span class="credit-nom">Anne de la Porte</span></div>
+				<div class="credit"><span class="credit-role">The doctor</span><span class="credit-nom">Laura Enaud</span></div>
+				<div class="credit"><span class="credit-role">The painter</span><span class="credit-nom">Yves Thenin</span></div>
+				<div class="credit"><span class="credit-role">The patient</span><span class="credit-nom">Arsène Godet</span></div>
+			</div>
+		</div>
 
-	</div>
+		<div class="departement reveal">
+			<div class="departement-titre">
+				<h2>Production</h2>
+				<hr class="ligne-aube">
+			</div>
+			<div class="credits">
+				<a class="credit" href="https://www.instagram.com/tom.m0t/" aria-label="Tom Mazière on Instagram"><span class="credit-role">Production Manager</span><span class="credit-nom">Tom Mazière</span></a>
+				<a class="credit" href="https://www.instagram.com/lucy.bto/" aria-label="Lucy Bateau on Instagram"><span class="credit-role">Production Coordinator</span><span class="credit-nom">Lucy Bateau</span></a>
+				<a class="credit" href="https://www.instagram.com/mm3duzaa/" aria-label="Zina Eid Hamzawiy on Instagram"><span class="credit-role">Production Coordinator</span><span class="credit-nom">Zina Eid Hamzawiy</span></a>
+			</div>
+		</div>
+
+		<div class="departement reveal">
+			<div class="departement-titre">
+				<h2>Casting</h2>
+				<hr class="ligne-aube">
+			</div>
+			<div class="credits">
+				<a class="credit" href="https://www.instagram.com/lucilemondesir/" aria-label="Lucile Mondésir on Instagram"><span class="credit-role">Casting Director</span><span class="credit-nom">Lucile Mondésir</span></a>
+				<a class="credit" href="https://www.instagram.com/laurianneeu/" aria-label="Laurianne Cordette on Instagram"><span class="credit-role">Casting Director</span><span class="credit-nom">Laurianne Cordette</span></a>
+			</div>
+		</div>
+
+		<div class="departement reveal">
+			<div class="departement-titre">
+				<h2>Art Department</h2>
+				<hr class="ligne-aube">
+			</div>
+			<div class="credits">
+				<a class="credit" href="https://www.instagram.com/philippineschmitt_/" aria-label="Philippine Schmitt on Instagram"><span class="credit-role">Script Supervisor</span><span class="credit-nom">Philippine Schmitt</span></a>
+				<div class="credit"><span class="credit-role">1st Assistant Director</span><span class="credit-nom">Nicolas Quintin</span></div>
+				<a class="credit" href="https://www.instagram.com/mathisrobinn/" aria-label="Mathis Robin on Instagram"><span class="credit-role">2nd Assistant Director</span><span class="credit-nom">Mathis Robin</span></a>
+				<a class="credit" href="https://www.instagram.com/anton_mulot/" aria-label="Anton Mulot on Instagram"><span class="credit-role">3rd Assistant Director</span><span class="credit-nom">Anton Mulot</span></a>
+				<a class="credit groupe-espace" href="https://www.instagram.com/ailec.bro/" aria-label="Célia Brozzu on Instagram"><span class="credit-role">Production Designer - Prep</span><span class="credit-nom">Célia Brozzu</span></a>
+				<a class="credit" href="https://www.instagram.com/_d.lucile/" aria-label="Lucile Delorme on Instagram"><span class="credit-role">Production Designer - Shoot</span><span class="credit-nom">Lucile Delorme</span></a>
+				<a class="credit" href="https://www.instagram.com/pablofrts/" aria-label="Serge Freïtas on Instagram"><span class="credit-role">Construction Manager</span><span class="credit-nom">Serge Freïtas</span></a>
+				<a class="credit" href="https://www.instagram.com/elodiebsvc/" aria-label="Élodie Besevic on Instagram"><span class="credit-role">Set Designer Assistant</span><span class="credit-nom">Élodie Besevic</span></a>
+				<a class="credit" href="https://www.instagram.com/mathis_willvin/" aria-label="Mathis Williard-Vincent on Instagram"><span class="credit-role">Set Designer Assistant</span><span class="credit-nom">Mathis Williard-Vincent</span></a>
+				<a class="credit" href="https://www.instagram.com/l34k1_/" aria-label="Léa Fourquin on Instagram"><span class="credit-role">Set Designer Assistant</span><span class="credit-nom">Léa Fourquin</span></a>
+				<a class="credit" href="https://www.instagram.com/team_ot/" aria-label="Timothé Bertrand on Instagram"><span class="credit-role">Set Designer Assistant</span><span class="credit-nom">Timothé Bertrand</span></a>
+				<a class="credit" href="https://www.instagram.com/electridris/" aria-label="Idris Cammas on Instagram"><span class="credit-role">Set Designer Assistant</span><span class="credit-nom">Idris Cammas</span></a>
+				<a class="credit" href="https://www.instagram.com/charlyne__p/" aria-label="Charlyne Primus on Instagram"><span class="credit-role">Graphic Designer</span><span class="credit-nom">Charlyne Primus</span></a>
+				<a class="credit" href="https://www.instagram.com/artusgauv1/" aria-label="Artus Gauvin on Instagram"><span class="credit-role">Set Decorator</span><span class="credit-nom">Artus Gauvin</span></a>
+				<a class="credit" href="https://www.instagram.com/laurianneeu/" aria-label="Laurianne Cordette on Instagram"><span class="credit-role">Propmaster</span><span class="credit-nom">Laurianne Cordette</span></a>
+				<a class="credit groupe-espace" href="https://www.instagram.com/shop2superstar/" aria-label="Mathilde Garcia on Instagram"><span class="credit-role">Head Costume Designer</span><span class="credit-nom">Mathilde Garcia</span></a>
+				<a class="credit" href="https://www.instagram.com/loupiote_club/" aria-label="Nancy Wagstaff on Instagram"><span class="credit-role">Assistant Costume Designer</span><span class="credit-nom">Nancy Wagstaff</span></a>
+				<a class="credit" href="https://www.instagram.com/maelle.leroux.02/" aria-label="Maëlle Leroux on Instagram"><span class="credit-role">Costume Designer</span><span class="credit-nom">Maëlle Leroux</span></a>
+				<a class="credit" href="https://www.instagram.com/alice_lmrcr/" aria-label="Alice Lemercier on Instagram"><span class="credit-role">Costume Designer</span><span class="credit-nom">Alice Lemercier</span></a>
+				<a class="credit groupe-espace" href="https://www.instagram.com/emile.blcn/" aria-label="Émile Balcaen on Instagram"><span class="credit-role">Behind-the-Scenes Director</span><span class="credit-nom">Émile Balcaen</span></a>
+				<a class="credit" href="https://www.instagram.com/cortadejuliette/" aria-label="Juliette Cortade on Instagram"><span class="credit-role">Set Photographer</span><span class="credit-nom">Juliette Cortade</span></a>
+				<div class="credit"><span class="credit-role">Film Composer</span><span class="credit-nom">Léonce Langlois-Favier</span></div>
+			</div>
+		</div>
+
+		<div class="departement reveal">
+			<div class="departement-titre">
+				<h2>Technical Crew</h2>
+				<hr class="ligne-aube">
+			</div>
+			<div class="credits">
+				<a class="credit" href="https://www.instagram.com/romain_marin/" aria-label="Romain Marin on Instagram"><span class="credit-role">Director of Photography</span><span class="credit-nom">Romain Marin</span></a>
+				<a class="credit" href="https://www.instagram.com/math93.ac/" aria-label="Mathias Lambert on Instagram"><span class="credit-role">1st Assistant Camera Operator</span><span class="credit-nom">Mathias Lambert</span></a>
+				<a class="credit" href="https://www.instagram.com/supernova_tales/" aria-label="Frida Cota on Instagram"><span class="credit-role">2nd Assistant Camera Operator</span><span class="credit-nom">Frida Cota</span></a>
+				<a class="credit groupe-espace" href="https://www.instagram.com/aloys_mln/" aria-label="Aloïs Melon on Instagram"><span class="credit-role">Gaffer</span><span class="credit-nom">Aloïs Melon</span></a>
+				<a class="credit" href="https://www.instagram.com/swann.assayagkao/" aria-label="Swann Assayag on Instagram"><span class="credit-role">Electrician</span><span class="credit-nom">Swann Assayag</span></a>
+				<a class="credit" href="https://www.instagram.com/jean_serbe/" aria-label="Nikola Stevanovic on Instagram"><span class="credit-role">Electrician</span><span class="credit-nom">Nikola Stevanovic</span></a>
+				<a class="credit groupe-espace" href="https://www.instagram.com/rob_dptr/" aria-label="Robin de Potter on Instagram"><span class="credit-role">Key Grip</span><span class="credit-nom">Robin de Potter</span></a>
+				<a class="credit" href="https://www.instagram.com/lauuwwaa/" aria-label="Laura Bertho on Instagram"><span class="credit-role">Grip</span><span class="credit-nom">Laura Bertho</span></a>
+				<a class="credit" href="https://www.instagram.com/nicolas.stawicki/" aria-label="Nicolas Stawicki on Instagram"><span class="credit-role">Grip</span><span class="credit-nom">Nicolas Stawicki</span></a>
+				<a class="credit groupe-espace" href="https://www.instagram.com/martzouin/" aria-label="Jules Martz on Instagram"><span class="credit-role">Sound Recordist</span><span class="credit-nom">Jules Martz</span></a>
+				<a class="credit" href="https://www.instagram.com/jules_merat/" aria-label="Jules Merat on Instagram"><span class="credit-role">Boom Operator</span><span class="credit-nom">Jules Merat</span></a>
+				<a class="credit groupe-espace" href="https://www.instagram.com/ambremmakeup/" aria-label="Ambre Masseboeuf on Instagram"><span class="credit-role">Head Makeup Artist</span><span class="credit-nom">Ambre Masseboeuf</span></a>
+				<a class="credit" href="https://www.instagram.com/axellebournet/" aria-label="Axelle Bournet-Brebion on Instagram"><span class="credit-role">Makeup Artist</span><span class="credit-nom">Axelle Bournet-Brebion</span></a>
+				<a class="credit" href="https://www.instagram.com/chlea.mua/" aria-label="Chléa Jonard on Instagram"><span class="credit-role">Extra Makeup Artist</span><span class="credit-nom">Chléa Jonard</span></a>
+				<div class="credit groupe-espace"><span class="credit-role">Unit Manager</span><span class="credit-nom">Flavien Hacques</span></div>
+				<div class="credit"><span class="credit-role">Deputy Unit Manager</span><span class="credit-nom">Cece Genamez</span></div>
+				<div class="credit"><span class="credit-role">Unit</span><span class="credit-nom">Hugo Loureiro</span></div>
+				<div class="credit"><span class="credit-role">Unit</span><span class="credit-nom">Guillaume Loreau</span></div>
+				<div class="credit"><span class="credit-role">Unit</span><span class="credit-nom">Charlotte D&#x27;Agostino</span></div>
+				<div class="credit"><span class="credit-role">Unit</span><span class="credit-nom">Inès Morillon</span></div>
+			</div>
+		</div>
+
+		<div class="departement reveal">
+			<div class="departement-titre">
+				<h2>Post-Production</h2>
+				<hr class="ligne-aube">
+			</div>
+			<div class="credits">
+				<a class="credit" href="https://www.instagram.com/emile.blcn/" aria-label="Émile Balcaen on Instagram"><span class="credit-role">Head Editor</span><span class="credit-nom">Émile Balcaen</span></a>
+				<a class="credit" href="https://www.instagram.com/mano__d/" aria-label="Mano Diaz on Instagram"><span class="credit-role">VFX Supervisor</span><span class="credit-nom">Mano Diaz</span></a>
+				<a class="credit" href="https://www.instagram.com/martzouin/" aria-label="Jules Martz on Instagram"><span class="credit-role">Sound Editor &amp; Mixer</span><span class="credit-nom">Jules Martz</span></a>
+				<a class="credit" href="https://www.instagram.com/achille_guss/" aria-label="Achille Muller on Instagram"><span class="credit-role">Colorist</span><span class="credit-nom">Achille Muller</span></a>
+			</div>
+		</div>
+
+		<div class="departement reveal">
+			<div class="departement-titre">
+				<h2>Support Teams</h2>
+				<hr class="ligne-aube">
+			</div>
+			<div class="credits">
+				<a class="credit" href="https://www.instagram.com/benji.lvld/" aria-label="Benjamin Lavalade on Instagram"><span class="credit-role">Treasurer of the Association</span><span class="credit-nom">Benjamin Lavalade</span></a>
+				<a class="credit" href="https://www.instagram.com/loiclarroche/" aria-label="Loïc Larroche on Instagram"><span class="credit-role">General Secretary of the Association</span><span class="credit-nom">Loïc Larroche</span></a>
+				<a class="credit" href="https://www.instagram.com/jeremylvld/" aria-label="Martine Allouche on Instagram"><span class="credit-role">Public Relations Director</span><span class="credit-nom">Martine Allouche</span></a>
+				<a class="credit" href="https://www.instagram.com/juliette_ml_b/" aria-label="Juliette Brochard on Instagram"><span class="credit-role">HR Manager</span><span class="credit-nom">Juliette Brochard</span></a>
+				<a class="credit" href="https://www.instagram.com/oceane_auda/" aria-label="Océane Auda on Instagram"><span class="credit-role">Event Manager</span><span class="credit-nom">Océane Auda</span></a>
+				<a class="credit" href="https://www.instagram.com/rhodabenefo/" aria-label="Rhoda Benefo on Instagram"><span class="credit-role">Artistic Director</span><span class="credit-nom">Rhoda Benefo</span></a>
+				<a class="credit" href="https://www.instagram.com/camille.uiux/" aria-label="Camille Malet on Instagram"><span class="credit-role">Graphic Design Specialist</span><span class="credit-nom">Camille Malet</span></a>
+				<a class="credit" href="https://www.instagram.com/lisa_allouche/" aria-label="Lisa Allouche on Instagram"><span class="credit-role">Poster Graphic Designer</span><span class="credit-nom">Lisa Allouche</span></a>
+				<a class="credit" href="https://www.instagram.com/richardassaultlatanbonnier/" aria-label="Loramay Talgorn on Instagram"><span class="credit-role">Community Manager</span><span class="credit-nom">Loramay Talgorn</span></a>
+				<a class="credit" href="https://www.instagram.com/commcla/" aria-label="Clara Jardiné on Instagram"><span class="credit-role">Community Manager</span><span class="credit-nom">Clara Jardiné</span></a>
+				<a class="credit" href="https://www.instagram.com/aslsteph/" aria-label="Stéphane Aslanian on Instagram"><span class="credit-role">Event Photographer</span><span class="credit-nom">Stéphane Aslanian</span></a>
+				<a class="credit" href="https://www.instagram.com/yvzuwu/" aria-label="Olivia Qu on Instagram"><span class="credit-role">Financing Project Manager</span><span class="credit-nom">Olivia Qu</span></a>
+				<a class="credit" href="https://www.instagram.com/jojoana.fernandes/" aria-label="Joana Fernandes on Instagram"><span class="credit-role">Communication Project Manager</span><span class="credit-nom">Joana Fernandes</span></a>
+			</div>
+		</div>
+
+		</div>
+	</section>
+
+<!-- LES PARTENAIRES -->
+	<section id="partenaires" class="section">
+		<div class="contenu" style="text-align: center;">
+			<p class="kicker reveal">They support us</p>
+			<h2 class="titre-section reveal">The film's partners</h2>
+			<div class="partenaires-grille reveal">
+				<img src="../images/partenaires-affiche/logo-01.png" width="614" height="301" alt="Ville de Puteaux" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-02.png" width="614" height="305" alt="Niort Agglo — Agglomération du Niortais" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-03.png" width="595" height="440" alt="Seven Eleven Rent" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-04.png" width="575" height="440" alt="LBHC — Le Boutique Hotels Collection" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-05.png" width="556" height="440" alt="Le Grand Large, Oléron" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-06.png" width="614" height="355" alt="Le Moulin du Roc — Scène nationale à Niort" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-07.png" width="614" height="420" alt="Médiathèque Pierre-Moinot" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-08.png" width="560" height="440" alt="Immo Mousquetaires" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-09.png" width="395" height="440" alt="Relais Équestre Équinoxe — Saint-Rémy" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-10.png" width="614" height="402" alt="Conforama" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-11.png" width="614" height="317" alt="Commune de Saint-Rémy" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-12.png" width="565" height="440" alt="Oléron Marennes — Île d'Oléron, Bassin de Marennes" loading="lazy" decoding="async">
+				<img src="../images/partenaires-affiche/logo-13.png" width="614" height="407" alt="Martine Allouche — Sophrologist" loading="lazy" decoding="async">
+			</div>
+		</div>
+	</section>
+
+<!-- LES DONATEURS -->
+	<section class="section" id="donateurs" style="padding-top: 0;">
+		<div class="contenu" style="text-align: center;">
+			<p class="kicker reveal">They believed in the project from day one</p>
+			<h2 class="titre-section reveal">The donors</h2>
+			<div class="liste-noms reveal">
+				<span>Martine ALLOUCHE</span>
+				<span>Michèle ALLOUCHE</span>
+				<span>Stéphane ASLANIAN</span>
+				<span>Jessica BÉVIN-CALAIS</span>
+				<span>Anton BLONDEAU</span>
+				<span>Lysiane BRUNET</span>
+				<span>Ryan Jay CARINO</span>
+				<span>Arnaud CHAMPENOIS</span>
+				<span>Charlotte CHIRON</span>
+				<span>Jeanne-Claire DELAHAYE</span>
+				<span>Dominique &amp; Philippe GELIN-DESCOMPS</span>
+				<span>Geoffroy HAFTMAN</span>
+				<span>Christian LARROCHE</span>
+				<span>Stéphanie LECLERCQ</span>
+				<span>Anastasiia TSILYK</span>
+				<span>Martine MATHÉ</span>
+				<span>Ombeline PETITCOL</span>
+				<span>Baptiste PIMONT</span>
+				<span>Alice PLOUX</span>
+				<span>Christian REMUS</span>
+				<span>Jean-Paul ROBERT</span>
+				<span>Laurence ROBERT</span>
+				<span>Sandrine ROCHE</span>
+				<span>Clémentine SAT</span>
+				<span>Eric TARDIF</span>
+				<span>Timothé TURPIN</span>
+				<span>Viviane VIEILLEFOND</span>
+				<span>Stéphanie VIEILLEFOND-BLOSSE</span>
+				<span>Yilin ZOU</span>
+			</div>
+		</div>
+	</section>
+
+<!-- CONTACT -->
+	<section class="section" id="contact-equipe" style="padding-top: 0;">
+		<div class="contenu" style="text-align: center;">
+			<p class="kicker reveal">Write to the team</p>
+			<h2 class="titre-section reveal">A question, a project?</h2>
+			<div class="centre reveal">
+				<a class="btn light" href="mailto:contact@harmoniedudoutefilm.fr">contact@harmoniedudoutefilm.fr</a>
+			</div>
+		</div>
+	</section>
+
+<!-- REMERCIEMENTS -->
+	<section class="section" id="remerciements" style="background-color: var(--nuit-0); padding-top: clamp(2.5rem, 6vw, 4rem); padding-bottom: clamp(2.5rem, 6vw, 4rem);">
+		<div class="contenu" style="text-align: center;">
+			<p class="kicker reveal">The Harmony of Doubt team warmly thanks</p>
+			<h2 class="titre-section reveal">Everyone who helped us</h2>
+			<div class="liste-noms reveal">
+				<span>Anna BILLON</span>
+				<span>Samuel BRAMI</span>
+				<span>Almudena BRYMANS</span>
+				<span>Loïcia CAILLAUD</span>
+				<span>Mélanie CARON</span>
+				<span>Chloé CHAPUIS</span>
+				<span>Philippine COINDRE</span>
+				<span>Valentin COTTIN</span>
+				<span>Marie-Béatrice DARDENNE</span>
+				<span>Lily DEDEYE</span>
+				<span>Adeline ERRIEN</span>
+				<span>Joana FERNANDES</span>
+				<span>Mathias FORGENEUF</span>
+				<span>Yann FOUCRIER</span>
+				<span>Sidonie GAUMY</span>
+				<span>Chloé GELIN</span>
+				<span>Martin GRAIL</span>
+				<span>Haïfa HUBERT</span>
+				<span>Loïc LARROCHE</span>
+				<span>Benjamin LAVALADE</span>
+				<span>Camille LEJUEZ</span>
+				<span>Barnabé LEMEILLE</span>
+				<span>Stéphane LOUBIÈRE</span>
+				<span>Camille MALET</span>
+				<span>Swanne MONDÉSIR</span>
+				<span>Djohani MONTELLA</span>
+				<span>Albane NAULLEAU</span>
+				<span>Léontine NIVET</span>
+				<span>Mathilde POL</span>
+				<span>Délinda RÉMY</span>
+				<span>Derek ROBIN</span>
+				<span>Aurélien SCELLES</span>
+				<span>Alexis STEFAN</span>
+				<span>Nathanaël SOHM</span>
+				<span>Alicia TARDIF</span>
+				<span>Thelma TRÉBEL</span>
+				<span>Lucie VALLAYES</span>
+				<span>Olivia QU</span>
+			</div>
+		</div>
+	</section>
+
 <!-- FOOTER -->
-	<div id="footer"></div>
-
-<script>
-	//PERMET D'AFFICHER LA BONNE SECTION SELON LE CLIQUE DE L'UTILISATEUR
-	document.addEventListener('DOMContentLoaded', function() {
-	    const sections = document.querySelectorAll('.section');
-	    const allSection = document.querySelector('#all');
-	    const listeItems = document.querySelectorAll('#liste-equipe li'); // Sélectionne tous les boutons de liste
-
-	    // Fonction pour initialiser l'affichage de toutes les sections
-	    const initializeSections = (shouldScroll) => {
-	        let hash = window.location.hash.substring(1); // Récupère l'ID depuis le hash de l'URL (sans le #)
-	        let foundSection = false;
-
-	        sections.forEach(section => {
-	            if (hash && section.id === hash) {
-	                section.style.display = 'block'; // Affiche la section correspondant au hash
-	                section.classList.add('active');
-	                foundSection = true;
-	            } else {
-	                section.style.display = 'none'; // Cache toutes les autres sections
-	                section.classList.remove('active');
-	            }
-	        });
-
-	        // Si aucun hash correspondant n'est trouvé, affiche "all"
-	        if (!foundSection && allSection) {
-	            allSection.style.display = 'block';
-	            allSection.classList.add('active');
-	        }
-
-	        // Met à jour la couleur du bouton correspondant au hash ou le premier si aucun hash
-	        listeItems.forEach(btn => {
-	            const targetId = btn.getAttribute('data-target').substring(1);
-	            if (hash === targetId) {
-	                btn.style.backgroundColor = '#E89C9E'; // Applique la couleur rose au bouton cliqué
-	            } else {
-	                btn.style.backgroundColor = 'inherit'; // Retour à la couleur initiale pour les autres boutons
-	            }
-	        });
-
-	        // Supprime le hash de l'URL sans recharger la page
-			if (foundSection && window.location.hash) {
-			    // Remplace temporairement le hash par #equipe2 pour naviguer vers cette section
-			    history.replaceState(null, document.title, window.location.pathname + window.location.search + '#equipe2');
-
-			    // Assure le défilement vers la section avec un offset de 90px
-			    setTimeout(() => {
-			        if (document.getElementById('equipe2')) {
-			            const equipe2Offset = document.getElementById('equipe2').offsetTop - 90;
-			            window.scrollTo(0, equipe2Offset);
-			        }
-
-			        // Supprime le hash visible dans l'URL sans recharger la page
-			        history.pushState(null, document.title, window.location.pathname + window.location.search);
-			    }, 1); // Un délai de 0 ms suffit pour que la page se positionne avant de nettoyer l'URL
-			}
-	    };
-
-	    // Appelle la fonction d'initialisation au chargement avec défilement
-	    initializeSections(true);
-
-	    // Gestionnaire d'événements pour chaque élément de liste
-	    document.querySelectorAll('#liste-equipe li').forEach(item => {
-	        item.addEventListener('click', function() {
-	            const targetId = this.getAttribute('data-target');
-
-	            // Cache toutes les sections sauf la ciblée
-	            sections.forEach(section => {
-	                if (section.id !== targetId) {
-	                    section.style.display = 'none';
-	                    section.classList.remove('active');
-	                } else {
-	                    section.style.display = 'block';
-	                    section.classList.add('active');
-	                }
-	            });
-
-	            // Met à jour la couleur du bouton actif
-	            listeItems.forEach(btn => {
-	                if (btn === item) {
-	                    btn.style.backgroundColor = '#E89C9E'; // Applique la couleur rose au bouton cliqué
-	                } else {
-	                    btn.style.backgroundColor = 'inherit'; // Retour à la couleur initiale pour les autres boutons
-	                }
-	            });
-
-	            // Met à jour le hash dans l'URL
-	            window.location.hash = targetId.substring(1);
-	        });
-	    });
-
-	    // Gère les changements de hash pour mettre à jour la vue
-	    window.addEventListener('hashchange', function() {
-	        initializeSections(false); // Ne défile pas lors des changements de hash causés par des clics
-	    });
-	});
-
-	//CHARGE LES INFOS DU MEMBRE DANS L'EXCEL
-	document.addEventListener('DOMContentLoaded', function() {
-	    const url = "/data/liste-equipe.xlsx"; 
-	    fetch(url)
-	        .then(res => res.arrayBuffer())
-	        .then(buffer => {
-	            const workbook = XLSX.read(buffer, {type: "buffer"});
-	            const firstSheetName = workbook.SheetNames[0];
-	            const worksheet = workbook.Sheets[firstSheetName];
-	            const data = XLSX.utils.sheet_to_json(worksheet);
-	            distributeData(data);
-	        });
-	});
-
-	function distributeData(data) {
-		const allContainer = document.querySelector('#all .section-container');
-	    data.forEach(item => {
-	        // Ajout d'une vérification pour éviter des erreurs si 'Catégorie' est undefined
-	        const category = item['Equipe'] || 'N/A';
-	        const lastName = (item['Nom'] || 'N/A').toUpperCase();
-	        const firstName = item['Prénom'] || 'N/A';
-	        const poste = item['Poste English'] || 'N/A';
-	        const posteDescription = item['Poste-Description'] || '';
-	        const instagram = item['Instagram'] || 'N/A';
-	        const email = item['Mail HDD'] || 'N/A';
-	        let fullName = `${firstName}-${lastName}`.toLowerCase();
-			    // Remplace les accents par des lettres non accentuées
-			let photo = fullName.normalize("NFD").replace(/[\u0300-\u036f]/g,"");
-			    // Ajoute l'extension de fichier
-			    photo += ".webp";
-
-	        const infoHTML = `
-				<div class="membre-container">
-        			<div class="photo-membre" style="background-image: url('/data/photos-membres/${photo}');"></div>
-                    <div class="contact-membre">
-                    	<p class="prenom-nom">${firstName} ${lastName}</p>
-                    	<p class="poste">${poste}</p>
-                    	<p class="poste-description">${posteDescription}</p>
-	                    <div class="membre-buttons-container">
-	                    	<a class="contact-buttons" href="mailto:${email}">
-						    	<img class="email-button" src="images/icons/contact/light-bkgd/contact-2.webp">
-						    </a>
-						    <a class="contact-buttons" href="https://www.instagram.com/${instagram}/">
-						    	<img class="insta-button" src="images/icons/contact/light-bkgd/instagram-2.webp">
-						    </a>
-	                    </div>
-	                </div>
-                </div>
-			    `;
-
-	        const container = document.querySelector(`#${category} .section-container`);
-	        if (container) {
-	            container.innerHTML += infoHTML;
-	        } else {
-	            console.error('No container found for category:', category);
-	        }
-
-	        if (allContainer) {
-	            allContainer.innerHTML += infoHTML;
-	        } else {
-	            console.error("Section globale 'all' introuvable.");
-	        }
-	    });
-	}
-
-	//CHANGE LA PHOTO DU MEMBRE SI L'URL EST UNE ERREUR
-	// Image de remplacement par défaut
-	const defaultBackgroundImage = "/data/photos-membres/photo-membre-default.webp";
-
-	// Fonction pour vérifier le chargement de l'image
-	function verifyBackgroundImage(element, originalUrl) {
-	    const testImage = new Image();
-
-	    // Définir le comportement pour un chargement réussi
-	    testImage.onload = function () {
-	        element.style.backgroundImage = `url('${originalUrl}')`;
-	    };
-
-	    // Définir le comportement en cas d'échec de chargement
-	    testImage.onerror = function () {
-	        element.style.backgroundImage = `url('${defaultBackgroundImage}')`;
-	        element.style.border = "1px solid #343737";
-	        element.style.backgroundPosition = "center";
-	    };
-
-	    // Lancer le chargement de l'image testée
-	    testImage.src = originalUrl;
-	}
-
-	// Fonction à exécuter après le chargement complet de la page
-	function applyDefaultBackgrounds() {
-	    // Sélectionner tous les éléments avec la classe 'photo-membre'
-	    const photoMembreElements = document.querySelectorAll('.photo-membre');
-
-	    // Vérifier chaque élément
-	    photoMembreElements.forEach(function (element) {
-	        // Extraire l'URL actuelle de l'image d'arrière-plan
-	        const style = window.getComputedStyle(element);
-	        const originalUrl = style.backgroundImage.slice(5, -2);
-
-	        // Vérifier et remplacer en cas d'erreur
-	        verifyBackgroundImage(element, originalUrl);
-	    });
-	}
-
-	// Attacher la fonction au chargement complet de la page, puis la lancer avec un délai
-	window.addEventListener('load', function () {
-	    setTimeout(applyDefaultBackgrounds, 200); // Délai de 200 millisecondes
-	});
-	
-</script>
+	<footer id="pied">
+		<div class="pied-haut">
+			<div class="pied-marque">
+				<img src="../images/logo-hdd/titre-en-blanc.png" alt="Harmony of Doubt">
+				<p>A suspense film about the balance between critical thinking and passivity, humans and the environment.</p>
+			</div>
+			<nav class="pied-col" aria-label="Explorer">
+				<h4>Explore</h4>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="film-universe.html">The Film Universe</a></li>
+					<li><a href="film-objectives.html">The Film Objectives</a></li>
+					<li><a href="team.html">The Team</a></li>
+				</ul>
+			</nav>
+			<nav class="pied-col" aria-label="Contenu">
+				<h4>Content</h4>
+				<ul>
+					<li><a href="index.html#court-metrage">The teaser</a></li>
+					<li><a href="screening-night.html">The screening night</a></li>
+					<li><a href="screening-night.html#making-of">The making of</a></li>
+					<li><a href="press.html">Press coverage</a></li>
+					<li><a href="../film/scenario-hdd.pdf">The script (PDF, in French)</a></li>
+					<li><a href="../film/dossier-de-presse-hdd.pdf">The press kit (PDF, in French)</a></li>
+				</ul>
+			</nav>
+			<div class="pied-col">
+				<h4>Contact</h4>
+				<ul>
+					<li><a href="mailto:contact@harmoniedudoutefilm.fr">contact@harmoniedudoutefilm.fr</a></li>
+				</ul>
+				<div class="pastilles" style="margin-top: 0.9rem;">
+					<a class="pastille" href="https://www.instagram.com/harmoniedudoutefilm/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/></svg></a>
+					<a class="pastille" href="https://www.linkedin.com/company/l-harmonie-du-doute-film/" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3.6a2.2 2.2 0 1 1-.02 4.4A2.2 2.2 0 0 1 5 3.6zM3.1 9.4h3.8V20.4H3.1zM9 9.4h3.64v1.5h.05c.5-.9 1.74-1.85 3.58-1.85 3.83 0 4.53 2.4 4.53 5.5v5.85h-3.8v-5.18c0-1.24-.02-2.83-1.81-2.83-1.81 0-2.09 1.35-2.09 2.74v5.27H9z"/></svg></a>
+					<a class="pastille" href="https://www.youtube.com/@HarmonieduDouteFilm" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M21.6 7.2a2.5 2.5 0 0 0-1.76-1.77C18.27 5 12 5 12 5s-6.27 0-7.84.43A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.76 1.77C5.73 19 12 19 12 19s6.27 0 7.84-.43a2.5 2.5 0 0 0 1.76-1.77c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15.3V8.7l5.7 3.3z"/></svg></a>
+				</div>
+			</div>
+		</div>
+		<div class="pied-bas">
+			<span>©2026 L'Harmonie du Doute</span>
+			<a href="legal.html">Legal Notice</a>
+		</div>
+	</footer>
 
 </body>
 

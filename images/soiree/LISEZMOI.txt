@@ -1,0 +1,8 @@
+Déposez ici les photos de la soirée de projection.
+
+Nommage : photo-01.webp, photo-02.webp, photo-03.jpg…
+(extensions acceptées : .webp, .jpg, .jpeg, .png — numéros consécutifs,
+la galerie s'arrête après deux numéros manquants)
+
+Elles apparaîtront automatiquement, dans l'ordre, sur la page
+« La soirée de projection » (soiree-projection.html et en/screening-night.html).

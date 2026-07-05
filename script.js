@@ -200,44 +200,31 @@
   }
 
   /* ---------- MUSIQUE D'AMBIANCE (accueil) ----------
-     Lecture automatique à l'ouverture. Les navigateurs bloquent
-     l'autoplay sonore tant que l'utilisateur n'a pas interagi :
-     dans ce cas, la musique démarre au premier geste (scroll,
-     clic, touche). Le choix de couper est mémorisé. */
+     Lecture automatique à l'ouverture et au rechargement. Les navigateurs
+     bloquent l'autoplay sonore tant que l'utilisateur n'a pas interagi :
+     dans ce cas, la musique démarre au premier geste. Le bouton en bas à
+     gauche est la seule autorité : pas de fondu de volume (iOS le verrouille,
+     et un volume à zéro donne une « lecture » silencieuse) — on joue au
+     volume cible et on coupe net avec pause(). L'état affiché par le bouton
+     suit les événements réels play/pause de l'élément audio. */
   var ambiance = document.getElementById('ambiance');
   var boutonSon = document.getElementById('son');
   if (ambiance && boutonSon) {
     var VOLUME_AMBIANCE = 0.4;
-    var fonduTimer = null;
     var musiqueCoupee = false;
     try { musiqueCoupee = localStorage.getItem('hdd-musique') === 'coupee'; } catch (e) {}
-
-    var fonduVers = function (cible, surFin) {
-      clearInterval(fonduTimer);
-      fonduTimer = setInterval(function () {
-        var v = ambiance.volume;
-        var pas = 0.03;
-        if (Math.abs(v - cible) <= pas) {
-          ambiance.volume = cible;
-          clearInterval(fonduTimer);
-          if (surFin) surFin();
-        } else {
-          ambiance.volume = v + (cible > v ? pas : -pas);
-          if (ambiance.volume === v) {
-            // iOS verrouille le volume au niveau matériel : le fondu est
-            // impossible, on termine immédiatement (sinon pause() n'arrive jamais)
-            clearInterval(fonduTimer);
-            if (surFin) surFin();
-          }
-        }
-      }, 60);
-    };
 
     var majBoutonSon = function (actif) {
       boutonSon.classList.toggle('muet', !actif);
       boutonSon.setAttribute('aria-pressed', actif ? 'true' : 'false');
       boutonSon.setAttribute('aria-label', actif ? "Couper la musique d'ambiance" : "Activer la musique d'ambiance");
     };
+
+    // Le bouton reflète TOUJOURS l'état réel de l'audio (y compris une
+    // pause déclenchée par le système : écran verrouillé, autre média…)
+    ambiance.addEventListener('play', function () { majBoutonSon(true); });
+    ambiance.addEventListener('playing', function () { majBoutonSon(true); });
+    ambiance.addEventListener('pause', function () { majBoutonSon(false); });
 
     /* Safari (mac et iOS) n'accorde le droit de jouer un son qu'aux
        « vrais » gestes utilisateur : click, touchend, mousedown, keydown.
@@ -250,15 +237,19 @@
     };
 
     var jouerAmbiance = function () {
-      ambiance.volume = 0;
+      ambiance.muted = false;
+      try { ambiance.volume = VOLUME_AMBIANCE; } catch (e) { /* iOS : volume géré par le matériel */ }
       var promesse = ambiance.play();
       if (promesse && promesse.then) {
         promesse.then(function () {
-          majBoutonSon(true);
           retirerDeclencheurs();
-          fonduVers(VOLUME_AMBIANCE);
         }).catch(function () { /* autoplay bloqué : on attend un geste */ });
       }
+    };
+
+    var couperAmbiance = function () {
+      retirerDeclencheurs();
+      ambiance.pause(); // coupure immédiate, fiable sur tous les appareils
     };
 
     var demarrerAuGeste = function (e) {
@@ -270,15 +261,13 @@
     };
 
     boutonSon.addEventListener('click', function () {
-      var estActif = !boutonSon.classList.contains('muet');
-      if (!estActif) {
+      // L'état réel de l'audio fait foi, pas l'apparence du bouton
+      if (ambiance.paused) {
         try { localStorage.setItem('hdd-musique', 'active'); } catch (err) {}
         jouerAmbiance();
       } else {
         try { localStorage.setItem('hdd-musique', 'coupee'); } catch (err) {}
-        retirerDeclencheurs();
-        majBoutonSon(false);
-        fonduVers(0, function () { ambiance.pause(); });
+        couperAmbiance();
       }
     });
 
@@ -292,11 +281,8 @@
 
     // Une vidéo démarre : la musique s'efface (sans mémoriser le choix)
     document.addEventListener('hdd:video', function () {
-      retirerDeclencheurs();
-      if (!ambiance.paused) {
-        majBoutonSon(false);
-        fonduVers(0, function () { ambiance.pause(); });
-      }
+      if (!ambiance.paused) couperAmbiance();
+      else retirerDeclencheurs();
     });
   }
 

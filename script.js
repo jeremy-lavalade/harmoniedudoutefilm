@@ -304,6 +304,28 @@
       if (!ambiance.paused) couperAmbiance();
       else retirerDeclencheurs();
     });
+
+    /* Invitation à découvrir la musique : apparaît après un court délai
+       si la musique ne joue pas encore, disparaît définitivement au premier
+       scroll vers le bas, dès que la musique démarre, ou au clic sur le bouton. */
+    var noteSon = document.getElementById('son-note');
+    if (noteSon) {
+      var noteCachee = false;
+      var cacherNote = function () {
+        if (noteCachee) return;
+        noteCachee = true;
+        noteSon.classList.remove('visible');
+        noteSon.classList.add('cachee');
+      };
+      setTimeout(function () {
+        if (!noteCachee && ambiance.paused && window.scrollY < 30) noteSon.classList.add('visible');
+      }, 900);
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 30) cacherNote();
+      }, { passive: true });
+      ambiance.addEventListener('playing', cacherNote);
+      boutonSon.addEventListener('click', cacherNote);
+    }
   }
 
   /* =====================================================
@@ -420,7 +442,15 @@
       })).then(mesurerTitre);
     }
     window.addEventListener('load', mesurerTitre);
-    window.addEventListener('resize', mesurerTitre);
+    // iOS émet des resize pendant le scroll (barre d'adresse) :
+    // on ne remesure que si la LARGEUR change vraiment
+    var largeurMesuree = window.innerWidth;
+    window.addEventListener('resize', function () {
+      if (window.innerWidth !== largeurMesuree) {
+        largeurMesuree = window.innerWidth;
+        mesurerTitre();
+      }
+    });
     if (document.readyState === 'complete') mesurerTitre();
   } else if (titreAnime && titreEspace) {
     // Mouvement réduit : titre statique dans le hero, wordmark du header visible
@@ -444,65 +474,112 @@
   var merApp, merImage, merDeplacement;
   var HAUTEUR_MINI = 54;
 
+  /* Repli : image fixe et page qui reste parfaitement défilable
+     (mouvement réduit, PixiJS absent, WebGL indisponible ou perdu) */
+  function merStatique() {
+    if (merApp) {
+      try { merApp.destroy(true, { children: true, texture: true, baseTexture: true }); } catch (e) {}
+      merApp = null;
+    }
+    plongeeCanvas.innerHTML = '';
+    plongeeCanvas.style.background = "url('" + RACINE + "images/accueil/mer.webp') center / cover no-repeat";
+    plongeeCanvas.style.filter = 'saturate(0.55) brightness(0.6) hue-rotate(-12deg)';
+    if (plongee) plongee.style.height = '100vh'; // plus d'épinglage : rien ne retient le défilement
+    if (plongeeTexte) {
+      plongeeTexte.style.top = '58%';
+      plongeeTexte.classList.add('visible');
+    }
+  }
+
   function initialiserMer() {
     if (!plongeeCanvas) return;
 
     if (reduireMouvement || typeof PIXI === 'undefined') {
-      plongeeCanvas.style.background = "url('" + RACINE + "images/accueil/mer.webp') center / cover no-repeat";
-      plongeeCanvas.style.filter = 'saturate(0.55) brightness(0.6) hue-rotate(-12deg)';
-      if (plongeeTexte) plongeeTexte.classList.add('visible');
+      merStatique();
       return;
     }
 
-    var l = Math.max(window.innerWidth, 1);
-    var h = Math.max(window.innerHeight, 1);
-    merApp = new PIXI.Application({ width: l, height: h });
-    plongeeCanvas.appendChild(merApp.view);
+    try {
+      var l = Math.max(window.innerWidth, 1);
+      var h = Math.max(window.innerHeight, 1);
+      merApp = new PIXI.Application({ width: l, height: h, transparent: true });
 
-    merImage = PIXI.Sprite.from(RACINE + 'images/accueil/mer.webp');
-    merImage.width = l;
-    merImage.height = h;
-    merImage.tint = 0x8093C8; // accorde la mer turquoise à la nuit de l'affiche
-    merApp.stage.addChild(merImage);
+      // Le canvas ne doit JAMAIS intercepter le tactile : PixiJS pose
+      // touch-action:none par défaut, ce qui fige le défilement sur mobile
+      // tant que le doigt part de la mer (section plein écran !)
+      merApp.view.style.pointerEvents = 'none';
+      merApp.view.style.touchAction = 'auto';
+      if (merApp.renderer.plugins && merApp.renderer.plugins.interaction) {
+        merApp.renderer.plugins.interaction.autoPreventDefault = false;
+      }
+      plongeeCanvas.appendChild(merApp.view);
 
-    merDeplacement = PIXI.Sprite.from(RACINE + 'images/accueil/displacement-map.webp');
-    merDeplacement.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.MIRRORED_REPEAT;
-    merDeplacement.width = l * 1.2;
-    merDeplacement.height = h;
-    merApp.stage.addChild(merDeplacement);
+      merImage = PIXI.Sprite.from(RACINE + 'images/accueil/mer.webp');
+      merImage.width = l;
+      merImage.height = h;
+      merImage.tint = 0x8093C8; // accorde la mer turquoise à la nuit de l'affiche
+      merApp.stage.addChild(merImage);
 
-    merApp.stage.filters = [new PIXI.filters.DisplacementFilter(merDeplacement)];
+      // Carte de déplacement en 512x512 : une puissance de deux est requise
+      // par le mode MIRRORED_REPEAT sur WebGL1 (Safari et mobiles plus anciens),
+      // sans quoi la mer s'affiche figée et délavée
+      merDeplacement = PIXI.Sprite.from(RACINE + 'images/accueil/displacement-map-512.png');
+      merDeplacement.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.MIRRORED_REPEAT;
+      merDeplacement.width = l * 1.2;
+      merDeplacement.height = h;
+      merApp.stage.addChild(merDeplacement);
 
-    merApp.ticker.add(function () {
-      merDeplacement.y += 0.07;
-    });
+      merApp.stage.filters = [new PIXI.filters.DisplacementFilter(merDeplacement)];
+
+      merApp.ticker.add(function () {
+        merDeplacement.y += 0.07;
+      });
+
+      // Contexte WebGL perdu (GPU saturé, onglet longtemps caché…) :
+      // on bascule sur l'image fixe plutôt qu'un rectangle noir
+      merApp.view.addEventListener('webglcontextlost', function (e) {
+        e.preventDefault();
+        merStatique();
+      });
+    } catch (e) {
+      merStatique();
+      return;
+    }
 
     ajusterPlongee();
   }
 
   function ajusterPlongee() {
     if (!merApp || !plongee) return;
-    var rect = plongee.getBoundingClientRect();
     var vh = window.innerHeight;
+    var largeur = Math.max(window.innerWidth, 1);
+
+    // Redimensionner le rendu WebGL est coûteux : uniquement quand la
+    // fenêtre change vraiment (jamais à chaque cran de scroll)
+    if (merApp.renderer.width !== largeur || merApp.renderer.height !== vh) {
+      merApp.renderer.resize(largeur, vh);
+      merImage.width = largeur;
+      merDeplacement.width = largeur * 1.2;
+    }
+
+    var rect = plongee.getBoundingClientRect();
     var course = rect.height - vh;
 
     // Progression : 0 quand la section touche le haut de l'écran, 1 en fin de course
     var p = course > 0 ? Math.min(Math.max(-rect.top / course, 0), 1) : 0;
 
-    // L'image s'écrase : pleine hauteur -> mince pellicule (la surface passe au-dessus de nous)
+    // L'image s'écrase : pleine hauteur -> mince pellicule (la surface passe
+    // au-dessus de nous). Seule la hauteur du sprite change : le canvas,
+    // transparent, laisse voir le fond nuit en dessous.
     var hauteur = Math.round(vh + (HAUTEUR_MINI - vh) * p);
-    var largeur = Math.max(window.innerWidth, 1);
-
-    merApp.renderer.resize(largeur, hauteur);
-    merImage.width = largeur;
-    merImage.height = hauteur;       // <- l'écrasement vertical, comme sur le site d'origine
-    merDeplacement.width = largeur * 1.2;
+    merImage.height = hauteur;
     merDeplacement.height = Math.max(hauteur, 1);
-    plongeeCanvas.style.height = hauteur + 'px';
 
-    // Le texte apparaît une fois passé sous la surface
+    // Le texte apparaît une fois passé sous la surface, et descend vers le
+    // cœur des profondeurs (58 % de l'écran en fin de course) : l'espace
+    // vide entre lui et la suite de la page reste ainsi contenu
     if (plongeeTexte) {
-      plongeeTexte.style.top = 'calc(' + hauteur + 'px + clamp(2rem, 14vh, 9rem))';
+      plongeeTexte.style.top = Math.round(hauteur + (vh - hauteur) * 0.58) + 'px';
       plongeeTexte.classList.toggle('visible', p > 0.55);
     }
   }

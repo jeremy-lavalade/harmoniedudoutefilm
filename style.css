@@ -442,6 +442,84 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
 }
 #son.muet::after { transform: translate(-50%, -50%) rotate(-45deg) scaleX(1); }
 
+/* ---------- INVITATION MUSIQUE (accueil) ----------
+   Petite bulle flottante à côté du bouton son. Elle disparaît au
+   premier scroll, dès que la musique joue, ou au clic sur le bouton. */
+#son-note {
+  position: fixed;
+  left: calc(clamp(12px, 2vw, 26px) + 58px);
+  bottom: clamp(12px, 2vw, 26px);
+  z-index: 95;
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  max-width: min(60vw, 320px);
+  padding: 0.5em 1.1em;
+  border-radius: 999px;
+  background-color: rgba(6, 11, 24, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--blanc-doux);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  line-height: 1.45;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+#son-note::before {
+  /* petite pointe tournée vers le bouton son */
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  transform: translateY(-50%) rotate(45deg);
+  background-color: rgba(6, 11, 24, 0.75);
+  border-left: 1px solid rgba(255, 255, 255, 0.22);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+}
+#son-note.visible {
+  opacity: 1;
+  transform: none;
+  animation: note-flotte 3.2s ease-in-out 0.6s infinite;
+}
+#son-note.cachee {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: none;
+}
+@keyframes note-flotte {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+@media (max-width: 760px) {
+  /* au-dessus du bouton : ne chevauche pas l'indicateur « Plonger » centré */
+  #son-note {
+    left: clamp(12px, 2vw, 26px);
+    bottom: calc(clamp(12px, 2vw, 26px) + 58px);
+    min-height: 0;
+    max-width: min(72vw, 300px);
+    padding: 0.6em 1em;
+  }
+  #son-note::before {
+    left: 16px;
+    top: auto;
+    bottom: -5px;
+    transform: rotate(45deg);
+    border-left: none;
+    border-top: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.22);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #son-note.visible { animation: none; }
+}
+
 /* ---------- JAUGE DE PROFONDEUR ---------- */
 #jauge {
   position: fixed;
@@ -707,7 +785,7 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
 .figure-cadre.sans-cadre img { box-shadow: none; border-radius: 0; }
 
 /* ---------- LA PLONGÉE ---------- */
-#plongee { position: relative; height: 260vh; }
+#plongee { position: relative; height: 180vh; }
 #plongee-sticky {
   position: sticky;
   top: 0;
@@ -722,7 +800,15 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
   top: 0; left: 0; right: 0;
   height: 100vh;
 }
-#plongee-canvas canvas { display: block; width: 100%; height: 100%; }
+#plongee-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* la mer est purement décorative : elle ne doit jamais capter le
+     toucher, sinon impossible de faire défiler la page sur mobile */
+  pointer-events: none;
+  touch-action: auto;
+}
 #plongee-voile {
   position: absolute;
   top: 0; left: 0; right: 0;
@@ -757,6 +843,8 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
     url('images/affiche/rayons-sous-marins.jpg');
   background-size: cover;
   background-position: center 30%;
+  /* enchaîne vite après « Sous la surface, le doute. » : pas de long vide bleu */
+  padding-top: clamp(1.5rem, 4vw, 3rem);
   padding-bottom: clamp(5rem, 12vw, 10rem);
 }
 .citation-bloc {

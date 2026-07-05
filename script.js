@@ -271,6 +271,18 @@
       }
     });
 
+    // La musique est-elle souhaitée ? (l'utilisateur n'a pas coupé)
+    var musiqueVoulue = function () {
+      try { return localStorage.getItem('hdd-musique') !== 'coupee'; } catch (e) { return true; }
+    };
+    var videoEnCours = false;
+
+    // Nouvelle tentative automatique tant que le navigateur bloque l'autoplay
+    // (il l'autorise souvent après une première interaction avec le site)
+    var relancerSiVoulue = function () {
+      if (ambiance.paused && musiqueVoulue() && !videoEnCours) jouerAmbiance();
+    };
+
     if (!musiqueCoupee) {
       // Tentative immédiate, puis repli sur le premier geste de l'utilisateur
       jouerAmbiance();
@@ -278,9 +290,17 @@
         window.addEventListener(evt, demarrerAuGeste, { passive: true, once: false });
       });
     }
+    // ... et retentatives aux moments clés : fin du chargement, retour sur la
+    // page via le bouton précédent (bfcache), retour sur l'onglet
+    window.addEventListener('load', relancerSiVoulue);
+    window.addEventListener('pageshow', function (e) { if (e.persisted) relancerSiVoulue(); });
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) relancerSiVoulue();
+    });
 
     // Une vidéo démarre : la musique s'efface (sans mémoriser le choix)
     document.addEventListener('hdd:video', function () {
+      videoEnCours = true;
       if (!ambiance.paused) couperAmbiance();
       else retirerDeclencheurs();
     });

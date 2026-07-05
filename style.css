@@ -876,7 +876,7 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
      le doute. » et le dessin est ainsi résorbé */
   position: relative;
   z-index: 2;
-  margin-top: -65vh;
+  margin-top: -30vh;
   padding-top: clamp(1.5rem, 4vw, 3rem);
   padding-bottom: clamp(5rem, 12vw, 10rem);
 }

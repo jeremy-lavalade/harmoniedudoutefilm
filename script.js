@@ -538,9 +538,10 @@
 
       merApp.ticker.add(function (delta) {
         // La vitesse suit la hauteur de la carte : le mouvement des vagues
-        // est ainsi identique que la mer soit plein écran ou écrasée
-        // (0,07 px/image sur une carte plein écran était imperceptible).
-        merDeplacement.y += merDeplacement.height * 0.0013 * (delta || 1);
+        // est ainsi identique que la mer soit plein écran ou écrasée.
+        // Le coefficient donne un frémissement calme de petites vagues
+        // (perceptible sans jamais devenir un courant rapide).
+        merDeplacement.y += merDeplacement.height * 0.0004 * (delta || 1);
       });
 
       // Contexte WebGL perdu (GPU saturé, onglet longtemps caché…) :

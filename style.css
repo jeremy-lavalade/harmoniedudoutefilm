@@ -516,6 +516,33 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
     border-bottom: 1px solid rgba(255, 255, 255, 0.22);
   }
 }
+@media (min-width: 761px) {
+  /* Sur ordinateur : pas de bulle, un texte affirmé qui désigne le bouton */
+  #son-note {
+    padding: 0 0 0 30px;
+    max-width: none;
+    background: none;
+    border: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    font-family: 'PP Hatton', Georgia, serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+    color: var(--blanc);
+    text-shadow: 0 2px 16px rgba(2, 6, 14, 0.95), 0 0 30px rgba(2, 6, 14, 0.8);
+  }
+  #son-note::before {
+    /* chevron tourné vers le bouton son */
+    left: 6px;
+    width: 11px;
+    height: 11px;
+    background: none;
+    border: none;
+    border-left: 2px solid var(--aube-rose);
+    border-bottom: 2px solid var(--aube-rose);
+    transform: translateY(-50%) rotate(45deg);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   #son-note.visible { animation: none; }
 }
@@ -789,6 +816,7 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
 #plongee-sticky {
   position: sticky;
   top: 0;
+  z-index: 1; /* contient ses enfants sous les profondeurs qui remontent */
   height: 100vh;
   overflow: hidden;
   background:
@@ -843,10 +871,17 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
     url('images/affiche/rayons-sous-marins.jpg');
   background-size: cover;
   background-position: center 30%;
-  /* enchaîne vite après « Sous la surface, le doute. » : pas de long vide bleu */
+  /* La section recouvre la fin de la plongée (fonds nuit identiques :
+     la couture est invisible) : le vide bleu uni entre « Sous la surface,
+     le doute. » et le dessin est ainsi résorbé */
+  position: relative;
+  z-index: 2;
+  margin-top: -65vh;
   padding-top: clamp(1.5rem, 4vw, 3rem);
   padding-bottom: clamp(5rem, 12vw, 10rem);
 }
+/* Mer statique (mouvement réduit, WebGL absent) : pas de chevauchement */
+body.mer-statique #profondeurs { margin-top: 0; }
 .citation-bloc {
   display: grid;
   grid-template-columns: minmax(140px, 300px) 1fr;

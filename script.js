@@ -211,8 +211,10 @@
   var boutonSon = document.getElementById('son');
   if (ambiance && boutonSon) {
     var VOLUME_AMBIANCE = 0.4;
-    var musiqueCoupee = false;
-    try { musiqueCoupee = localStorage.getItem('hdd-musique') === 'coupee'; } catch (e) {}
+    // Pas de lancement automatique : la musique ne démarre seule que si
+    // l'utilisateur l'avait explicitement activée lors d'une visite précédente
+    var musiqueActiveMemorisee = false;
+    try { musiqueActiveMemorisee = localStorage.getItem('hdd-musique') === 'active'; } catch (e) {}
 
     var majBoutonSon = function (actif) {
       boutonSon.classList.toggle('muet', !actif);
@@ -271,9 +273,9 @@
       }
     });
 
-    // La musique est-elle souhaitée ? (l'utilisateur n'a pas coupé)
+    // La musique est-elle explicitement souhaitée ?
     var musiqueVoulue = function () {
-      try { return localStorage.getItem('hdd-musique') !== 'coupee'; } catch (e) { return true; }
+      try { return localStorage.getItem('hdd-musique') === 'active'; } catch (e) { return false; }
     };
     var videoEnCours = false;
 
@@ -283,8 +285,9 @@
       if (ambiance.paused && musiqueVoulue() && !videoEnCours) jouerAmbiance();
     };
 
-    if (!musiqueCoupee) {
-      // Tentative immédiate, puis repli sur le premier geste de l'utilisateur
+    if (musiqueActiveMemorisee) {
+      // Reprise du choix mémorisé : tentative immédiate,
+      // puis repli sur le premier geste de l'utilisateur
       jouerAmbiance();
       GESTES.forEach(function (evt) {
         window.addEventListener(evt, demarrerAuGeste, { passive: true, once: false });
@@ -306,25 +309,26 @@
     });
 
     /* Invitation à découvrir la musique : apparaît après un court délai
-       si la musique ne joue pas encore, disparaît définitivement au premier
-       scroll vers le bas, dès que la musique démarre, ou au clic sur le bouton. */
+       si la musique ne joue pas, disparaît quand on descend dans la page
+       et RÉAPPARAÎT quand on remonte tout en haut. Elle s'éteint pour de
+       bon dès que la musique démarre ou que le bouton est utilisé. */
     var noteSon = document.getElementById('son-note');
     if (noteSon) {
-      var noteCachee = false;
-      var cacherNote = function () {
-        if (noteCachee) return;
-        noteCachee = true;
-        noteSon.classList.remove('visible');
-        noteSon.classList.add('cachee');
+      var noteEteinte = false;
+      var notePrete = false;
+      var majNote = function () {
+        var montrer = !noteEteinte && notePrete && ambiance.paused && window.scrollY <= 30;
+        noteSon.classList.toggle('visible', montrer);
+        noteSon.classList.toggle('cachee', !montrer);
       };
-      setTimeout(function () {
-        if (!noteCachee && ambiance.paused && window.scrollY < 30) noteSon.classList.add('visible');
-      }, 900);
-      window.addEventListener('scroll', function () {
-        if (window.scrollY > 30) cacherNote();
-      }, { passive: true });
-      ambiance.addEventListener('playing', cacherNote);
-      boutonSon.addEventListener('click', cacherNote);
+      var eteindreNote = function () {
+        noteEteinte = true;
+        majNote();
+      };
+      setTimeout(function () { notePrete = true; majNote(); }, 900);
+      window.addEventListener('scroll', majNote, { passive: true });
+      ambiance.addEventListener('playing', eteindreNote);
+      boutonSon.addEventListener('click', eteindreNote);
     }
   }
 
@@ -484,6 +488,7 @@
     plongeeCanvas.innerHTML = '';
     plongeeCanvas.style.background = "url('" + RACINE + "images/accueil/mer.webp') center / cover no-repeat";
     plongeeCanvas.style.filter = 'saturate(0.55) brightness(0.6) hue-rotate(-12deg)';
+    document.body.classList.add('mer-statique'); // annule le chevauchement des profondeurs
     if (plongee) plongee.style.height = '100vh'; // plus d'épinglage : rien ne retient le défilement
     if (plongeeTexte) {
       plongeeTexte.style.top = '58%';
@@ -531,8 +536,11 @@
 
       merApp.stage.filters = [new PIXI.filters.DisplacementFilter(merDeplacement)];
 
-      merApp.ticker.add(function () {
-        merDeplacement.y += 0.07;
+      merApp.ticker.add(function (delta) {
+        // La vitesse suit la hauteur de la carte : le mouvement des vagues
+        // est ainsi identique que la mer soit plein écran ou écrasée
+        // (0,07 px/image sur une carte plein écran était imperceptible).
+        merDeplacement.y += merDeplacement.height * 0.0013 * (delta || 1);
       });
 
       // Contexte WebGL perdu (GPU saturé, onglet longtemps caché…) :
@@ -575,11 +583,9 @@
     merImage.height = hauteur;
     merDeplacement.height = Math.max(hauteur, 1);
 
-    // Le texte apparaît une fois passé sous la surface, et descend vers le
-    // cœur des profondeurs (58 % de l'écran en fin de course) : l'espace
-    // vide entre lui et la suite de la page reste ainsi contenu
+    // Le texte apparaît une fois passé sous la surface
     if (plongeeTexte) {
-      plongeeTexte.style.top = Math.round(hauteur + (vh - hauteur) * 0.58) + 'px';
+      plongeeTexte.style.top = 'calc(' + hauteur + 'px + clamp(2rem, 8vh, 4rem))';
       plongeeTexte.classList.toggle('visible', p > 0.55);
     }
   }

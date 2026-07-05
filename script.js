@@ -51,14 +51,18 @@
   /* ---------- APPARITIONS AU SCROLL ---------- */
   var elementsReveal = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && !reduireMouvement) {
+    /* Deux seuils : 0.15 pour l'esthétique, 0 pour les éléments plus hauts
+       que l'écran (une galerie d'une colonne sur mobile ne peut jamais être
+       visible à 15 % : elle resterait invisible à jamais). */
     var observateur = new IntersectionObserver(function (entrees) {
       entrees.forEach(function (entree) {
-        if (entree.isIntersecting) {
+        var grand = entree.boundingClientRect.height > window.innerHeight * 0.6;
+        if (entree.isIntersecting && (grand || entree.intersectionRatio >= 0.15)) {
           entree.target.classList.add('visible');
           observateur.unobserve(entree.target);
         }
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
+    }, { threshold: [0, 0.15], rootMargin: '0px 0px -5% 0px' });
     elementsReveal.forEach(function (el) { observateur.observe(el); });
   } else {
     elementsReveal.forEach(function (el) { el.classList.add('visible'); });
@@ -77,6 +81,8 @@
       iframe.allowFullscreen = true;
       cadre.innerHTML = '';
       cadre.appendChild(iframe);
+      // La musique d'ambiance laisse la place à la vidéo
+      document.dispatchEvent(new CustomEvent('hdd:video'));
     });
   });
 
@@ -217,6 +223,12 @@
           if (surFin) surFin();
         } else {
           ambiance.volume = v + (cible > v ? pas : -pas);
+          if (ambiance.volume === v) {
+            // iOS verrouille le volume au niveau matériel : le fondu est
+            // impossible, on termine immédiatement (sinon pause() n'arrive jamais)
+            clearInterval(fonduTimer);
+            if (surFin) surFin();
+          }
         }
       }, 60);
     };
@@ -227,8 +239,12 @@
       boutonSon.setAttribute('aria-label', actif ? "Couper la musique d'ambiance" : "Activer la musique d'ambiance");
     };
 
+    /* Safari (mac et iOS) n'accorde le droit de jouer un son qu'aux
+       « vrais » gestes utilisateur : click, touchend, mousedown, keydown.
+       scroll et wheel n'en font pas partie — on écoute donc les deux familles. */
+    var GESTES = ['pointerdown', 'mousedown', 'click', 'keydown', 'touchend', 'touchstart', 'wheel', 'scroll'];
     var retirerDeclencheurs = function () {
-      ['pointerdown', 'keydown', 'touchstart', 'wheel', 'scroll'].forEach(function (evt) {
+      GESTES.forEach(function (evt) {
         window.removeEventListener(evt, demarrerAuGeste);
       });
     };
@@ -246,7 +262,10 @@
     };
 
     var demarrerAuGeste = function (e) {
-      if (e && e.target && boutonSon.contains(e.target)) return; // le bouton décide lui-même
+      if (e && e.target && e.target.nodeType === 1) {
+        if (boutonSon.contains(e.target)) return; // le bouton décide lui-même
+        if (e.target.closest && e.target.closest('.video-cadre')) return; // lancer une vidéo ne démarre pas la musique
+      }
       jouerAmbiance();
     };
 
@@ -266,10 +285,19 @@
     if (!musiqueCoupee) {
       // Tentative immédiate, puis repli sur le premier geste de l'utilisateur
       jouerAmbiance();
-      ['pointerdown', 'keydown', 'touchstart', 'wheel', 'scroll'].forEach(function (evt) {
+      GESTES.forEach(function (evt) {
         window.addEventListener(evt, demarrerAuGeste, { passive: true, once: false });
       });
     }
+
+    // Une vidéo démarre : la musique s'efface (sans mémoriser le choix)
+    document.addEventListener('hdd:video', function () {
+      retirerDeclencheurs();
+      if (!ambiance.paused) {
+        majBoutonSon(false);
+        fonduVers(0, function () { ambiance.pause(); });
+      }
+    });
   }
 
   /* =====================================================
@@ -414,7 +442,7 @@
     if (!plongeeCanvas) return;
 
     if (reduireMouvement || typeof PIXI === 'undefined') {
-      plongeeCanvas.style.background = "url('images/accueil/mer.webp') center / cover no-repeat";
+      plongeeCanvas.style.background = "url('" + RACINE + "images/accueil/mer.webp') center / cover no-repeat";
       plongeeCanvas.style.filter = 'saturate(0.55) brightness(0.6) hue-rotate(-12deg)';
       if (plongeeTexte) plongeeTexte.classList.add('visible');
       return;

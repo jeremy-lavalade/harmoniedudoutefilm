@@ -338,13 +338,6 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
   text-decoration: none;
 }
 #menu-mobile a:hover { color: var(--aube-rose); }
-#menu-mobile .menu-note {
-  margin-top: 1rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--blanc-voile);
-}
 
 /* ---------- TITRE ANIMÉ (accueil : du centre vers le header) ---------- */
 #titre-anime {
@@ -428,9 +421,26 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
 }
 #son.muet .son-barre {
   animation-play-state: paused;
-  transform: scaleY(0.22);
-  opacity: 0.55;
+  transform: scaleY(0.3);
+  opacity: 0.85;
 }
+/* Barre diagonale « muet » : le bouton reste lisible même quand
+   l'autoplay est bloqué (Safari) et que les barres sont figées */
+#son::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 26px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--aube-rose);
+  box-shadow: 0 0 6px rgba(6, 11, 24, 0.9);
+  transform: translate(-50%, -50%) rotate(-45deg) scaleX(0);
+  transform-origin: center;
+  transition: transform var(--transition-vive);
+}
+#son.muet::after { transform: translate(-50%, -50%) rotate(-45deg) scaleX(1); }
 
 /* ---------- JAUGE DE PROFONDEUR ---------- */
 #jauge {
@@ -1579,7 +1589,7 @@ details.lire-plus .texte-courant { margin-top: 1.1rem; }
   transition: opacity 0.9s var(--courbe), transform 0.9s var(--courbe);
   will-change: opacity, transform;
 }
-.reveal.visible { opacity: 1; transform: none; }
+.reveal.visible { opacity: 1; transform: none; will-change: auto; }
 .reveal.delai1 { transition-delay: 0.12s; }
 .reveal.delai2 { transition-delay: 0.24s; }
 .btn.reveal.visible { transition: transform var(--transition-vive), box-shadow var(--transition-vive), background-color var(--transition-vive), color var(--transition-vive); }

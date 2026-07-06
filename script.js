@@ -472,6 +472,7 @@
   var plongeeTexte = document.getElementById('plongee-texte');
   var merApp, merImage, merDeplacement;
   var HAUTEUR_MINI = 54;
+  var SOUS_ENTETE = 70; // la surface finit sa course juste sous le header fixe (64 px)
 
   /* Repli : image fixe et page qui reste parfaitement défilable
      (mouvement réduit, PixiJS absent, WebGL indisponible ou perdu) */
@@ -570,19 +571,25 @@
     var rect = plongee.getBoundingClientRect();
     var course = rect.height - vh;
 
-    // Progression : 0 quand la section touche le haut de l'écran, 1 en fin de course
-    var p = course > 0 ? Math.min(Math.max(-rect.top / course, 0), 1) : 0;
+    // L'écrasement démarre AVANT l'épinglage — dès que le haut de la mer
+    // passe sous ~35 % de l'écran — pour que l'effet soit déjà en route
+    // quand la surface approche du header.
+    var avance = vh * 0.35;
+    var p = Math.min(Math.max((avance - rect.top) / (course + avance), 0), 1);
 
     // L'image s'écrase : pleine hauteur -> mince pellicule (la surface passe
     // au-dessus de nous). Seule la hauteur de l'IMAGE change — la carte de
     // déplacement, elle, garde sa taille : l'animation des vagues reste
-    // identique quelle que soit la hauteur de la mer.
+    // identique quelle que soit la hauteur de la mer. La surface glisse en
+    // même temps vers SOUS_ENTETE : le bandeau final reste visible sous le
+    // header (64 px) au lieu de disparaître derrière lui.
     var hauteur = Math.round(vh + (HAUTEUR_MINI - vh) * p);
+    merImage.y = Math.round(SOUS_ENTETE * p);
     merImage.height = hauteur;
 
     // Le texte apparaît une fois passé sous la surface
     if (plongeeTexte) {
-      plongeeTexte.style.top = 'calc(' + hauteur + 'px + clamp(2rem, 8vh, 4rem))';
+      plongeeTexte.style.top = 'calc(' + (merImage.y + hauteur) + 'px + clamp(2rem, 8vh, 4rem))';
       plongeeTexte.classList.toggle('visible', p > 0.55);
     }
   }

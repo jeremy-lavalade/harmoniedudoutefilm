@@ -521,11 +521,11 @@
       merImage.tint = 0x8093C8; // accorde la mer turquoise à la nuit de l'affiche
       merApp.stage.addChild(merImage);
 
-      /* Deux réglages distincts : sur mobile le mouvement doit rester bien
-         visible même pendant le défilement ; sur ordinateur on garde un
-         frémissement plus fin. */
+      /* Deux réglages distincts : sur mobile le mouvement doit rester
+         perceptible pendant le défilement, mais sans exagération ;
+         sur ordinateur on garde un frémissement plus fin. */
       var REGLAGES_MER = window.matchMedia('(pointer: coarse), (max-width: 760px)').matches
-        ? { amplitude: 34, vitesseY: 0.55, vitesseX: 0.18 }
+        ? { amplitude: 20, vitesseY: 0.32, vitesseX: 0.1 }
         : { amplitude: 22, vitesseY: 0.22, vitesseX: 0.08 };
 
       // Carte de déplacement : bruit de vaguelettes cyclique en 256x256
@@ -535,7 +535,10 @@
       // le mouvement chaotique — seule l'image de la mer s'écrase.
       merDeplacement = PIXI.Sprite.from(RACINE + 'images/accueil/mer-vagues.png');
       merDeplacement.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.MIRRORED_REPEAT;
-      merDeplacement.width = l;
+      // Étirement horizontal minimum : sur un écran portrait (mobile), la
+      // carte étirée telle quelle donne des motifs étroits et hauts — un
+      // rendu « échographie ». On garantit des ondulations larges partout.
+      merDeplacement.width = Math.max(l, h * 1.2);
       merDeplacement.height = h;
       merDeplacement.renderable = false; // sert uniquement au filtre : ne se dessine pas sur la mer
       merApp.stage.addChild(merDeplacement);
@@ -576,8 +579,9 @@
     if (merApp.renderer.width !== largeur || merApp.renderer.height !== vh) {
       merApp.renderer.resize(largeur, vh);
       merImage.width = largeur;
-      merDeplacement.width = largeur;
-      merDeplacement.height = vh; // la carte reste plein écran en toutes circonstances
+      // carte plein écran en toutes circonstances, ondulations toujours larges
+      merDeplacement.width = Math.max(largeur, vh * 1.2);
+      merDeplacement.height = vh;
     }
 
     var rect = plongee.getBoundingClientRect();

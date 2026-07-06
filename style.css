@@ -445,16 +445,17 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
 /* ---------- INVITATION MUSIQUE (accueil) ----------
    Petite bulle flottante à côté du bouton son. Elle disparaît au
    premier scroll, dès que la musique joue, ou au clic sur le bouton. */
+/* Par défaut (mobile et écrans moyens) : bulle AU-DESSUS du bouton,
+   à l'écart de l'indicateur « Plonger » centré en bas */
 #son-note {
   position: fixed;
-  left: calc(clamp(12px, 2vw, 26px) + 58px);
-  bottom: clamp(12px, 2vw, 26px);
+  left: clamp(12px, 2vw, 26px);
+  bottom: calc(clamp(12px, 2vw, 26px) + 58px);
   z-index: 95;
   display: inline-flex;
   align-items: center;
-  min-height: 46px;
-  max-width: min(60vw, 320px);
-  padding: 0.5em 1.1em;
+  max-width: min(72vw, 300px);
+  padding: 0.6em 1em;
   border-radius: 999px;
   background-color: rgba(6, 11, 24, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.22);
@@ -470,16 +471,16 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 #son-note::before {
-  /* petite pointe tournée vers le bouton son */
+  /* petite pointe tournée vers le bouton son, en dessous */
   content: '';
   position: absolute;
-  left: -5px;
-  top: 50%;
+  left: 16px;
+  bottom: -5px;
   width: 9px;
   height: 9px;
-  transform: translateY(-50%) rotate(45deg);
+  transform: rotate(45deg);
   background-color: rgba(6, 11, 24, 0.75);
-  border-left: 1px solid rgba(255, 255, 255, 0.22);
+  border-right: 1px solid rgba(255, 255, 255, 0.22);
   border-bottom: 1px solid rgba(255, 255, 255, 0.22);
 }
 #son-note.visible {
@@ -496,31 +497,15 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-4px); }
 }
-@media (max-width: 760px) {
-  /* au-dessus du bouton : ne chevauche pas l'indicateur « Plonger » centré */
+@media (min-width: 1200px) {
+  /* Grand écran : pas de bulle, un texte affirmé à côté du bouton
+     (l'espace est suffisant pour ne pas approcher « Plonger ») */
   #son-note {
-    left: clamp(12px, 2vw, 26px);
-    bottom: calc(clamp(12px, 2vw, 26px) + 58px);
-    min-height: 0;
-    max-width: min(72vw, 300px);
-    padding: 0.6em 1em;
-  }
-  #son-note::before {
-    left: 16px;
-    top: auto;
-    bottom: -5px;
-    transform: rotate(45deg);
-    border-left: none;
-    border-top: none;
-    border-right: 1px solid rgba(255, 255, 255, 0.22);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.22);
-  }
-}
-@media (min-width: 761px) {
-  /* Sur ordinateur : pas de bulle, un texte affirmé qui désigne le bouton */
-  #son-note {
-    padding: 0 0 0 30px;
+    left: calc(clamp(12px, 2vw, 26px) + 58px);
+    bottom: clamp(12px, 2vw, 26px);
+    min-height: 46px;
     max-width: none;
+    padding: 0 0 0 30px;
     background: none;
     border: none;
     -webkit-backdrop-filter: none;
@@ -532,8 +517,10 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
     text-shadow: 0 2px 16px rgba(2, 6, 14, 0.95), 0 0 30px rgba(2, 6, 14, 0.8);
   }
   #son-note::before {
-    /* chevron tourné vers le bouton son */
+    /* chevron tourné vers le bouton son, à gauche */
     left: 6px;
+    top: 50%;
+    bottom: auto;
     width: 11px;
     height: 11px;
     background: none;

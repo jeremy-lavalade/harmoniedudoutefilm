@@ -308,27 +308,22 @@
       else retirerDeclencheurs();
     });
 
-    /* Invitation à découvrir la musique : apparaît après un court délai
-       si la musique ne joue pas, disparaît quand on descend dans la page
-       et RÉAPPARAÎT quand on remonte tout en haut. Elle s'éteint pour de
-       bon dès que la musique démarre ou que le bouton est utilisé. */
+    /* Invitation à découvrir la musique : visible tout en haut de la page
+       tant que la musique ne joue pas — elle disparaît quand on descend
+       ou quand la musique démarre, et réapparaît dès qu'on revient en haut. */
     var noteSon = document.getElementById('son-note');
     if (noteSon) {
-      var noteEteinte = false;
       var notePrete = false;
       var majNote = function () {
-        var montrer = !noteEteinte && notePrete && ambiance.paused && window.scrollY <= 30;
+        var montrer = notePrete && ambiance.paused && window.scrollY <= 30;
         noteSon.classList.toggle('visible', montrer);
         noteSon.classList.toggle('cachee', !montrer);
       };
-      var eteindreNote = function () {
-        noteEteinte = true;
-        majNote();
-      };
       setTimeout(function () { notePrete = true; majNote(); }, 900);
       window.addEventListener('scroll', majNote, { passive: true });
-      ambiance.addEventListener('playing', eteindreNote);
-      boutonSon.addEventListener('click', eteindreNote);
+      ambiance.addEventListener('playing', majNote);
+      ambiance.addEventListener('pause', majNote);
+      boutonSon.addEventListener('click', function () { setTimeout(majNote, 50); });
     }
   }
 
@@ -537,10 +532,10 @@
       merApp.stage.filters = [new PIXI.filters.DisplacementFilter(merDeplacement)];
 
       merApp.ticker.add(function (delta) {
-        // La vitesse suit la hauteur de la carte : le mouvement des vagues
-        // est ainsi identique que la mer soit plein écran ou écrasée.
-        // Le coefficient donne un frémissement calme de petites vagues
-        // (perceptible sans jamais devenir un courant rapide).
+        // Frémissement calme de petites vagues. La carte de déplacement
+        // garde sa taille plein écran en permanence (elle ne s'écrase pas
+        // avec l'image) : l'animation est donc rigoureusement la même
+        // du début à la fin de la plongée.
         merDeplacement.y += merDeplacement.height * 0.0004 * (delta || 1);
       });
 
@@ -569,6 +564,7 @@
       merApp.renderer.resize(largeur, vh);
       merImage.width = largeur;
       merDeplacement.width = largeur * 1.2;
+      merDeplacement.height = vh; // la carte reste toujours plein écran
     }
 
     var rect = plongee.getBoundingClientRect();
@@ -578,11 +574,11 @@
     var p = course > 0 ? Math.min(Math.max(-rect.top / course, 0), 1) : 0;
 
     // L'image s'écrase : pleine hauteur -> mince pellicule (la surface passe
-    // au-dessus de nous). Seule la hauteur du sprite change : le canvas,
-    // transparent, laisse voir le fond nuit en dessous.
+    // au-dessus de nous). Seule la hauteur de l'IMAGE change — la carte de
+    // déplacement, elle, garde sa taille : l'animation des vagues reste
+    // identique quelle que soit la hauteur de la mer.
     var hauteur = Math.round(vh + (HAUTEUR_MINI - vh) * p);
     merImage.height = hauteur;
-    merDeplacement.height = Math.max(hauteur, 1);
 
     // Le texte apparaît une fois passé sous la surface
     if (plongeeTexte) {

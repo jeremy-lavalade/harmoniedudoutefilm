@@ -867,6 +867,10 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
   padding-top: clamp(1.5rem, 4vw, 3rem);
   padding-bottom: clamp(5rem, 12vw, 10rem);
 }
+/* Sur mobile, l'espace sous « Sous la surface, le doute. » est plus court */
+@media (max-width: 760px) {
+  #profondeurs { margin-top: -55vh; }
+}
 /* Mer statique (mouvement réduit, WebGL absent) : pas de chevauchement */
 body.mer-statique #profondeurs { margin-top: 0; }
 .citation-bloc {

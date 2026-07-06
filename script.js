@@ -521,23 +521,35 @@
       merImage.tint = 0x8093C8; // accorde la mer turquoise à la nuit de l'affiche
       merApp.stage.addChild(merImage);
 
-      // Carte de déplacement en 512x512 : une puissance de deux est requise
-      // par le mode MIRRORED_REPEAT sur WebGL1 (Safari et mobiles plus anciens),
-      // sans quoi la mer s'affiche figée et délavée
-      merDeplacement = PIXI.Sprite.from(RACINE + 'images/accueil/displacement-map-512.png');
+      /* Deux réglages distincts : sur mobile le mouvement doit rester bien
+         visible même pendant le défilement ; sur ordinateur on garde un
+         frémissement plus fin. */
+      var REGLAGES_MER = window.matchMedia('(pointer: coarse), (max-width: 760px)').matches
+        ? { amplitude: 34, vitesseY: 0.55, vitesseX: 0.18 }
+        : { amplitude: 22, vitesseY: 0.22, vitesseX: 0.08 };
+
+      // Carte de déplacement : bruit de vaguelettes cyclique en 256x256
+      // (puissance de deux : requise par MIRRORED_REPEAT sur WebGL1).
+      // Elle reste en PERMANENCE à la taille de l'écran : c'est son
+      // écrasement pendant le scroll qui déformait les vagues et rendait
+      // le mouvement chaotique — seule l'image de la mer s'écrase.
+      merDeplacement = PIXI.Sprite.from(RACINE + 'images/accueil/mer-vagues.png');
       merDeplacement.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.MIRRORED_REPEAT;
-      merDeplacement.width = l * 1.2;
+      merDeplacement.width = l;
       merDeplacement.height = h;
+      merDeplacement.renderable = false; // sert uniquement au filtre : ne se dessine pas sur la mer
       merApp.stage.addChild(merDeplacement);
 
-      merApp.stage.filters = [new PIXI.filters.DisplacementFilter(merDeplacement)];
+      var filtreMer = new PIXI.filters.DisplacementFilter(merDeplacement);
+      filtreMer.scale.set(REGLAGES_MER.amplitude, REGLAGES_MER.amplitude * 0.7);
+      merApp.stage.filters = [filtreMer];
 
       merApp.ticker.add(function (delta) {
-        // Frémissement calme de petites vagues. La carte de déplacement
-        // s'écrase avec l'image (mêmes proportions) et sa vitesse suit sa
-        // hauteur : le mouvement relatif des vagues est donc rigoureusement
-        // le même du début à la fin de la plongée.
-        merDeplacement.y += merDeplacement.height * 0.0004 * (delta || 1);
+        // Dérive lente en diagonale : les vaguelettes ondulent au lieu de
+        // défiler — indépendante de l'écrasement, donc stable au scroll.
+        var d = delta || 1;
+        merDeplacement.y += REGLAGES_MER.vitesseY * d;
+        merDeplacement.x += REGLAGES_MER.vitesseX * d;
       });
 
       // Contexte WebGL perdu (GPU saturé, onglet longtemps caché…) :
@@ -564,7 +576,8 @@
     if (merApp.renderer.width !== largeur || merApp.renderer.height !== vh) {
       merApp.renderer.resize(largeur, vh);
       merImage.width = largeur;
-      merDeplacement.width = largeur * 1.2;
+      merDeplacement.width = largeur;
+      merDeplacement.height = vh; // la carte reste plein écran en toutes circonstances
     }
 
     var rect = plongee.getBoundingClientRect();
@@ -581,14 +594,12 @@
     // et y reste pendant tout l'écrasement.
     merImage.y = Math.round(Math.min(Math.max(SOUS_ENTETE - Math.max(rect.top, 0), 0), SOUS_ENTETE));
 
-    // L'image s'écrase : pleine hauteur -> mince pellicule (la surface passe
-    // au-dessus de nous). La carte de déplacement garde EXACTEMENT les
-    // proportions de l'image — et comme sa vitesse de défilement est
-    // proportionnelle à sa hauteur, le mouvement des vagues est identique
-    // quelle que soit la hauteur de la mer.
+    // L'image s'écrase : pleine hauteur -> disparition complète (la surface
+    // passe au-dessus de nous). Seule l'IMAGE s'écrase — la carte de
+    // déplacement, plein écran, n'est jamais déformée : le mouvement des
+    // vagues reste stable et identique pendant tout le défilement.
     var hauteur = Math.round(vh + (HAUTEUR_MINI - vh) * p);
     merImage.height = hauteur;
-    merDeplacement.height = Math.max(hauteur, 1);
 
     // Le texte apparaît une fois passé sous la surface
     if (plongeeTexte) {

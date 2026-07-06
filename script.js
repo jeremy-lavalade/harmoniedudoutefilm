@@ -473,6 +473,16 @@
   var merApp, merImage, merDeplacement;
   var HAUTEUR_MINI = 0; // la mer s'écrase jusqu'à disparaître complètement
   var SOUS_ENTETE = 70; // la surface se cale sous le header fixe (64 px) pendant l'écrasement
+  var RATIO_MER = 1500 / 744; // proportions natives de mer.webp
+
+  // Mode « cover » : la photo garde ses proportions (recadrée et centrée
+  // horizontalement) au lieu d'être étirée à l'écran — étirée en portrait,
+  // les vagues devenaient étroites et verticales (effet « échographie »)
+  function couvrirMer(largeur, vh) {
+    var largeurMer = Math.max(largeur, vh * RATIO_MER);
+    merImage.width = Math.round(largeurMer);
+    merImage.x = Math.round((largeur - largeurMer) / 2);
+  }
 
   /* Repli : image fixe et page qui reste parfaitement défilable
      (mouvement réduit, PixiJS absent, WebGL indisponible ou perdu) */
@@ -503,7 +513,15 @@
     try {
       var l = Math.max(window.innerWidth, 1);
       var h = Math.max(window.innerHeight, 1);
-      merApp = new PIXI.Application({ width: l, height: h, transparent: true });
+      merApp = new PIXI.Application({
+        width: l,
+        height: h,
+        transparent: true,
+        // rendu à la densité réelle de l'écran (Retina), plafonné à 2x :
+        // sans cela l'image est calculée en pixels CSS puis agrandie -> pixelisée
+        resolution: Math.min(window.devicePixelRatio || 1, 2),
+        autoDensity: true
+      });
 
       // Le canvas ne doit JAMAIS intercepter le tactile : PixiJS pose
       // touch-action:none par défaut, ce qui fige le défilement sur mobile
@@ -516,7 +534,7 @@
       plongeeCanvas.appendChild(merApp.view);
 
       merImage = PIXI.Sprite.from(RACINE + 'images/accueil/mer.webp');
-      merImage.width = l;
+      couvrirMer(l, h);
       merImage.height = h;
       merImage.tint = 0x8093C8; // accorde la mer turquoise à la nuit de l'affiche
       merApp.stage.addChild(merImage);
@@ -576,9 +594,12 @@
 
     // Redimensionner le rendu WebGL est coûteux : uniquement quand la
     // fenêtre change vraiment (jamais à chaque cran de scroll)
-    if (merApp.renderer.width !== largeur || merApp.renderer.height !== vh) {
+    // renderer.screen est en pixels CSS (renderer.width est en pixels
+    // physiques : avec la résolution Retina, le comparer à la fenêtre
+    // relancerait un redimensionnement à chaque cran de scroll)
+    if (merApp.renderer.screen.width !== largeur || merApp.renderer.screen.height !== vh) {
       merApp.renderer.resize(largeur, vh);
-      merImage.width = largeur;
+      couvrirMer(largeur, vh);
       // carte plein écran en toutes circonstances, ondulations toujours larges
       merDeplacement.width = Math.max(largeur, vh * 1.2);
       merDeplacement.height = vh;

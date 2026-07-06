@@ -471,8 +471,8 @@
   var plongeeCanvas = document.getElementById('plongee-canvas');
   var plongeeTexte = document.getElementById('plongee-texte');
   var merApp, merImage, merDeplacement;
-  var HAUTEUR_MINI = 54;
-  var SOUS_ENTETE = 70; // la surface finit sa course juste sous le header fixe (64 px)
+  var HAUTEUR_MINI = 0; // la mer s'écrase jusqu'à disparaître complètement
+  var SOUS_ENTETE = 70; // la surface se cale sous le header fixe (64 px) pendant l'écrasement
 
   /* Repli : image fixe et page qui reste parfaitement défilable
      (mouvement réduit, PixiJS absent, WebGL indisponible ou perdu) */
@@ -534,9 +534,9 @@
 
       merApp.ticker.add(function (delta) {
         // Frémissement calme de petites vagues. La carte de déplacement
-        // garde sa taille plein écran en permanence (elle ne s'écrase pas
-        // avec l'image) : l'animation est donc rigoureusement la même
-        // du début à la fin de la plongée.
+        // s'écrase avec l'image (mêmes proportions) et sa vitesse suit sa
+        // hauteur : le mouvement relatif des vagues est donc rigoureusement
+        // le même du début à la fin de la plongée.
         merDeplacement.y += merDeplacement.height * 0.0004 * (delta || 1);
       });
 
@@ -565,7 +565,6 @@
       merApp.renderer.resize(largeur, vh);
       merImage.width = largeur;
       merDeplacement.width = largeur * 1.2;
-      merDeplacement.height = vh; // la carte reste toujours plein écran
     }
 
     var rect = plongee.getBoundingClientRect();
@@ -577,15 +576,19 @@
     var avance = vh * 0.35;
     var p = Math.min(Math.max((avance - rect.top) / (course + avance), 0), 1);
 
+    // La surface ne passe JAMAIS derrière le header : dès que le haut de la
+    // section l'atteint, le haut de la mer se cale sous lui (SOUS_ENTETE)
+    // et y reste pendant tout l'écrasement.
+    merImage.y = Math.round(Math.min(Math.max(SOUS_ENTETE - Math.max(rect.top, 0), 0), SOUS_ENTETE));
+
     // L'image s'écrase : pleine hauteur -> mince pellicule (la surface passe
-    // au-dessus de nous). Seule la hauteur de l'IMAGE change — la carte de
-    // déplacement, elle, garde sa taille : l'animation des vagues reste
-    // identique quelle que soit la hauteur de la mer. La surface glisse en
-    // même temps vers SOUS_ENTETE : le bandeau final reste visible sous le
-    // header (64 px) au lieu de disparaître derrière lui.
+    // au-dessus de nous). La carte de déplacement garde EXACTEMENT les
+    // proportions de l'image — et comme sa vitesse de défilement est
+    // proportionnelle à sa hauteur, le mouvement des vagues est identique
+    // quelle que soit la hauteur de la mer.
     var hauteur = Math.round(vh + (HAUTEUR_MINI - vh) * p);
-    merImage.y = Math.round(SOUS_ENTETE * p);
     merImage.height = hauteur;
+    merDeplacement.height = Math.max(hauteur, 1);
 
     // Le texte apparaît une fois passé sous la surface
     if (plongeeTexte) {

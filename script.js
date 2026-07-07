@@ -295,13 +295,13 @@
     ambiance.addEventListener('pause', function () { majBoutonSon(false); });
 
     /* Mesure musique :
-       - Pages : /musique-lancee-automatiquement OU /musique-lancee-manuellement
-         (le premier lancement de la visite, selon son origine), et
-         /musique-coupee-au-bouton (première coupure volontaire).
-       - Campaigns : paliers de DURÉE DE MUSIQUE (mêmes seuils que la durée
-         de visite), validés au fil de la lecture — écoute cumulée depuis le
-         premier lancement, jusqu'à la première coupure au bouton. Rien ne
-         dépend de la fermeture de la page. */
+       - Pages (une fois par visite) : /lancement-musique-manuelle OU
+         /lancement-musique-automatique selon l'origine du premier lancement,
+         et /arret-musique-manuelle à la première coupure au bouton.
+       - Campaigns (portées par /duree-musique) : la tranche EXCLUSIVE de
+         durée d'écoute cumulée — envoyée UNE seule fois par visite, à la
+         première coupure au bouton ou au départ de la page (la musique
+         s'arrête de toute façon avec la page). */
     var lancementParBouton = false;
     var mesureMusique = function (cle, chemin, titre, campagne) {
       if (seLire(cle)) return;
@@ -309,53 +309,46 @@
       envoyerMesure('musique-hdd', chemin, titre, campagne);
     };
 
-    var SEUILS_MUSIQUE = [
-      [0, 'lanc\u00e9e'],
-      [10, 'au moins 10s'],
-      [30, 'au moins 30s'],
-      [60, 'au moins 1min'],
-      [120, 'au moins 2min'],
-      [180, 'au moins 3min'],
-      [240, 'au moins 4min'],
-      [300, 'au moins 5min'],
-      [600, 'au moins 10min'],
-      [900, 'au moins 15min'],
-      [1800, 'au moins 30min']
+    var TRANCHES_MUSIQUE = [
+      [10, '0 \u00e0 9 secondes'],
+      [30, '10 \u00e0 29 secondes'],
+      [60, '30 \u00e0 59 secondes'],
+      [120, '1 \u00e0 1:59 min'],
+      [180, '2 \u00e0 2:59 min'],
+      [240, '3 \u00e0 3:59 min'],
+      [300, '4 \u00e0 4:59 min'],
+      [600, '5 \u00e0 9:59 min'],
+      [Infinity, '10 min ou plus']
     ];
+    var trancheMusique = function (secondes) {
+      for (var i = 0; i < TRANCHES_MUSIQUE.length; i++) {
+        if (secondes < TRANCHES_MUSIQUE[i][0]) return TRANCHES_MUSIQUE[i][1];
+      }
+      return TRANCHES_MUSIQUE[TRANCHES_MUSIQUE.length - 1][1];
+    };
+
     var ecouteCumulee = parseInt(seLire('hdd-v3-m-cumul'), 10) || 0;
     var ecouteDepuis = null;
-    var minuteurMusique = null;
 
-    var planifierPalierMusique = function () {
-      clearTimeout(minuteurMusique);
-      if (ecouteDepuis === null || seLire('hdd-v3-m-fini')) return;
-      for (var i = 0; i < SEUILS_MUSIQUE.length; i++) {
-        if (!seLire('hdd-v3-m-palier-' + i)) {
-          (function (indice) {
-            var restant = SEUILS_MUSIQUE[indice][0] * 1000 - (ecouteCumulee + (Date.now() - ecouteDepuis));
-            minuteurMusique = setTimeout(function () {
-              mesureMusique('hdd-v3-m-palier-' + indice, '/duree-musique', 'Dur\u00e9e de la musique',
-                '\ud83c\udfb5 ' + SEUILS_MUSIQUE[indice][1]);
-              planifierPalierMusique();
-            }, Math.max(restant, 0));
-          })(i);
-          return;
-        }
-      }
+    var envoyerDureeMusique = function () {
+      if (!seLire('hdd-v3-m-lancement') || seLire('hdd-v3-m-duree-ok')) return;
+      seStocker('hdd-v3-m-duree-ok', '1');
+      var total = ecouteCumulee + (ecouteDepuis !== null ? Date.now() - ecouteDepuis : 0);
+      mesureMusique('hdd-v3-m-duree-hit', '/duree-musique', 'Dur\u00e9e de la musique',
+        trancheMusique(total / 1000));
     };
 
     ambiance.addEventListener('playing', function () {
       if (ecouteDepuis === null) ecouteDepuis = Date.now();
-      // premier lancement de la visite : automatique ou manuel ?
+      // premier lancement de la visite : manuel (bouton) ou automatique ?
       if (!seLire('hdd-v3-m-lancement')) {
         seStocker('hdd-v3-m-lancement', '1');
         if (lancementParBouton) {
-          mesureMusique('hdd-v3-m-l-manuel', '/musique-lancee-manuellement', 'Musique lanc\u00e9e manuellement');
+          mesureMusique('hdd-v3-m-l-manuel', '/lancement-musique-manuelle', 'Lancement musique manuelle');
         } else {
-          mesureMusique('hdd-v3-m-l-auto', '/musique-lancee-automatiquement', 'Musique lanc\u00e9e automatiquement');
+          mesureMusique('hdd-v3-m-l-auto', '/lancement-musique-automatique', 'Lancement musique automatique');
         }
       }
-      planifierPalierMusique();
     });
     ambiance.addEventListener('pause', function () {
       if (ecouteDepuis !== null) {
@@ -363,13 +356,19 @@
         ecouteDepuis = null;
         seStocker('hdd-v3-m-cumul', String(ecouteCumulee));
       }
-      clearTimeout(minuteurMusique);
     });
-    // en cas de navigation interne pendant la lecture, on préserve le cumul
+    // départ de la page (fermeture ou navigation) : la musique s'arrête,
+    // on envoie la tranche de durée si ce n'est pas déjà fait
     window.addEventListener('pagehide', function () {
       if (ecouteDepuis !== null) {
         seStocker('hdd-v3-m-cumul', String(ecouteCumulee + (Date.now() - ecouteDepuis)));
       }
+      envoyerDureeMusique();
+    });
+    // filet mobile : onglet masqué alors que la musique est déjà arrêtée
+    // (l'application peut être fermée ensuite sans événement pagehide)
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden' && ambiance.paused) envoyerDureeMusique();
     });
 
     /* Safari (mac et iOS) n'accorde le droit de jouer un son qu'aux
@@ -414,8 +413,8 @@
         jouerAmbiance();
       } else {
         try { localStorage.setItem('hdd-musique', 'coupee'); } catch (err) {}
-        mesureMusique('hdd-v3-m-coupee', '/musique-coupee-au-bouton', 'Musique coup\u00e9e au bouton');
-        seStocker('hdd-v3-m-fini', '1'); // fin de la mesure de durée musique
+        mesureMusique('hdd-v3-m-arret', '/arret-musique-manuelle', 'Arr\u00eat musique manuelle (bouton)');
+        envoyerDureeMusique();
         couperAmbiance();
       }
     });

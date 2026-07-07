@@ -199,49 +199,54 @@
     chargerPhoto(1, 0);
   }
 
-  /* ---------- TEMPS PASSÉ SUR LA PAGE (événements GoatCounter) ----------
+  /* ---------- ÉVÉNEMENTS GOATCOUNTER (aides communes) ----------
+     Tranches de durée EXCLUSIVES : une valeur ne compte que dans sa
+     tranche (2 min 30 -> « 2min-2min59 », jamais dans les précédentes). */
+  var MESURE_ACTIVE = !/^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname);
+  var TRANCHES_DUREE = [
+    [10, '01-0-9s'],
+    [30, '02-10-29s'],
+    [60, '03-30-59s'],
+    [120, '04-1min-1min59'],
+    [180, '05-2min-2min59'],
+    [240, '06-3min-3min59'],
+    [300, '07-4min-4min59'],
+    [600, '08-5min-9min59'],
+    [900, '09-10min-14min59'],
+    [1800, '10-15min-29min59'],
+    [Infinity, '11-30min-et-plus']
+  ];
+  function trancheDuree(secondes) {
+    for (var i = 0; i < TRANCHES_DUREE.length; i++) {
+      if (secondes < TRANCHES_DUREE[i][0]) return TRANCHES_DUREE[i][1];
+    }
+    return TRANCHES_DUREE[TRANCHES_DUREE.length - 1][1];
+  }
+  function envoyerEvenement(nom) {
+    if (!MESURE_ACTIVE) return;
+    var url = 'https://harmoniedudoute.goatcounter.com/count?e=true&p=' +
+      encodeURIComponent(nom) + '&rnd=' + Date.now();
+    try {
+      if (window.fetch) fetch(url, { keepalive: true, mode: 'no-cors' });
+      else (new Image()).src = url;
+    } catch (err) {}
+  }
+
+  /* ---------- TEMPS PASSÉ SUR LA PAGE ----------
      Un SEUL événement par page vue, envoyé quand le visiteur quitte la page
-     (fermeture, navigation ou passage en arrière-plan) : il porte la tranche
-     de durée correspondant au temps total — les tranches sont exclusives,
-     une visite de 2 min 30 ne compte que dans « 2min-2min59 ». */
+     (fermeture, navigation ou passage en arrière-plan). */
   (function () {
-    // pas de mesure en local (développement)
-    if (/^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname)) return;
     var debut = Date.now();
     var envoye = false;
-    // [borne supérieure exclusive en secondes, nom de l'événement]
-    var TRANCHES = [
-      [10, 'temps/01-0-9s'],
-      [30, 'temps/02-10-29s'],
-      [60, 'temps/03-30-59s'],
-      [120, 'temps/04-1min-1min59'],
-      [180, 'temps/05-2min-2min59'],
-      [240, 'temps/06-3min-3min59'],
-      [300, 'temps/07-4min-4min59'],
-      [600, 'temps/08-5min-9min59'],
-      [900, 'temps/09-10min-14min59'],
-      [1800, 'temps/10-15min-29min59'],
-      [Infinity, 'temps/11-30min-et-plus']
-    ];
-    var envoyerTranche = function () {
+    var envoyerTemps = function () {
       if (envoye) return;
       envoye = true;
-      var secondes = (Date.now() - debut) / 1000;
-      var nom = TRANCHES[TRANCHES.length - 1][1];
-      for (var i = 0; i < TRANCHES.length; i++) {
-        if (secondes < TRANCHES[i][0]) { nom = TRANCHES[i][1]; break; }
-      }
-      var url = 'https://harmoniedudoute.goatcounter.com/count?e=true&p=' +
-        encodeURIComponent(nom) + '&rnd=' + Date.now();
-      try {
-        if (window.fetch) fetch(url, { keepalive: true, mode: 'no-cors' });
-        else (new Image()).src = url;
-      } catch (err) {}
+      envoyerEvenement('temps/' + trancheDuree((Date.now() - debut) / 1000));
     };
     document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'hidden') envoyerTranche();
+      if (document.visibilityState === 'hidden') envoyerTemps();
     });
-    window.addEventListener('pagehide', envoyerTranche);
+    window.addEventListener('pagehide', envoyerTemps);
   })();
 
   /* ---------- MUSIQUE D'AMBIANCE (accueil) ----------
@@ -272,6 +277,38 @@
     ambiance.addEventListener('play', function () { majBoutonSon(true); });
     ambiance.addEventListener('playing', function () { majBoutonSon(true); });
     ambiance.addEventListener('pause', function () { majBoutonSon(false); });
+
+    /* Mesure : première lecture, premier arrêt volontaire, et durée
+       d'écoute cumulée (tranches exclusives) envoyée en quittant la page. */
+    var lectureSignalee = false;
+    var arretSignale = false;
+    var ecouteCumulee = 0;
+    var ecouteDepuis = null;
+    var ecouteEnvoyee = false;
+    ambiance.addEventListener('playing', function () {
+      if (ecouteDepuis === null) ecouteDepuis = Date.now();
+      if (!lectureSignalee) {
+        lectureSignalee = true;
+        envoyerEvenement('musique/lecture');
+      }
+    });
+    ambiance.addEventListener('pause', function () {
+      if (ecouteDepuis !== null) {
+        ecouteCumulee += Date.now() - ecouteDepuis;
+        ecouteDepuis = null;
+      }
+    });
+    var envoyerEcoute = function () {
+      if (ecouteEnvoyee) return;
+      var total = ecouteCumulee + (ecouteDepuis !== null ? Date.now() - ecouteDepuis : 0);
+      if (total < 1000) return; // musique jamais vraiment écoutée : rien à signaler
+      ecouteEnvoyee = true;
+      envoyerEvenement('musique/duree/' + trancheDuree(total / 1000));
+    };
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') envoyerEcoute();
+    });
+    window.addEventListener('pagehide', envoyerEcoute);
 
     /* Safari (mac et iOS) n'accorde le droit de jouer un son qu'aux
        « vrais » gestes utilisateur : click, touchend, mousedown, keydown.
@@ -314,6 +351,10 @@
         jouerAmbiance();
       } else {
         try { localStorage.setItem('hdd-musique', 'coupee'); } catch (err) {}
+        if (!arretSignale) {
+          arretSignale = true;
+          envoyerEvenement('musique/arret');
+        }
         couperAmbiance();
       }
     });

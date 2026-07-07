@@ -258,7 +258,7 @@
       if (seLire('hdd-temps-envoye') || seLire('hdd-nav-interne')) return;
       seStocker('hdd-temps-envoye', '1');
       var debut = parseInt(seLire('hdd-visite-debut'), 10) || Date.now();
-      envoyerMesure('harmoniedudoute', '/temps-passe', 'Dur\u00e9e de la visite',
+      envoyerMesure('harmoniedudoutefilm', '/temps-passe', 'Dur\u00e9e de la visite',
         '\u23f1 ' + trancheDuree((Date.now() - debut) / 1000));
     };
     document.addEventListener('visibilitychange', function () {
@@ -324,7 +324,7 @@
       else statut = (arretSignale ? '\u23f9 coup\u00e9e \u00b7 ' : '\ud83c\udfb5 \u00e9cout\u00e9e \u00b7 ') + trancheDuree(total / 1000);
       var enAnglais = document.documentElement.lang === 'en';
       envoyerMesure(
-        'hdd-musique',
+        'musique-hdd',
         enAnglais ? '/accueil-en' : '/accueil-fr',
         enAnglais ? 'Accueil anglais' : 'Accueil fran\u00e7ais',
         statut

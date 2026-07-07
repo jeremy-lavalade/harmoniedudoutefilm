@@ -237,6 +237,15 @@
   function seStocker(cle, valeur) { try { sessionStorage.setItem(cle, valeur); } catch (e) {} }
   function seLire(cle) { try { return sessionStorage.getItem(cle); } catch (e) { return null; } }
   function seRetirer(cle) { try { sessionStorage.removeItem(cle); } catch (e) {} }
+  // nouvelle visite si aucune en cours, ou si la dernière date de plus de 4 h
+  (function () {
+    var debut = parseInt(seLire('hdd-v2-debut'), 10);
+    if (!debut || Date.now() - debut > 4 * 3600 * 1000) {
+      seStocker('hdd-v2-debut', String(Date.now()));
+      seRetirer('hdd-v2-temps-ok');
+      seRetirer('hdd-v2-musique-ok');
+    }
+  })();
 
   /* ---------- DURÉE DE LA VISITE ----------
      UNE seule mesure par visite : le chrono démarre à la première page de
@@ -245,19 +254,24 @@
      navigation interne. Les pourcentages du panneau Campaigns restent
      ainsi calculés sur le nombre de visites (jamais plus de 100 %). */
   (function () {
-    if (!seLire('hdd-visite-debut')) seStocker('hdd-visite-debut', String(Date.now()));
-    seRetirer('hdd-nav-interne'); // arrivé sur cette page : la navigation est finie
+    seRetirer('hdd-v2-nav'); // arrivé sur cette page : la navigation est finie
 
-    // un clic vers une page interne n'est pas une fin de visite
+    // Un clic vers une AUTRE page interne n'est pas une fin de visite.
+    // Les ancres de la même page (#...) et les PDF n'en sont pas non plus :
+    // ils ne chargent pas de nouvelle page du site, le drapeau ne doit pas
+    // rester posé (sinon la mesure serait annulée à tort).
     document.addEventListener('click', function (e) {
       var lien = e.target && e.target.closest ? e.target.closest('a[href]') : null;
-      if (lien && lien.host === location.host && !lien.target) seStocker('hdd-nav-interne', '1');
+      if (!lien || lien.host !== location.host || lien.target) return;
+      var memeDocument = lien.pathname === location.pathname && lien.search === location.search;
+      var estPdf = /\.pdf($|\?)/i.test(lien.pathname);
+      if (!memeDocument && !estPdf) seStocker('hdd-v2-nav', '1');
     }, true);
 
     var envoyerDureeVisite = function () {
-      if (seLire('hdd-temps-envoye') || seLire('hdd-nav-interne')) return;
-      seStocker('hdd-temps-envoye', '1');
-      var debut = parseInt(seLire('hdd-visite-debut'), 10) || Date.now();
+      if (seLire('hdd-v2-temps-ok') || seLire('hdd-v2-nav')) return;
+      seStocker('hdd-v2-temps-ok', '1');
+      var debut = parseInt(seLire('hdd-v2-debut'), 10) || Date.now();
       envoyerMesure('harmoniedudoutefilm', '/temps-passe', 'Dur\u00e9e de la visite',
         '\u23f1 ' + trancheDuree((Date.now() - debut) / 1000));
     };
@@ -315,9 +329,9 @@
       }
     });
     var envoyerStatutMusique = function () {
-      if (statutEnvoye || seLire('hdd-musique-envoyee')) return;
+      if (statutEnvoye || seLire('hdd-v2-musique-ok')) return;
       statutEnvoye = true;
-      seStocker('hdd-musique-envoyee', '1'); // une seule mesure par visite
+      seStocker('hdd-v2-musique-ok', '1'); // une seule mesure par visite
       var total = ecouteCumulee + (ecouteDepuis !== null ? Date.now() - ecouteDepuis : 0);
       var statut;
       if (total < 1000) statut = '\ud83d\udd07 pas \u00e9cout\u00e9e';

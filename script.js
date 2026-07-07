@@ -205,7 +205,7 @@
     if (!MESURE_ACTIVE) return;
     var url = 'https://' + site + '.goatcounter.com/count?p=' + encodeURIComponent(chemin) +
       '&t=' + encodeURIComponent(titre) +
-      '&q=' + encodeURIComponent('utm_campaign=' + campagne) +
+      (campagne ? '&q=' + encodeURIComponent('utm_campaign=' + campagne) : '') +
       '&rnd=' + Date.now();
     try {
       if (window.fetch) fetch(url, { keepalive: true, mode: 'no-cors' });
@@ -294,47 +294,49 @@
     ambiance.addEventListener('playing', function () { majBoutonSon(true); });
     ambiance.addEventListener('pause', function () { majBoutonSon(false); });
 
-    /* Mesure musique par paliers, calée sur les visites de l'accueil :
-       « 🏠 accueil ouvert » dès l'arrivée (le dénominateur des %),
-       « 🎵 musique lancée » à la première lecture, un palier d'écoute
-       CUMULÉE à chaque seuil atteint, « ⏹ coupée au bouton » à l'arrêt
-       volontaire. Chaque mesure part une seule fois par visite ; rien
-       ne dépend de la fermeture de la page. */
-    var enAnglaisMesure = document.documentElement.lang === 'en';
-    var cheminMusique = enAnglaisMesure ? '/accueil-en' : '/accueil-fr';
-    var titreMusique = enAnglaisMesure ? 'Accueil anglais' : 'Accueil fran\u00e7ais';
-    var mesureMusique = function (cle, libelle) {
+    /* Mesure musique :
+       - Pages : /musique-lancee-automatiquement OU /musique-lancee-manuellement
+         (le premier lancement de la visite, selon son origine), et
+         /musique-coupee-au-bouton (première coupure volontaire).
+       - Campaigns : paliers de DURÉE DE MUSIQUE (mêmes seuils que la durée
+         de visite), validés au fil de la lecture — écoute cumulée depuis le
+         premier lancement, jusqu'à la première coupure au bouton. Rien ne
+         dépend de la fermeture de la page. */
+    var lancementParBouton = false;
+    var mesureMusique = function (cle, chemin, titre, campagne) {
       if (seLire(cle)) return;
       seStocker(cle, '1');
-      envoyerMesure('musique-hdd', cheminMusique, titreMusique, libelle);
+      envoyerMesure('musique-hdd', chemin, titre, campagne);
     };
-    mesureMusique('hdd-v3-m-accueil', '\ud83c\udfe0 accueil ouvert');
 
-    var SEUILS_ECOUTE = [
+    var SEUILS_MUSIQUE = [
+      [0, 'lanc\u00e9e'],
       [10, 'au moins 10s'],
       [30, 'au moins 30s'],
       [60, 'au moins 1min'],
       [120, 'au moins 2min'],
       [180, 'au moins 3min'],
+      [240, 'au moins 4min'],
       [300, 'au moins 5min'],
       [600, 'au moins 10min'],
+      [900, 'au moins 15min'],
       [1800, 'au moins 30min']
     ];
     var ecouteCumulee = parseInt(seLire('hdd-v3-m-cumul'), 10) || 0;
     var ecouteDepuis = null;
-    var minuteurEcoute = null;
+    var minuteurMusique = null;
 
-    // programme le prochain palier d'écoute non encore atteint
-    var planifierPalierEcoute = function () {
-      clearTimeout(minuteurEcoute);
-      if (ecouteDepuis === null) return;
-      for (var i = 0; i < SEUILS_ECOUTE.length; i++) {
-        if (!seLire('hdd-v3-m-ecoute-' + i)) {
+    var planifierPalierMusique = function () {
+      clearTimeout(minuteurMusique);
+      if (ecouteDepuis === null || seLire('hdd-v3-m-fini')) return;
+      for (var i = 0; i < SEUILS_MUSIQUE.length; i++) {
+        if (!seLire('hdd-v3-m-palier-' + i)) {
           (function (indice) {
-            var restant = SEUILS_ECOUTE[indice][0] * 1000 - (ecouteCumulee + (Date.now() - ecouteDepuis));
-            minuteurEcoute = setTimeout(function () {
-              mesureMusique('hdd-v3-m-ecoute-' + indice, '\ud83c\udfb5 \u00e9coute \u00b7 ' + SEUILS_ECOUTE[indice][1]);
-              planifierPalierEcoute();
+            var restant = SEUILS_MUSIQUE[indice][0] * 1000 - (ecouteCumulee + (Date.now() - ecouteDepuis));
+            minuteurMusique = setTimeout(function () {
+              mesureMusique('hdd-v3-m-palier-' + indice, '/duree-musique', 'Dur\u00e9e de la musique',
+                '\ud83c\udfb5 ' + SEUILS_MUSIQUE[indice][1]);
+              planifierPalierMusique();
             }, Math.max(restant, 0));
           })(i);
           return;
@@ -344,8 +346,16 @@
 
     ambiance.addEventListener('playing', function () {
       if (ecouteDepuis === null) ecouteDepuis = Date.now();
-      mesureMusique('hdd-v3-m-lancee', '\ud83c\udfb5 musique lanc\u00e9e');
-      planifierPalierEcoute();
+      // premier lancement de la visite : automatique ou manuel ?
+      if (!seLire('hdd-v3-m-lancement')) {
+        seStocker('hdd-v3-m-lancement', '1');
+        if (lancementParBouton) {
+          mesureMusique('hdd-v3-m-l-manuel', '/musique-lancee-manuellement', 'Musique lanc\u00e9e manuellement');
+        } else {
+          mesureMusique('hdd-v3-m-l-auto', '/musique-lancee-automatiquement', 'Musique lanc\u00e9e automatiquement');
+        }
+      }
+      planifierPalierMusique();
     });
     ambiance.addEventListener('pause', function () {
       if (ecouteDepuis !== null) {
@@ -353,7 +363,7 @@
         ecouteDepuis = null;
         seStocker('hdd-v3-m-cumul', String(ecouteCumulee));
       }
-      clearTimeout(minuteurEcoute);
+      clearTimeout(minuteurMusique);
     });
     // en cas de navigation interne pendant la lecture, on préserve le cumul
     window.addEventListener('pagehide', function () {
@@ -400,10 +410,12 @@
       // L'état réel de l'audio fait foi, pas l'apparence du bouton
       if (ambiance.paused) {
         try { localStorage.setItem('hdd-musique', 'active'); } catch (err) {}
+        lancementParBouton = true;
         jouerAmbiance();
       } else {
         try { localStorage.setItem('hdd-musique', 'coupee'); } catch (err) {}
-        mesureMusique('hdd-v3-m-coupee', '\u23f9 coup\u00e9e au bouton');
+        mesureMusique('hdd-v3-m-coupee', '/musique-coupee-au-bouton', 'Musique coup\u00e9e au bouton');
+        seStocker('hdd-v3-m-fini', '1'); // fin de la mesure de durée musique
         couperAmbiance();
       }
     });

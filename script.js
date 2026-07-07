@@ -232,6 +232,11 @@
     } catch (err) {}
   }
 
+  /* ---------- LANGUE CONSULTÉE ----------
+     Un événement par page vue : permet de comparer directement le nombre
+     d'ouvertures du site en français et en anglais. */
+  envoyerEvenement('langue/' + (document.documentElement.lang === 'en' ? 'en' : 'fr'));
+
   /* ---------- TEMPS PASSÉ SUR LA PAGE ----------
      Un SEUL événement par page vue, envoyé quand le visiteur quitte la page
      (fermeture, navigation ou passage en arrière-plan). */

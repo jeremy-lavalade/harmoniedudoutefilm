@@ -199,29 +199,8 @@
     chargerPhoto(1, 0);
   }
 
-  /* ---------- ÉVÉNEMENTS GOATCOUNTER (aides communes) ----------
-     Tranches de durée EXCLUSIVES : une valeur ne compte que dans sa
-     tranche (2 min 30 -> « 2min-2min59 », jamais dans les précédentes). */
+  /* ---------- ÉVÉNEMENTS GOATCOUNTER (aides communes) ---------- */
   var MESURE_ACTIVE = !/^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname);
-  var TRANCHES_DUREE = [
-    [10, '0 à 9s'],
-    [30, '10 à 29s'],
-    [60, '30 à 59s'],
-    [120, '1min à 1min59'],
-    [180, '2min à 2min59'],
-    [240, '3min à 3min59'],
-    [300, '4min à 4min59'],
-    [600, '5min à 9min59'],
-    [900, '10min à 14min59'],
-    [1800, '15min à 29min59'],
-    [Infinity, '30min et plus']
-  ];
-  function trancheDuree(secondes) {
-    for (var i = 0; i < TRANCHES_DUREE.length; i++) {
-      if (secondes < TRANCHES_DUREE[i][0]) return TRANCHES_DUREE[i][1];
-    }
-    return TRANCHES_DUREE[TRANCHES_DUREE.length - 1][1];
-  }
   function envoyerMesure(site, chemin, titre, campagne) {
     if (!MESURE_ACTIVE) return;
     var url = 'https://' + site + '.goatcounter.com/count?p=' + encodeURIComponent(chemin) +
@@ -239,46 +218,51 @@
   function seRetirer(cle) { try { sessionStorage.removeItem(cle); } catch (e) {} }
   // nouvelle visite si aucune en cours, ou si la dernière date de plus de 4 h
   (function () {
-    var debut = parseInt(seLire('hdd-v2-debut'), 10);
+    var debut = parseInt(seLire('hdd-v3-debut'), 10);
     if (!debut || Date.now() - debut > 4 * 3600 * 1000) {
-      seStocker('hdd-v2-debut', String(Date.now()));
-      seRetirer('hdd-v2-temps-ok');
-      seRetirer('hdd-v2-musique-ok');
+      try {
+        Object.keys(sessionStorage).forEach(function (cle) {
+          if (cle.indexOf('hdd-v') === 0) sessionStorage.removeItem(cle);
+        });
+      } catch (e) {}
+      seStocker('hdd-v3-debut', String(Date.now()));
     }
   })();
 
-  /* ---------- DURÉE DE LA VISITE ----------
-     UNE seule mesure par visite : le chrono démarre à la première page de
-     la session et la tranche (exclusive) part quand le visiteur QUITTE le
-     site — fermeture, autre onglet, arrière-plan — jamais lors d'une
-     navigation interne. Les pourcentages du panneau Campaigns restent
-     ainsi calculés sur le nombre de visites (jamais plus de 100 %). */
+  /* ---------- DURÉE DE LA VISITE (paliers progressifs) ----------
+     « ⏱ ouverture » part dès la première page, puis un palier à chaque
+     seuil franchi tant que l'onglet reste ouvert — chacun une seule fois
+     par visite, y compris à travers les navigations internes. Le panneau
+     Campaigns se lit en entonnoir : % des visites encore ouvertes à 10 s,
+     30 s, 1 min… Aucun envoi ne dépend de la fermeture de la page (fiable
+     sur tous les navigateurs, Firefox compris). */
   (function () {
-    seRetirer('hdd-v2-nav'); // arrivé sur cette page : la navigation est finie
-
-    // Un clic vers une AUTRE page interne n'est pas une fin de visite.
-    // Les ancres de la même page (#...) et les PDF n'en sont pas non plus :
-    // ils ne chargent pas de nouvelle page du site, le drapeau ne doit pas
-    // rester posé (sinon la mesure serait annulée à tort).
-    document.addEventListener('click', function (e) {
-      var lien = e.target && e.target.closest ? e.target.closest('a[href]') : null;
-      if (!lien || lien.host !== location.host || lien.target) return;
-      var memeDocument = lien.pathname === location.pathname && lien.search === location.search;
-      var estPdf = /\.pdf($|\?)/i.test(lien.pathname);
-      if (!memeDocument && !estPdf) seStocker('hdd-v2-nav', '1');
-    }, true);
-
-    var envoyerDureeVisite = function () {
-      if (seLire('hdd-v2-temps-ok') || seLire('hdd-v2-nav')) return;
-      seStocker('hdd-v2-temps-ok', '1');
-      var debut = parseInt(seLire('hdd-v2-debut'), 10) || Date.now();
-      envoyerMesure('musique-hdd', '/duree-visite', 'Dur\u00e9e de la visite',
-        '\u23f1 ' + trancheDuree((Date.now() - debut) / 1000));
-    };
-    document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'hidden') envoyerDureeVisite();
+    var debut = parseInt(seLire('hdd-v3-debut'), 10) || Date.now();
+    var SEUILS = [
+      [0, 'ouverture'],
+      [10, 'au moins 10s'],
+      [30, 'au moins 30s'],
+      [60, 'au moins 1min'],
+      [120, 'au moins 2min'],
+      [180, 'au moins 3min'],
+      [240, 'au moins 4min'],
+      [300, 'au moins 5min'],
+      [600, 'au moins 10min'],
+      [900, 'au moins 15min'],
+      [1800, 'au moins 30min']
+    ];
+    SEUILS.forEach(function (seuil, i) {
+      var cle = 'hdd-v3-duree-' + i;
+      if (seLire(cle)) return;
+      var envoyer = function () {
+        if (seLire(cle)) return;
+        seStocker(cle, '1');
+        envoyerMesure('musique-hdd', '/duree-visite', 'Dur\u00e9e de la visite', '\u23f1 ' + seuil[1]);
+      };
+      var restant = seuil[0] * 1000 - (Date.now() - debut);
+      if (restant <= 0) envoyer();
+      else setTimeout(envoyer, restant);
     });
-    window.addEventListener('pagehide', envoyerDureeVisite);
   })();
 
   /* ---------- MUSIQUE D'AMBIANCE (accueil) ----------
@@ -310,44 +294,73 @@
     ambiance.addEventListener('playing', function () { majBoutonSon(true); });
     ambiance.addEventListener('pause', function () { majBoutonSon(false); });
 
-    /* Mesure : UN statut musique par visite de l'accueil, envoyé au départ
-       de la page, sur /musique-fr ou /musique-en. La campagne porte le
-       statut (pas écoutée / écoutée / coupée + tranche d'écoute) : le
-       panneau Campaigns donne ainsi des pourcentages calculés sur le
-       nombre de visites de l'accueil, par langue. */
-    var arretSignale = false;
-    var ecouteCumulee = 0;
+    /* Mesure musique par paliers, calée sur les visites de l'accueil :
+       « 🏠 accueil ouvert » dès l'arrivée (le dénominateur des %),
+       « 🎵 musique lancée » à la première lecture, un palier d'écoute
+       CUMULÉE à chaque seuil atteint, « ⏹ coupée au bouton » à l'arrêt
+       volontaire. Chaque mesure part une seule fois par visite ; rien
+       ne dépend de la fermeture de la page. */
+    var enAnglaisMesure = document.documentElement.lang === 'en';
+    var cheminMusique = enAnglaisMesure ? '/accueil-en' : '/accueil-fr';
+    var titreMusique = enAnglaisMesure ? 'Accueil anglais' : 'Accueil fran\u00e7ais';
+    var mesureMusique = function (cle, libelle) {
+      if (seLire(cle)) return;
+      seStocker(cle, '1');
+      envoyerMesure('musique-hdd', cheminMusique, titreMusique, libelle);
+    };
+    mesureMusique('hdd-v3-m-accueil', '\ud83c\udfe0 accueil ouvert');
+
+    var SEUILS_ECOUTE = [
+      [10, 'au moins 10s'],
+      [30, 'au moins 30s'],
+      [60, 'au moins 1min'],
+      [120, 'au moins 2min'],
+      [180, 'au moins 3min'],
+      [300, 'au moins 5min'],
+      [600, 'au moins 10min'],
+      [1800, 'au moins 30min']
+    ];
+    var ecouteCumulee = parseInt(seLire('hdd-v3-m-cumul'), 10) || 0;
     var ecouteDepuis = null;
-    var statutEnvoye = false;
+    var minuteurEcoute = null;
+
+    // programme le prochain palier d'écoute non encore atteint
+    var planifierPalierEcoute = function () {
+      clearTimeout(minuteurEcoute);
+      if (ecouteDepuis === null) return;
+      for (var i = 0; i < SEUILS_ECOUTE.length; i++) {
+        if (!seLire('hdd-v3-m-ecoute-' + i)) {
+          (function (indice) {
+            var restant = SEUILS_ECOUTE[indice][0] * 1000 - (ecouteCumulee + (Date.now() - ecouteDepuis));
+            minuteurEcoute = setTimeout(function () {
+              mesureMusique('hdd-v3-m-ecoute-' + indice, '\ud83c\udfb5 \u00e9coute \u00b7 ' + SEUILS_ECOUTE[indice][1]);
+              planifierPalierEcoute();
+            }, Math.max(restant, 0));
+          })(i);
+          return;
+        }
+      }
+    };
+
     ambiance.addEventListener('playing', function () {
       if (ecouteDepuis === null) ecouteDepuis = Date.now();
+      mesureMusique('hdd-v3-m-lancee', '\ud83c\udfb5 musique lanc\u00e9e');
+      planifierPalierEcoute();
     });
     ambiance.addEventListener('pause', function () {
       if (ecouteDepuis !== null) {
         ecouteCumulee += Date.now() - ecouteDepuis;
         ecouteDepuis = null;
+        seStocker('hdd-v3-m-cumul', String(ecouteCumulee));
+      }
+      clearTimeout(minuteurEcoute);
+    });
+    // en cas de navigation interne pendant la lecture, on préserve le cumul
+    window.addEventListener('pagehide', function () {
+      if (ecouteDepuis !== null) {
+        seStocker('hdd-v3-m-cumul', String(ecouteCumulee + (Date.now() - ecouteDepuis)));
       }
     });
-    var envoyerStatutMusique = function () {
-      if (statutEnvoye || seLire('hdd-v2-musique-ok')) return;
-      statutEnvoye = true;
-      seStocker('hdd-v2-musique-ok', '1'); // une seule mesure par visite
-      var total = ecouteCumulee + (ecouteDepuis !== null ? Date.now() - ecouteDepuis : 0);
-      var statut;
-      if (total < 1000) statut = '\ud83d\udd07 pas \u00e9cout\u00e9e';
-      else statut = (arretSignale ? '\u23f9 coup\u00e9e \u00b7 ' : '\ud83c\udfb5 \u00e9cout\u00e9e \u00b7 ') + trancheDuree(total / 1000);
-      var enAnglais = document.documentElement.lang === 'en';
-      envoyerMesure(
-        'musique-hdd',
-        enAnglais ? '/accueil-en' : '/accueil-fr',
-        enAnglais ? 'Accueil anglais' : 'Accueil fran\u00e7ais',
-        statut
-      );
-    };
-    document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'hidden') envoyerStatutMusique();
-    });
-    window.addEventListener('pagehide', envoyerStatutMusique);
 
     /* Safari (mac et iOS) n'accorde le droit de jouer un son qu'aux
        « vrais » gestes utilisateur : click, touchend, mousedown, keydown.
@@ -390,7 +403,7 @@
         jouerAmbiance();
       } else {
         try { localStorage.setItem('hdd-musique', 'coupee'); } catch (err) {}
-        arretSignale = true;
+        mesureMusique('hdd-v3-m-coupee', '\u23f9 coup\u00e9e au bouton');
         couperAmbiance();
       }
     });

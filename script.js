@@ -204,17 +204,17 @@
      tranche (2 min 30 -> « 2min-2min59 », jamais dans les précédentes). */
   var MESURE_ACTIVE = !/^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname);
   var TRANCHES_DUREE = [
-    [10, '01-0-9s'],
-    [30, '02-10-29s'],
-    [60, '03-30-59s'],
-    [120, '04-1min-1min59'],
-    [180, '05-2min-2min59'],
-    [240, '06-3min-3min59'],
-    [300, '07-4min-4min59'],
-    [600, '08-5min-9min59'],
-    [900, '09-10min-14min59'],
-    [1800, '10-15min-29min59'],
-    [Infinity, '11-30min-et-plus']
+    [10, '0 à 9s'],
+    [30, '10 à 29s'],
+    [60, '30 à 59s'],
+    [120, '1min à 1min59'],
+    [180, '2min à 2min59'],
+    [240, '3min à 3min59'],
+    [300, '4min à 4min59'],
+    [600, '5min à 9min59'],
+    [900, '10min à 14min59'],
+    [1800, '15min à 29min59'],
+    [Infinity, '30min et plus']
   ];
   function trancheDuree(secondes) {
     for (var i = 0; i < TRANCHES_DUREE.length; i++) {
@@ -222,10 +222,10 @@
     }
     return TRANCHES_DUREE[TRANCHES_DUREE.length - 1][1];
   }
-  function envoyerEvenement(site, nom) {
+  function envoyerEvenement(nom) {
     if (!MESURE_ACTIVE) return;
-    var url = 'https://' + site + '.goatcounter.com/count?e=true&p=' +
-      encodeURIComponent(nom) + '&rnd=' + Date.now();
+    var url = 'https://harmoniedudoute.goatcounter.com/count?e=true&p=' +
+      encodeURIComponent(nom) + '&t=' + encodeURIComponent(nom) + '&rnd=' + Date.now();
     try {
       if (window.fetch) fetch(url, { keepalive: true, mode: 'no-cors' });
       else (new Image()).src = url;
@@ -235,7 +235,7 @@
   /* ---------- LANGUE CONSULTÉE ----------
      Un événement par page vue : permet de comparer directement le nombre
      d'ouvertures du site en français et en anglais. */
-  envoyerEvenement('hdd-langues', document.documentElement.lang === 'en' ? 'en' : 'fr');
+  envoyerEvenement(document.documentElement.lang === 'en' ? '\ud83c\udf0d version en' : '\ud83c\udf0d version fr');
 
   /* ---------- TEMPS PASSÉ SUR LA PAGE ----------
      Un SEUL événement par page vue, envoyé quand le visiteur quitte la page
@@ -246,7 +246,7 @@
     var envoyerTemps = function () {
       if (envoye) return;
       envoye = true;
-      envoyerEvenement('hdd-temps', trancheDuree((Date.now() - debut) / 1000));
+      envoyerEvenement('\u23f1 ' + trancheDuree((Date.now() - debut) / 1000));
     };
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'hidden') envoyerTemps();
@@ -294,7 +294,7 @@
       if (ecouteDepuis === null) ecouteDepuis = Date.now();
       if (!lectureSignalee) {
         lectureSignalee = true;
-        envoyerEvenement('hdd-musique', 'lecture');
+        envoyerEvenement('\ud83c\udfb5 lecture');
       }
     });
     ambiance.addEventListener('pause', function () {
@@ -308,7 +308,7 @@
       var total = ecouteCumulee + (ecouteDepuis !== null ? Date.now() - ecouteDepuis : 0);
       if (total < 1000) return; // musique jamais vraiment écoutée : rien à signaler
       ecouteEnvoyee = true;
-      envoyerEvenement('hdd-musique', 'duree/' + trancheDuree(total / 1000));
+      envoyerEvenement('\ud83c\udfb5 \u00e9coute \u00b7 ' + trancheDuree(total / 1000));
     };
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'hidden') envoyerEcoute();
@@ -358,7 +358,7 @@
         try { localStorage.setItem('hdd-musique', 'coupee'); } catch (err) {}
         if (!arretSignale) {
           arretSignale = true;
-          envoyerEvenement('hdd-musique', 'arret');
+          envoyerEvenement('\ud83c\udfb5 arr\u00eat');
         }
         couperAmbiance();
       }

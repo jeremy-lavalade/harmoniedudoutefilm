@@ -199,6 +199,51 @@
     chargerPhoto(1, 0);
   }
 
+  /* ---------- TEMPS PASSÉ SUR LA PAGE (événements GoatCounter) ----------
+     Un SEUL événement par page vue, envoyé quand le visiteur quitte la page
+     (fermeture, navigation ou passage en arrière-plan) : il porte la tranche
+     de durée correspondant au temps total — les tranches sont exclusives,
+     une visite de 2 min 30 ne compte que dans « 2min-2min59 ». */
+  (function () {
+    // pas de mesure en local (développement)
+    if (/^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname)) return;
+    var debut = Date.now();
+    var envoye = false;
+    // [borne supérieure exclusive en secondes, nom de l'événement]
+    var TRANCHES = [
+      [10, 'temps/01-0-9s'],
+      [30, 'temps/02-10-29s'],
+      [60, 'temps/03-30-59s'],
+      [120, 'temps/04-1min-1min59'],
+      [180, 'temps/05-2min-2min59'],
+      [240, 'temps/06-3min-3min59'],
+      [300, 'temps/07-4min-4min59'],
+      [600, 'temps/08-5min-9min59'],
+      [900, 'temps/09-10min-14min59'],
+      [1800, 'temps/10-15min-29min59'],
+      [Infinity, 'temps/11-30min-et-plus']
+    ];
+    var envoyerTranche = function () {
+      if (envoye) return;
+      envoye = true;
+      var secondes = (Date.now() - debut) / 1000;
+      var nom = TRANCHES[TRANCHES.length - 1][1];
+      for (var i = 0; i < TRANCHES.length; i++) {
+        if (secondes < TRANCHES[i][0]) { nom = TRANCHES[i][1]; break; }
+      }
+      var url = 'https://harmoniedudoute.goatcounter.com/count?e=true&p=' +
+        encodeURIComponent(nom) + '&rnd=' + Date.now();
+      try {
+        if (window.fetch) fetch(url, { keepalive: true, mode: 'no-cors' });
+        else (new Image()).src = url;
+      } catch (err) {}
+    };
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') envoyerTranche();
+    });
+    window.addEventListener('pagehide', envoyerTranche);
+  })();
+
   /* ---------- MUSIQUE D'AMBIANCE (accueil) ----------
      Lecture automatique à l'ouverture et au rechargement. Les navigateurs
      bloquent l'autoplay sonore tant que l'utilisateur n'a pas interagi :

@@ -222,20 +222,17 @@
     }
     return TRANCHES_DUREE[TRANCHES_DUREE.length - 1][1];
   }
-  function envoyerEvenement(nom) {
+  function envoyerMesure(chemin, titre, campagne) {
     if (!MESURE_ACTIVE) return;
-    var url = 'https://harmoniedudoute.goatcounter.com/count?e=true&p=' +
-      encodeURIComponent(nom) + '&t=' + encodeURIComponent(nom) + '&rnd=' + Date.now();
+    var url = 'https://harmoniedudoute.goatcounter.com/count?p=' + encodeURIComponent(chemin) +
+      '&t=' + encodeURIComponent(titre) +
+      '&q=' + encodeURIComponent('utm_campaign=' + campagne) +
+      '&rnd=' + Date.now();
     try {
       if (window.fetch) fetch(url, { keepalive: true, mode: 'no-cors' });
       else (new Image()).src = url;
     } catch (err) {}
   }
-
-  /* ---------- LANGUE CONSULTÉE ----------
-     Un événement par page vue : permet de comparer directement le nombre
-     d'ouvertures du site en français et en anglais. */
-  envoyerEvenement(document.documentElement.lang === 'en' ? '\ud83c\udf0d version en' : '\ud83c\udf0d version fr');
 
   /* ---------- TEMPS PASSÉ SUR LA PAGE ----------
      Un SEUL événement par page vue, envoyé quand le visiteur quitte la page
@@ -246,7 +243,7 @@
     var envoyerTemps = function () {
       if (envoye) return;
       envoye = true;
-      envoyerEvenement('\u23f1 ' + trancheDuree((Date.now() - debut) / 1000));
+      envoyerMesure('/temps-passe', 'Temps pass\u00e9 sur une page', '\u23f1 ' + trancheDuree((Date.now() - debut) / 1000));
     };
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'hidden') envoyerTemps();
@@ -283,19 +280,17 @@
     ambiance.addEventListener('playing', function () { majBoutonSon(true); });
     ambiance.addEventListener('pause', function () { majBoutonSon(false); });
 
-    /* Mesure : première lecture, premier arrêt volontaire, et durée
-       d'écoute cumulée (tranches exclusives) envoyée en quittant la page. */
-    var lectureSignalee = false;
+    /* Mesure : UN statut musique par visite de l'accueil, envoyé au départ
+       de la page, sur /musique-fr ou /musique-en. La campagne porte le
+       statut (pas écoutée / écoutée / coupée + tranche d'écoute) : le
+       panneau Campaigns donne ainsi des pourcentages calculés sur le
+       nombre de visites de l'accueil, par langue. */
     var arretSignale = false;
     var ecouteCumulee = 0;
     var ecouteDepuis = null;
-    var ecouteEnvoyee = false;
+    var statutEnvoye = false;
     ambiance.addEventListener('playing', function () {
       if (ecouteDepuis === null) ecouteDepuis = Date.now();
-      if (!lectureSignalee) {
-        lectureSignalee = true;
-        envoyerEvenement('\ud83c\udfb5 lecture');
-      }
     });
     ambiance.addEventListener('pause', function () {
       if (ecouteDepuis !== null) {
@@ -303,17 +298,24 @@
         ecouteDepuis = null;
       }
     });
-    var envoyerEcoute = function () {
-      if (ecouteEnvoyee) return;
+    var envoyerStatutMusique = function () {
+      if (statutEnvoye) return;
+      statutEnvoye = true;
       var total = ecouteCumulee + (ecouteDepuis !== null ? Date.now() - ecouteDepuis : 0);
-      if (total < 1000) return; // musique jamais vraiment écoutée : rien à signaler
-      ecouteEnvoyee = true;
-      envoyerEvenement('\ud83c\udfb5 \u00e9coute \u00b7 ' + trancheDuree(total / 1000));
+      var statut;
+      if (total < 1000) statut = '\ud83d\udd07 pas \u00e9cout\u00e9e';
+      else statut = (arretSignale ? '\u23f9 coup\u00e9e \u00b7 ' : '\ud83c\udfb5 \u00e9cout\u00e9e \u00b7 ') + trancheDuree(total / 1000);
+      var enAnglais = document.documentElement.lang === 'en';
+      envoyerMesure(
+        enAnglais ? '/musique-en' : '/musique-fr',
+        enAnglais ? 'Musique \u2014 accueil anglais' : 'Musique \u2014 accueil fran\u00e7ais',
+        statut
+      );
     };
     document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'hidden') envoyerEcoute();
+      if (document.visibilityState === 'hidden') envoyerStatutMusique();
     });
-    window.addEventListener('pagehide', envoyerEcoute);
+    window.addEventListener('pagehide', envoyerStatutMusique);
 
     /* Safari (mac et iOS) n'accorde le droit de jouer un son qu'aux
        « vrais » gestes utilisateur : click, touchend, mousedown, keydown.
@@ -356,10 +358,7 @@
         jouerAmbiance();
       } else {
         try { localStorage.setItem('hdd-musique', 'coupee'); } catch (err) {}
-        if (!arretSignale) {
-          arretSignale = true;
-          envoyerEvenement('\ud83c\udfb5 arr\u00eat');
-        }
+        arretSignale = true;
         couperAmbiance();
       }
     });

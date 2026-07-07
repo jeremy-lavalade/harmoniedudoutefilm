@@ -272,7 +272,7 @@
       if (seLire('hdd-v2-temps-ok') || seLire('hdd-v2-nav')) return;
       seStocker('hdd-v2-temps-ok', '1');
       var debut = parseInt(seLire('hdd-v2-debut'), 10) || Date.now();
-      envoyerMesure('harmoniedudoutefilm', '/temps-passe', 'Dur\u00e9e de la visite',
+      envoyerMesure('musique-hdd', '/duree-visite', 'Dur\u00e9e de la visite',
         '\u23f1 ' + trancheDuree((Date.now() - debut) / 1000));
     };
     document.addEventListener('visibilitychange', function () {

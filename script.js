@@ -222,9 +222,9 @@
     }
     return TRANCHES_DUREE[TRANCHES_DUREE.length - 1][1];
   }
-  function envoyerMesure(chemin, titre, campagne) {
+  function envoyerMesure(site, chemin, titre, campagne) {
     if (!MESURE_ACTIVE) return;
-    var url = 'https://harmoniedudoute.goatcounter.com/count?p=' + encodeURIComponent(chemin) +
+    var url = 'https://' + site + '.goatcounter.com/count?p=' + encodeURIComponent(chemin) +
       '&t=' + encodeURIComponent(titre) +
       '&q=' + encodeURIComponent('utm_campaign=' + campagne) +
       '&rnd=' + Date.now();
@@ -233,22 +233,38 @@
       else (new Image()).src = url;
     } catch (err) {}
   }
+  // mémoire de la visite (sessionStorage : le temps d'un onglet, sans cookie)
+  function seStocker(cle, valeur) { try { sessionStorage.setItem(cle, valeur); } catch (e) {} }
+  function seLire(cle) { try { return sessionStorage.getItem(cle); } catch (e) { return null; } }
+  function seRetirer(cle) { try { sessionStorage.removeItem(cle); } catch (e) {} }
 
-  /* ---------- TEMPS PASSÉ SUR LA PAGE ----------
-     Un SEUL événement par page vue, envoyé quand le visiteur quitte la page
-     (fermeture, navigation ou passage en arrière-plan). */
+  /* ---------- DURÉE DE LA VISITE ----------
+     UNE seule mesure par visite : le chrono démarre à la première page de
+     la session et la tranche (exclusive) part quand le visiteur QUITTE le
+     site — fermeture, autre onglet, arrière-plan — jamais lors d'une
+     navigation interne. Les pourcentages du panneau Campaigns restent
+     ainsi calculés sur le nombre de visites (jamais plus de 100 %). */
   (function () {
-    var debut = Date.now();
-    var envoye = false;
-    var envoyerTemps = function () {
-      if (envoye) return;
-      envoye = true;
-      envoyerMesure('/temps-passe', 'Temps pass\u00e9 sur une page', '\u23f1 ' + trancheDuree((Date.now() - debut) / 1000));
+    if (!seLire('hdd-visite-debut')) seStocker('hdd-visite-debut', String(Date.now()));
+    seRetirer('hdd-nav-interne'); // arrivé sur cette page : la navigation est finie
+
+    // un clic vers une page interne n'est pas une fin de visite
+    document.addEventListener('click', function (e) {
+      var lien = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+      if (lien && lien.host === location.host && !lien.target) seStocker('hdd-nav-interne', '1');
+    }, true);
+
+    var envoyerDureeVisite = function () {
+      if (seLire('hdd-temps-envoye') || seLire('hdd-nav-interne')) return;
+      seStocker('hdd-temps-envoye', '1');
+      var debut = parseInt(seLire('hdd-visite-debut'), 10) || Date.now();
+      envoyerMesure('harmoniedudoute', '/temps-passe', 'Dur\u00e9e de la visite',
+        '\u23f1 ' + trancheDuree((Date.now() - debut) / 1000));
     };
     document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState === 'hidden') envoyerTemps();
+      if (document.visibilityState === 'hidden') envoyerDureeVisite();
     });
-    window.addEventListener('pagehide', envoyerTemps);
+    window.addEventListener('pagehide', envoyerDureeVisite);
   })();
 
   /* ---------- MUSIQUE D'AMBIANCE (accueil) ----------
@@ -299,16 +315,18 @@
       }
     });
     var envoyerStatutMusique = function () {
-      if (statutEnvoye) return;
+      if (statutEnvoye || seLire('hdd-musique-envoyee')) return;
       statutEnvoye = true;
+      seStocker('hdd-musique-envoyee', '1'); // une seule mesure par visite
       var total = ecouteCumulee + (ecouteDepuis !== null ? Date.now() - ecouteDepuis : 0);
       var statut;
       if (total < 1000) statut = '\ud83d\udd07 pas \u00e9cout\u00e9e';
       else statut = (arretSignale ? '\u23f9 coup\u00e9e \u00b7 ' : '\ud83c\udfb5 \u00e9cout\u00e9e \u00b7 ') + trancheDuree(total / 1000);
       var enAnglais = document.documentElement.lang === 'en';
       envoyerMesure(
-        enAnglais ? '/musique-en' : '/musique-fr',
-        enAnglais ? 'Musique \u2014 accueil anglais' : 'Musique \u2014 accueil fran\u00e7ais',
+        'hdd-musique',
+        enAnglais ? '/accueil-en' : '/accueil-fr',
+        enAnglais ? 'Accueil anglais' : 'Accueil fran\u00e7ais',
         statut
       );
     };

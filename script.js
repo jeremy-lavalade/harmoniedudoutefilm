@@ -222,9 +222,9 @@
     }
     return TRANCHES_DUREE[TRANCHES_DUREE.length - 1][1];
   }
-  function envoyerEvenement(nom) {
+  function envoyerEvenement(site, nom) {
     if (!MESURE_ACTIVE) return;
-    var url = 'https://harmoniedudoute.goatcounter.com/count?e=true&p=' +
+    var url = 'https://' + site + '.goatcounter.com/count?e=true&p=' +
       encodeURIComponent(nom) + '&rnd=' + Date.now();
     try {
       if (window.fetch) fetch(url, { keepalive: true, mode: 'no-cors' });
@@ -235,7 +235,7 @@
   /* ---------- LANGUE CONSULTÉE ----------
      Un événement par page vue : permet de comparer directement le nombre
      d'ouvertures du site en français et en anglais. */
-  envoyerEvenement('langue/' + (document.documentElement.lang === 'en' ? 'en' : 'fr'));
+  envoyerEvenement('hdd-langues', document.documentElement.lang === 'en' ? 'en' : 'fr');
 
   /* ---------- TEMPS PASSÉ SUR LA PAGE ----------
      Un SEUL événement par page vue, envoyé quand le visiteur quitte la page
@@ -246,7 +246,7 @@
     var envoyerTemps = function () {
       if (envoye) return;
       envoye = true;
-      envoyerEvenement('temps/' + trancheDuree((Date.now() - debut) / 1000));
+      envoyerEvenement('hdd-temps', trancheDuree((Date.now() - debut) / 1000));
     };
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'hidden') envoyerTemps();
@@ -294,7 +294,7 @@
       if (ecouteDepuis === null) ecouteDepuis = Date.now();
       if (!lectureSignalee) {
         lectureSignalee = true;
-        envoyerEvenement('musique/lecture');
+        envoyerEvenement('hdd-musique', 'lecture');
       }
     });
     ambiance.addEventListener('pause', function () {
@@ -308,7 +308,7 @@
       var total = ecouteCumulee + (ecouteDepuis !== null ? Date.now() - ecouteDepuis : 0);
       if (total < 1000) return; // musique jamais vraiment écoutée : rien à signaler
       ecouteEnvoyee = true;
-      envoyerEvenement('musique/duree/' + trancheDuree(total / 1000));
+      envoyerEvenement('hdd-musique', 'duree/' + trancheDuree(total / 1000));
     };
     document.addEventListener('visibilitychange', function () {
       if (document.visibilityState === 'hidden') envoyerEcoute();
@@ -358,7 +358,7 @@
         try { localStorage.setItem('hdd-musique', 'coupee'); } catch (err) {}
         if (!arretSignale) {
           arretSignale = true;
-          envoyerEvenement('musique/arret');
+          envoyerEvenement('hdd-musique', 'arret');
         }
         couperAmbiance();
       }

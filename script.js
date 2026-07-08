@@ -265,6 +265,66 @@
     });
   })();
 
+  /* ---------- DURÉE PAR PAGE (paliers progressifs) ----------
+     Même modèle que la durée de visite : un palier envoyé au moment où il
+     est franchi, tant que la page est ouverte — jamais à la fermeture
+     (Firefox ne l'envoie pas). Différences : le compteur repart à zéro à
+     chaque page vue, et seul le temps ONGLET VISIBLE compte (les minuteurs
+     sont suspendus quand l'onglet est masqué). Campaigns de /duree-page :
+     « ⏳ page · au moins Xs », à lire en entonnoir par page. */
+  (function () {
+    var SEUILS_PAGE = [10, 30, 60, 120, 300, 600];
+    var LIBELLES_PAGE = ['au moins 10s', 'au moins 30s', 'au moins 1min',
+      'au moins 2min', 'au moins 5min', 'au moins 10min'];
+    // nom court de la page : « /en/synopsis », « /accueil »…
+    var nomPage = location.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
+    if (nomPage === '/' || nomPage === '') nomPage = '/accueil';
+    else if (nomPage === '/en/' || nomPage === '/en') nomPage = '/en/accueil';
+
+    var cumulVisible = 0;        // temps visible écoulé (ms), hors période en cours
+    var visibleDepuis = null;    // début de la période de visibilité en cours
+    var prochainPalier = 0;      // index du prochain seuil à franchir
+    var minuteur = null;
+
+    var tempsVisible = function () {
+      return cumulVisible + (visibleDepuis !== null ? Date.now() - visibleDepuis : 0);
+    };
+    var planifier = function () {
+      if (minuteur !== null) { clearTimeout(minuteur); minuteur = null; }
+      if (prochainPalier >= SEUILS_PAGE.length || visibleDepuis === null) return;
+      var restant = SEUILS_PAGE[prochainPalier] * 1000 - tempsVisible();
+      minuteur = setTimeout(function () {
+        minuteur = null;
+        // franchissement vérifié sur le temps réellement visible (les
+        // minuteurs d'onglet en arrière-plan sont ralentis, pas annulés)
+        while (prochainPalier < SEUILS_PAGE.length &&
+               tempsVisible() >= SEUILS_PAGE[prochainPalier] * 1000) {
+          envoyerMesure('harmoniedudoute', '/duree-page', 'Durée par page',
+            '⏳ ' + nomPage + ' · ' + LIBELLES_PAGE[prochainPalier]);
+          prochainPalier++;
+        }
+        planifier();
+      }, Math.max(restant, 0));
+    };
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') {
+        if (visibleDepuis !== null) {
+          cumulVisible += Date.now() - visibleDepuis;
+          visibleDepuis = null;
+        }
+        if (minuteur !== null) { clearTimeout(minuteur); minuteur = null; }
+      } else if (visibleDepuis === null) {
+        visibleDepuis = Date.now();
+        planifier();
+      }
+    });
+    if (document.visibilityState === 'visible') {
+      visibleDepuis = Date.now();
+      planifier();
+    }
+  })();
+
   /* ---------- MUSIQUE D'AMBIANCE (accueil) ----------
      Lecture automatique à l'ouverture et au rechargement. Les navigateurs
      bloquent l'autoplay sonore tant que l'utilisateur n'a pas interagi :
@@ -303,10 +363,13 @@
          première coupure au bouton ou au départ de la page (la musique
          s'arrête de toute façon avec la page). */
     var lancementParBouton = false;
+    // Les événements de la page anglaise sont préfixés « /en » : le panneau
+    // Pages du tableau de bord hdd-musique sépare ainsi les deux langues.
+    var prefixeLangueMusique = document.documentElement.lang === 'en' ? '/en' : '';
     var mesureMusique = function (cle, chemin, titre, campagne) {
       if (seLire(cle)) return;
       seStocker(cle, '1');
-      envoyerMesure('hdd-musique', chemin, titre, campagne);
+      envoyerMesure('hdd-musique', prefixeLangueMusique + chemin, titre, campagne);
     };
 
     var TRANCHES_MUSIQUE = [

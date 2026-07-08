@@ -257,7 +257,7 @@
       var envoyer = function () {
         if (seLire(cle)) return;
         seStocker(cle, '1');
-        envoyerMesure('harmoniedudoute', '/duree-visite', 'Dur\u00e9e de la visite', '\u23f1 ' + seuil[1]);
+        envoyerMesure('hdd-statistiques', '/duree-visite', 'Dur\u00e9e de la visite', '\u23f1 ' + seuil[1]);
       };
       var restant = seuil[0] * 1000 - (Date.now() - debut);
       if (restant <= 0) envoyer();
@@ -299,7 +299,7 @@
         // minuteurs d'onglet en arrière-plan sont ralentis, pas annulés)
         while (prochainPalier < SEUILS_PAGE.length &&
                tempsVisible() >= SEUILS_PAGE[prochainPalier] * 1000) {
-          envoyerMesure('harmoniedudoute', '/duree-page', 'Durée par page',
+          envoyerMesure('hdd-statistiques', '/duree-page', 'Durée par page',
             '⏳ ' + nomPage + ' · ' + LIBELLES_PAGE[prochainPalier]);
           prochainPalier++;
         }

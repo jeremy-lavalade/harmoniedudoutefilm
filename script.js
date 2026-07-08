@@ -203,6 +203,9 @@
   var MESURE_ACTIVE = !/^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname);
   function envoyerMesure(site, chemin, titre, campagne) {
     if (!MESURE_ACTIVE) return;
+    // auto-exclusion : même drapeau que count.js (posé via #toggle-goatcounter),
+    // pour que le navigateur de Jérémy ne fausse ni les pages ni ces mesures
+    try { if (localStorage.getItem('skipgc') === 't') return; } catch (e) {}
     var url = 'https://' + site + '.goatcounter.com/count?p=' + encodeURIComponent(chemin) +
       '&t=' + encodeURIComponent(titre) +
       (campagne ? '&q=' + encodeURIComponent('utm_campaign=' + campagne) : '') +

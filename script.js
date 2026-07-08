@@ -257,7 +257,7 @@
       var envoyer = function () {
         if (seLire(cle)) return;
         seStocker(cle, '1');
-        envoyerMesure('musique-hdd', '/duree-visite', 'Dur\u00e9e de la visite', '\u23f1 ' + seuil[1]);
+        envoyerMesure('harmoniedudoute', '/duree-visite', 'Dur\u00e9e de la visite', '\u23f1 ' + seuil[1]);
       };
       var restant = seuil[0] * 1000 - (Date.now() - debut);
       if (restant <= 0) envoyer();
@@ -306,7 +306,7 @@
     var mesureMusique = function (cle, chemin, titre, campagne) {
       if (seLire(cle)) return;
       seStocker(cle, '1');
-      envoyerMesure('musique-hdd', chemin, titre, campagne);
+      envoyerMesure('hdd-musique', chemin, titre, campagne);
     };
 
     var TRANCHES_MUSIQUE = [

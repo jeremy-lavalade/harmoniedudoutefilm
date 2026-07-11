@@ -96,6 +96,8 @@
   if (galerieSoiree) {
     var enAnglais = document.documentElement.lang === 'en';
     var dossierPhotos = galerieSoiree.dataset.dossier || (RACINE + 'images/soiree/');
+    var maxPhotos = parseInt(galerieSoiree.dataset.max || '60', 10);
+    var altPhotos = galerieSoiree.dataset.alt || (enAnglais ? 'Screening night photo ' : 'Photo de la soirée de projection ');
     var noteGalerie = document.getElementById('galerie-note');
     var photosGalerie = [];
 
@@ -123,7 +125,7 @@
     var afficherPhoto = function (index) {
       photoCourante = (index + photosGalerie.length) % photosGalerie.length;
       visionneuseImg.src = photosGalerie[photoCourante];
-      visionneuseImg.alt = (enAnglais ? 'Screening night photo ' : 'Photo de la soirée de projection ') + (photoCourante + 1);
+      visionneuseImg.alt = altPhotos + (photoCourante + 1);
       visionneuseCompteur.textContent = (photoCourante + 1) + ' / ' + photosGalerie.length;
       // précharge les voisines pour un défilement fluide
       [photoCourante + 1, photoCourante - 1].forEach(function (v) {
@@ -168,7 +170,7 @@
 
     /* Le chargement des vignettes */
     var chargerPhoto = function (numero, absentes) {
-      if (numero > 60 || absentes >= 2) {
+      if (numero > maxPhotos || absentes >= 2) {
         if (noteGalerie && photosGalerie.length === 0) noteGalerie.hidden = false;
         return;
       }
@@ -180,7 +182,7 @@
         img.onload = function () {
           var indexPhoto = photosGalerie.length;
           photosGalerie.push(img.src);
-          img.alt = (enAnglais ? 'Screening night photo ' : 'Photo de la soirée de projection ') + numero;
+          img.alt = altPhotos + numero;
           img.loading = 'lazy';
           img.decoding = 'async';
           var bouton = document.createElement('button');

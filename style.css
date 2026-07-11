@@ -366,6 +366,38 @@ body.accueil .entete-logo-texte { opacity: 0; } /* le titre animé vient se pose
   text-decoration: none;
 }
 #menu-mobile a:hover { color: var(--aube-rose); }
+/* La langue, ancrée en bas du menu : un réglage, pas une page */
+#menu-mobile a.lang {
+  position: absolute;
+  bottom: clamp(2rem, 7vh, 3.6rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: 'Ryman-Eco', Georgia, serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blanc-voile);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 999px;
+  padding: 0.55em 1.2em;
+  transition: color var(--transition-vive), border-color var(--transition-vive);
+}
+#menu-mobile a.lang::before {
+  content: '';
+  width: 1.05em;
+  height: 1.05em;
+  flex: none;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='1.8'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M3 12h18M12 3c2.8 2.6 4.2 5.6 4.2 9s-1.4 6.4-4.2 9c-2.8-2.6-4.2-5.6-4.2-9s1.4-6.4 4.2-9z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='1.8'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M3 12h18M12 3c2.8 2.6 4.2 5.6 4.2 9s-1.4 6.4-4.2 9c-2.8-2.6-4.2-5.6-4.2-9s1.4-6.4 4.2-9z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+#menu-mobile a.lang:hover {
+  color: var(--blanc);
+  border-color: rgba(255, 255, 255, 0.65);
+}
 
 /* ---------- TITRE ANIMÉ (accueil : du centre vers le header) ---------- */
 #titre-anime {

@@ -6,108 +6,133 @@
 		<priority>1.0</priority>
 	</url>
 	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/en/</loc>
+		<loc>https://www.harmoniedudoutefilm.fr/soiree-projection</loc>
 		<lastmod>2026-07-19</lastmod>
 		<priority>0.9</priority>
 	</url>
 	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/univers-du-film</loc>
+		<loc>https://www.harmoniedudoutefilm.fr/en/</loc>
 		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/en/film-universe</loc>
-		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/objectifs-du-film</loc>
-		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/en/film-objectives</loc>
-		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/equipe</loc>
-		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/en/team</loc>
-		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/synopsis</loc>
-		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/en/synopsis</loc>
-		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/note-intention</loc>
-		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/en/note-of-intent</loc>
-		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/soiree-projection</loc>
-		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/en/screening-night</loc>
-		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/photos-tournage</loc>
-		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/en/shoot-photos</loc>
-		<lastmod>2026-07-19</lastmod>
+		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>https://www.harmoniedudoutefilm.fr/presse</loc>
 		<lastmod>2026-07-19</lastmod>
+		<priority>0.7</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/photos-tournage</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.6</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/univers-du-film</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.6</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/objectifs-du-film</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.6</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/equipe</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.6</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/synopsis</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.6</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/note-intention</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.6</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/en/screening-night</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.5</priority>
 	</url>
 	<url>
 		<loc>https://www.harmoniedudoutefilm.fr/en/press</loc>
 		<lastmod>2026-07-19</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/en/shoot-photos</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/en/film-universe</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/en/film-objectives</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/en/team</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/en/synopsis</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.5</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/en/note-of-intent</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.5</priority>
 	</url>
 	<url>
 		<loc>https://www.harmoniedudoutefilm.fr/jeremy-lavalade</loc>
 		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/en/jeremy-lavalade</loc>
-		<lastmod>2026-07-19</lastmod>
+		<priority>0.4</priority>
 	</url>
 	<url>
 		<loc>https://www.harmoniedudoutefilm.fr/pablo-freitas</loc>
 		<lastmod>2026-07-19</lastmod>
+		<priority>0.4</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/en/jeremy-lavalade</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.4</priority>
 	</url>
 	<url>
 		<loc>https://www.harmoniedudoutefilm.fr/en/pablo-freitas</loc>
 		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/mentions-legales</loc>
-		<lastmod>2026-07-19</lastmod>
-	</url>
-	<url>
-		<loc>https://www.harmoniedudoutefilm.fr/en/legal</loc>
-		<lastmod>2026-07-19</lastmod>
+		<priority>0.4</priority>
 	</url>
 	<url>
 		<loc>https://www.harmoniedudoutefilm.fr/film/scenario-hdd.pdf</loc>
 		<lastmod>2026-07-19</lastmod>
+		<priority>0.3</priority>
 	</url>
 	<url>
 		<loc>https://www.harmoniedudoutefilm.fr/film/dossier-artistique-hdd.pdf</loc>
 		<lastmod>2026-07-19</lastmod>
+		<priority>0.3</priority>
 	</url>
 	<url>
 		<loc>https://www.harmoniedudoutefilm.fr/film/dossier-de-presse-hdd.pdf</loc>
 		<lastmod>2026-07-19</lastmod>
+		<priority>0.3</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/mentions-legales</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.2</priority>
+	</url>
+	<url>
+		<loc>https://www.harmoniedudoutefilm.fr/en/legal</loc>
+		<lastmod>2026-07-19</lastmod>
+		<priority>0.2</priority>
 	</url>
 </urlset>
